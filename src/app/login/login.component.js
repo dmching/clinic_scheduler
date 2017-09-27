@@ -9,7 +9,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var LoginComponent = (function () {
     function LoginComponent() {
+        this.username = "";
+        this.password = "";
     }
+    LoginComponent.prototype.submit = function () {
+        this.username = "submit clicked";
+        this.password = "submit clicked";
+    };
     return LoginComponent;
 }());
 LoginComponent = __decorate([

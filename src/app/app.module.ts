@@ -4,9 +4,10 @@ import { AppComponent }  from './app.component';
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {AppRoutingModule} from "./app.routing.module";
 import {LoginComponent} from "./login/login.component";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
-  imports:      [ BrowserModule, AppRoutingModule ],
+  imports:      [ BrowserModule, AppRoutingModule, FormsModule ],
   declarations: [ AppComponent, DashboardComponent, LoginComponent],
   bootstrap:    [ AppComponent ]
 })

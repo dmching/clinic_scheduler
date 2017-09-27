@@ -12,6 +12,7 @@ var app_component_1 = require("./app.component");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var app_routing_module_1 = require("./app.routing.module");
 var login_component_1 = require("./login/login.component");
+var forms_1 = require("@angular/forms");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -19,7 +20,7 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, app_routing_module_1.AppRoutingModule],
+        imports: [platform_browser_1.BrowserModule, app_routing_module_1.AppRoutingModule, forms_1.FormsModule],
         declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent, login_component_1.LoginComponent],
         bootstrap: [app_component_1.AppComponent]
     })

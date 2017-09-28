@@ -1,15 +1,21 @@
-import { Component } from "@angular/core";
+import {Component} from "@angular/core";
+import {User} from "../objects/user";
+import {LoginService} from "./login.service";
 
 @Component({
     selector: 'login',
-    templateUrl: './login.component.html'
+    providers: [ LoginService ],
+    templateUrl: './login.component.html',
 })
 export class LoginComponent {
-    username: string = "";
-    password: string = "";
+    currentUser : User;
+
+    constructor(private loginService : LoginService) {
+        this.currentUser = new User();
+    }
 
     submit() {
-        this.username = "submit clicked";
-        this.password = "submit clicked";
+        // Take username and password and search database for a matching user.
+        this.loginService.getUser().then(username => this.currentUser.username = username);
     }
 }

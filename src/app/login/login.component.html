@@ -1,19 +1,19 @@
 <div>
     <div>
         <div>
-            Username: <input [(ngModel)]="username" placeholder="">
+            Username: <input [(ngModel)]="currentUser.username" placeholder="">
         </div>
         <div>
-            <label>Password: </label><input type="password" [(ngModel)]="password">
+            <label>Password: </label><input type="password" [(ngModel)]="currentUser.password">
         </div>
         <div>
             <button (click)="submit()">Submit</button>
         </div>
     </div>
     <div>
-        <label>Current Username: {{username}}</label>
+        <label>Current Username: {{currentUser.username}}</label>
     </div>
     <div>
-        <label>Current Password: {{password}}</label>
+        <label>Current Password: {{currentUser.password}}</label>
     </div>
 </div>

@@ -58,5 +58,5 @@ typings/
 .env
 
 # Personal
-.idea/worspace.xml
-.DS_store
+*.idea/worspace.xml
+*.DS_store

@@ -59,3 +59,4 @@ typings/
 
 # Personal
 .idea/worspace.xml
+.DS_store

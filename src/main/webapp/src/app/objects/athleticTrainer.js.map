@@ -1,1 +1,1 @@
-{"version":3,"file":"athleticTrainer.js","sourceRoot":"","sources":["athleticTrainer.ts"],"names":[],"mappings":";;AAEA;IAAA;IAIA,CAAC;IAAD,sBAAC;AAAD,CAAC,AAJD,IAIC;AAJY,0CAAe"}
+{"version":3,"file":"athleticTrainer.js","sourceRoot":"","sources":["athleticTrainer.ts"],"names":[],"mappings":";;AAAA,+BAA4B;AAE5B;IAOI;QACI,IAAI,CAAC,IAAI,GAAG,IAAI,WAAI,EAAE,CAAC;QACvB,IAAI,CAAC,SAAS,GAAG,EAAE,CAAC;QACpB,IAAI,CAAC,QAAQ,GAAG,EAAE,CAAC;QACnB,IAAI,CAAC,IAAI,GAAG,EAAE,CAAC;QACf,IAAI,CAAC,YAAY,GAAG,EAAE,CAAC;IAC3B,CAAC;IACL,sBAAC;AAAD,CAAC,AAdD,IAcC;AAdY,0CAAe"}

@@ -58,5 +58,5 @@ typings/
 .env
 
 # Personal
-.idea
+.idea/
 *.DS_store

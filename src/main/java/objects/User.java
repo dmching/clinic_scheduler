@@ -1,4 +1,4 @@
-
+package src.main.java.objects;
 
 public class User {
     private int userId;
@@ -6,7 +6,7 @@ public class User {
     private String password;
 
     public User() {
-        this.userId = null;
+        this.userId = -1;
         this.username = "";
         this.password = "";
     }

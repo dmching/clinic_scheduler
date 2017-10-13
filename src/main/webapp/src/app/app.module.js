@@ -13,6 +13,7 @@ var dashboard_component_1 = require("./dashboard/dashboard.component");
 var app_routing_module_1 = require("./app.routing.module");
 var login_component_1 = require("./login/login.component");
 var forms_1 = require("@angular/forms");
+var schedule_component_1 = require("./schedule/schedule.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -21,7 +22,7 @@ var AppModule = (function () {
 AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, app_routing_module_1.AppRoutingModule, forms_1.FormsModule],
-        declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent, login_component_1.LoginComponent],
+        declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent, login_component_1.LoginComponent, schedule_component_1.ScheduleComponent],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

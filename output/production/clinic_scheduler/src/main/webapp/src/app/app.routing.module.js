@@ -10,10 +10,12 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var dashboard_component_1 = require("./dashboard/dashboard.component");
 var login_component_1 = require("./login/login.component");
+var schedule_component_1 = require("./schedule/schedule.component");
 var routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-    { path: 'login', component: login_component_1.LoginComponent }
+    { path: 'login', component: login_component_1.LoginComponent },
+    { path: 'schedule', component: schedule_component_1.ScheduleComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

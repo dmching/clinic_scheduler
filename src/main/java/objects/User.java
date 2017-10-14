@@ -4,11 +4,31 @@ public class User {
     private int userId;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
 
     public User() {
         this.userId = -1;
         this.username = "";
         this.password = "";
+        this.firstName = "";
+        this.lastName = "";
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
@@ -42,6 +62,8 @@ public class User {
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 '}';
     }
 }

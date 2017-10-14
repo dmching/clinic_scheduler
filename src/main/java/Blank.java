@@ -35,8 +35,30 @@ public class Blank {
                 currentUser.setUserId(resultSet.getInt(1));
                 currentUser.setUsername(resultSet.getString(2));
                 currentUser.setPassword(resultSet.getString(3));
+                currentUser.setFirstName(resultSet.getString(4));
+                currentUser.setLastName(resultSet.getString(5));
                 System.out.println(currentUser);
             }
+            stmt.close();
+            resultSet.close();
+            System.out.println("\nNow using Prepared Statement:\n");
+
+            PreparedStatement preparedStatement = conn.prepareStatement("select * from tlu_clinic_db.users where username=?");
+            preparedStatement.setString(1,"dmching");
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                currentUser = new User();
+                currentUser.setUserId(resultSet.getInt(1));
+                currentUser.setUsername(resultSet.getString(2));
+                currentUser.setPassword(resultSet.getString(3));
+                currentUser.setFirstName(resultSet.getString(4));
+                currentUser.setLastName(resultSet.getString(5));
+                System.out.println(currentUser);
+            }
+
+            resultSet.close();
+            preparedStatement.close();
+            conn.close();
 
         }catch(SQLException se){
             //Handle errors for JDBC

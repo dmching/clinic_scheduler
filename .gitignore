@@ -60,4 +60,4 @@ typings/
 # Personal
 .idea/
 *.DS_store
-output/
+output/*

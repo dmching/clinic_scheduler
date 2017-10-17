@@ -16,6 +16,7 @@ export class LoginComponent {
 
     submit() {
         // Take username and password and search database for a matching user.
-        this.loginService.getUser().then(username => this.currentUser.username = username);
+        this.loginService.getUser(this.currentUser.username, this.currentUser.password)
+            .then(user => this.currentUser = user);
     }
 }

@@ -5,6 +5,8 @@ var User = (function () {
         this.userId = null;
         this.username = "";
         this.password = "";
+        this.firstName = "";
+        this.lastName = "";
     }
     return User;
 }());

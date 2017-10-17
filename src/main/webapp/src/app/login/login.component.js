@@ -20,7 +20,8 @@ var LoginComponent = (function () {
     LoginComponent.prototype.submit = function () {
         var _this = this;
         // Take username and password and search database for a matching user.
-        this.loginService.getUser().then(function (username) { return _this.currentUser.username = username; });
+        this.loginService.getUser(this.currentUser.username, this.currentUser.password)
+            .then(function (user) { return _this.currentUser = user; });
     };
     return LoginComponent;
 }());

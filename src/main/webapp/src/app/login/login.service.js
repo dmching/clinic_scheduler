@@ -11,12 +11,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+require("rxjs/add/operator/toPromise");
 var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
+        this.userUrl = "/user/login";
     }
-    LoginService.prototype.getUser = function () {
-        return Promise.resolve("Hit the service.");
+    LoginService.prototype.getUser = function (firstName, lastName) {
+        var _this = this;
+        var url = this.userUrl + '/$' + firstName + '/$' + lastName;
+        return this.http.get(url)
+            .toPromise()
+            .then(function (response) {
+            return response.json().data;
+        })
+            .catch(function (err) { return _this.handleError(err); });
+    };
+    LoginService.prototype.handleError = function (error) {
+        console.error('Error: ', error);
+        return Promise.reject(error.message || error);
     };
     return LoginService;
 }());

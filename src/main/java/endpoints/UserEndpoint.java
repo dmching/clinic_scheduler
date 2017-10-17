@@ -1,14 +1,29 @@
-package src.main.java.endpoints;
+package endpoints;
 
-import src.main.java.objects.User;
-import src.main.java.repositories.UserConnection;
+import jdk.nashorn.internal.objects.annotations.Getter;
+import objects.User;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import repositories.UserConnection;
 
+import java.util.List;
+
+@RestController
 public class UserEndpoint {
 
-    public static void main(String[] args) {
-        UserConnection connection = new UserConnection();
-        User user = connection.getUser("dmching", "test1");
+    @RequestMapping("/user/login")
+    @Getter
+    public User getUser(@RequestParam(value="username") String username,
+                        @RequestParam(value="password") String password) {
+        UserConnection userConnection = new UserConnection();
+        return userConnection.getUser(username, password);
+    }
 
-        System.out.println();
+    @RequestMapping("/user/login/all")
+    @Getter
+    public List<User> getAllUsers() {
+        UserConnection userConnection = new UserConnection();
+        return userConnection.getUsers();
     }
 }

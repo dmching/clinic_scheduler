@@ -1,6 +1,6 @@
-package src.main.java.repositories;
+package repositories;
 
-import src.main.java.objects.User;
+import objects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -37,6 +37,16 @@ public class UserConnection implements RepositoryConnection{
             se.printStackTrace();
         }
 
+        return this.getResults(this.resultSet).get(0);
+    }
+
+    public List<User> getUsers() {
+        try {
+            Statement statement = connection.createStatement();
+            this.resultSet = statement.executeQuery("SELECT * FROM tlu_clinic_db.users;");
+        } catch(SQLException se) {
+            se.printStackTrace();
+        }
         return this.getResults(this.resultSet);
     }
 
@@ -60,7 +70,7 @@ public class UserConnection implements RepositoryConnection{
         return false;
     }
 
-    public User getResults(ResultSet resultSet) {
+    public List<User> getResults(ResultSet resultSet) {
         List<User> users = new ArrayList<User>();
 
         if (resultSet != null) {
@@ -84,6 +94,6 @@ public class UserConnection implements RepositoryConnection{
             return null;
         else
             // This should never return more than one row.
-            return users.get(0);
+            return users;
     }
 }

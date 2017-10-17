@@ -1,3 +1,4 @@
+/*
 package src.main.java;
 
 import src.main.java.objects.User;
@@ -81,4 +82,4 @@ public class Blank {
             }
         }
     }
-}
+}*/

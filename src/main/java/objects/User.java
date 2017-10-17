@@ -1,4 +1,4 @@
-package src.main.java.objects;
+package objects;
 
 public class User {
     private int userId;

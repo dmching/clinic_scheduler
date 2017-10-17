@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {User} from "../objects/user";
-import {Http} from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -9,9 +9,14 @@ export class LoginService {
 
     constructor(private http : Http) {}
 
-    getUser(firstName : string, lastName : string) : Promise<User> {
-        const url = this.userUrl + '/$' + firstName + '/$' + lastName;
-        return this.http.get(url)
+    public getUser(username : string, password : string) : Promise<User> {
+        let myHeaders = new Headers();
+        myHeaders.set('Content-Type', 'application/json');
+        let myParams = new URLSearchParams();
+        myParams.set('username', username);
+        myParams.set('password', password);
+        let options = new RequestOptions({ headers: myHeaders, params: myParams });
+        return this.http.get(this.userUrl, options)
             .toPromise()
             .then(response => {
                 return response.json().data as User;
@@ -19,7 +24,16 @@ export class LoginService {
             .catch(err => {return this.handleError(err)});
     }
 
-    private handleError(error : any) : Promise<any> {
+    public getUsers() : Promise<Array<User>> {
+        return this.http.get('/user/login/all')
+            .toPromise()
+            .then(response => {
+                return response.json().data as Array<User>;
+            })
+            .catch(err => this.handleError(err));
+    }
+
+    public handleError(error : any) : Promise<any> {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     }

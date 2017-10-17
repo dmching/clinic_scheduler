@@ -1,4 +1,4 @@
-package src.main.java.repositories;
+package repositories;
 
 public interface RepositoryConnection {
     String JDBC_DRIVER = "com.mysql.jdbc.Driver";

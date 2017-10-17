@@ -17,10 +17,24 @@ var LoginService = (function () {
         this.http = http;
         this.userUrl = "/user/login";
     }
-    LoginService.prototype.getUser = function (firstName, lastName) {
+    LoginService.prototype.getUser = function (username, password) {
         var _this = this;
-        var url = this.userUrl + '/$' + firstName + '/$' + lastName;
-        return this.http.get(url)
+        var myHeaders = new http_1.Headers();
+        myHeaders.set('Content-Type', 'application/json');
+        var myParams = new URLSearchParams();
+        myParams.set('username', username);
+        myParams.set('password', password);
+        var options = new http_1.RequestOptions({ headers: myHeaders, params: myParams });
+        return this.http.get(this.userUrl, options)
+            .toPromise()
+            .then(function (response) {
+            return response.json().data;
+        })
+            .catch(function (err) { return _this.handleError(err); });
+    };
+    LoginService.prototype.getUsers = function () {
+        var _this = this;
+        return this.http.get('/user/login/all')
             .toPromise()
             .then(function (response) {
             return response.json().data;
@@ -31,11 +45,11 @@ var LoginService = (function () {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     };
+    LoginService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], LoginService);
     return LoginService;
 }());
-LoginService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

@@ -1,4 +1,4 @@
-package repositories;
+package maven.repositories;
 
 public interface RepositoryConnection {
     String JDBC_DRIVER = "com.mysql.jdbc.Driver";

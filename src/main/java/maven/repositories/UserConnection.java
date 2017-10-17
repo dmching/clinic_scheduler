@@ -1,6 +1,6 @@
-package repositories;
+package maven.repositories;
 
-import objects.User;
+import maven.objects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,9 +14,9 @@ public class UserConnection implements RepositoryConnection{
 
     public UserConnection() {
         try {
-            Class.forName(RepositoryConnection.JDBC_DRIVER);
-            this.connection = DriverManager.getConnection(RepositoryConnection.DB_URL,
-                RepositoryConnection.USER, RepositoryConnection.PASS);
+            Class.forName(JDBC_DRIVER);
+            this.connection = DriverManager.getConnection(DB_URL,
+                    USER, PASS);
         } catch(Exception e) {
             // Handles errors for Class.forName
             e.printStackTrace();

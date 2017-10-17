@@ -1,7 +1,14 @@
-package objects;
+package maven.objects;
 
+import javax.persistence.*;
+
+/*@Entity*/
 public class User {
+/*    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)*/
     private int userId;
+
+/*    @Column(name = "username")*/
     private String username;
     private String password;
     private String firstName;

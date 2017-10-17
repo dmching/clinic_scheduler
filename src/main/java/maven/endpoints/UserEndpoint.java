@@ -1,11 +1,12 @@
-package endpoints;
+package maven.endpoints;
 
 import jdk.nashorn.internal.objects.annotations.Getter;
-import objects.User;
+import maven.objects.User;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import repositories.UserConnection;
+import maven.repositories.UserConnection;
 
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class UserEndpoint {
 
     @RequestMapping("/user/login")
     @Getter
-    public User getUser(@RequestParam(value="username") String username,
-                        @RequestParam(value="password") String password) {
+    public User getUser(@RequestHeader(value="username") String username,
+                        @RequestHeader(value="password") String password) {
         UserConnection userConnection = new UserConnection();
         return userConnection.getUser(username, password);
     }

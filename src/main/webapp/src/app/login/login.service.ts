@@ -25,10 +25,10 @@ export class LoginService {
     }
 
     public getUsers() : Promise<Array<User>> {
-        return this.http.get('/user/login/all')
+        return this.http.get('http://localhost:8080/user/login/all')
             .toPromise()
             .then(response => {
-                return response.json().data as Array<User>;
+                return response.json().data as User[];
             })
             .catch(err => this.handleError(err));
     }

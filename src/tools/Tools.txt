@@ -1,0 +1,12 @@
+MySql
+Spring
+IntelliJ
+Node js
+Angular
+GitHub
+W3Schools
+https://chariotsolutions.com/blog/post/angular-2-spring-boot-jwt-cors_part1/
+https://www.concretepage.com/angular-2/angular-2-http-get-parameters-headers-urlsearchparams-requestoptions-example
+https://spring.io/guides/gs/rest-service/
+https://spring.io/guides/tutorials/bookmarks/
+Maven

@@ -1,8 +1,17 @@
-<h1>Hello {{name}}</h1>
-<nav>
-    <a routerLink="/dashboard">Dashboard</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/schedule">Schedule</a>
-</nav>
-
-<router-outlet></router-outlet>
+<div class="container">
+    <div class="row">
+        <h1>Texas Lutheran Athletic Training Clinic Scheduler</h1>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <nav>
+                <a routerLink="/dashboard">Dashboard</a>
+                <a routerLink="/login">Login</a>
+                <a routerLink="/schedule">Schedule</a>
+            </nav>
+        </div>
+    </div>
+    <div class="row">
+        <router-outlet></router-outlet>
+    </div>
+</div>

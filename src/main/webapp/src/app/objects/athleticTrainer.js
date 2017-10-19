@@ -3,9 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var user_1 = require("./user");
 var AthleticTrainer = (function () {
     function AthleticTrainer() {
+        this.id;
         this.user = new user_1.User();
-        this.firstName = "";
-        this.lastName = "";
         this.type = "";
         this.primarySport = "";
     }

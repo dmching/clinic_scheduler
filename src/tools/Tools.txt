@@ -13,3 +13,5 @@ Maven
 https://medium.com/codingthesmartway-com-blog/using-bootstrap-with-angular-c83c3cee3f4a
 https://getbootstrap.com/docs/3.3/getting-started/
 https://code.jquery.com/
+https://getbootstrap.com/docs/3.3/css/
+https://www.typescriptlang.org/docs/handbook/iterators-and-generators.html

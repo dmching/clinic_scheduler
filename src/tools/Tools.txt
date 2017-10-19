@@ -10,3 +10,6 @@ https://www.concretepage.com/angular-2/angular-2-http-get-parameters-headers-url
 https://spring.io/guides/gs/rest-service/
 https://spring.io/guides/tutorials/bookmarks/
 Maven
+https://medium.com/codingthesmartway-com-blog/using-bootstrap-with-angular-c83c3cee3f4a
+https://getbootstrap.com/docs/3.3/getting-started/
+https://code.jquery.com/

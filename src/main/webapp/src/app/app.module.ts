@@ -8,10 +8,11 @@ import {FormsModule} from "@angular/forms";
 import {ScheduleComponent} from "./schedule/schedule.component";
 import {HttpModule} from "@angular/http";
 import {LoginService} from "./login/login.service";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule ],
-  declarations: [ AppComponent, DashboardComponent, LoginComponent, ScheduleComponent],
+  imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, NgbModule.forRoot() ],
+  declarations: [ AppComponent, DashboardComponent, LoginComponent, ScheduleComponent ],
   providers:    [ LoginService ],
   bootstrap:    [ AppComponent ]
 })

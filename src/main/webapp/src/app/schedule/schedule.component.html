@@ -1,43 +1,39 @@
-<div class="container">
+<div class="container bordered">
     <div class="row">
-        <h1>Schedule</h1>
-    </div>
-    <div class="row">
-        <div class="col-5">
-            <label>Time Slot: </label>
-            <select>
-                <option>First Choice</option>
-                <option>Second Choice</option>
-            </select>
-        </div>
-        <div class="col-5 bordered">
-            <div>
-                <label>Time Slot 1</label>
+        <div class="col-md-6">
+            <div class="row">
+                <label class="col-md-3">Time Slot:</label>
+                <select class="col-md-3">
+                    <option>First Choice</option>
+                    <option>Second Choice</option>
+                </select>
             </div>
-            <div>
-                <label>Time Slot 2</label>
-            </div>
-            <div>
-                <label>Time Slot 3</label>
-            </div>
-            <div>
-                <label>Time Slot 4</label>
+            <div class="row">
+                <label class="col-md-3">Day:</label>
+                <select class="col-md-3">
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                </select>
             </div>
         </div>
+        <div class="col-md-6 bordered">
+            <label>Probably not for anything</label>
+        </div>
     </div>
-    <div>
-        <table>
+    <div class="row">
+        <table class="table table-striped">
             <tr>
-                <th>Date</th>
-                <th>Time</th>
+                <th>Time Slot</th>
                 <th>Athlete</th>
                 <th>Athletic Trainer</th>
             </tr>
             <tr *ngFor="let reservation of reservations">
-                <td>{{reservation.date}}</td>
-                <td>12</td>
-                <td>{{reservation.athlete.user.firstName}}</td>
-                <td>{{reservation.athleticTrainer.user.lastName}}</td>
+                <td>{{reservation.timeSlot.start_time}} - {{reservation.timeSlot.end_time}}</td>
+                <td>{{reservation.athlete.user.firstName}} Matthew</td>
+                <td>{{reservation.athleticTrainer.user.firstName}}</td>
             </tr>
         </table>
     </div>

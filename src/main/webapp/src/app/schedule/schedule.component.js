@@ -11,13 +11,24 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
+var timeSlot_1 = require("../objects/timeSlot");
 var ScheduleComponent = (function () {
     function ScheduleComponent() {
         this.reservations = [];
+        this.times = [];
         for (var i = 0; i < 5; i++) {
-            this.reservations.push(new reservation_1.Reservation());
+            var reservation = new reservation_1.Reservation();
+            var time = new timeSlot_1.TimeSlot();
+            reservation.athlete.user.firstName = "David";
+            reservation.athleticTrainer.user.firstName = "Ching";
+            this.reservations.push(reservation);
+            time.start_time = i;
+            time.end_time = i + .5;
+            this.times.push(time);
         }
     }
+    ScheduleComponent.prototype.selectTime = function () {
+    };
     return ScheduleComponent;
 }());
 ScheduleComponent = __decorate([

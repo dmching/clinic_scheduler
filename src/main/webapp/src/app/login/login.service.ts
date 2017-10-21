@@ -6,8 +6,20 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class LoginService {
     private userUrl : string = "/user/login";
+    private activeUser : User;
+    private athlete : boolean;
+    private athleticTrainer : boolean;
 
-    constructor(private http : Http) {}
+    constructor(private http : Http) {
+        this.activeUser = new User();
+
+        /* Remove the following lines when back end is connected to front end.*/
+        this.activeUser.firstName = "David";
+        this.activeUser.lastName = "Ching";
+        this.activeUser.userId = 1;
+        this.athlete = true;
+        this.athleticTrainer = true;
+    }
 
     public getUser(username : string, password : string) : Promise<User> {
         let myHeaders = new Headers();
@@ -31,6 +43,31 @@ export class LoginService {
                 return response.json().data as User[];
             })
             .catch(err => this.handleError(err));
+    }
+
+    public loggedIn() : boolean {
+        return this.activeUser.userId != null;
+    }
+
+    public isAthlete() : boolean {
+        return this.athlete;
+    }
+
+    public isAthleticTrainer() : boolean {
+        return this.athleticTrainer;
+    }
+
+    public canViewScheduler() : boolean {
+        return this.loggedIn() && (this.isAthlete() || this.isAthleticTrainer());
+    }
+
+    public getUserFullName() : String {
+        return this.activeUser.getFullName();
+    }
+
+    public logout() : void {
+        this.activeUser = new User();
+        /* Route to the login screen after logging out. */
     }
 
     public handleError(error : any) : Promise<any> {

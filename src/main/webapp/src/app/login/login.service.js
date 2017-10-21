@@ -10,12 +10,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
+var user_1 = require("../objects/user");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
         this.userUrl = "/user/login";
+        this.activeUser = new user_1.User();
+        /* Remove the following lines when back end is connected to front end.*/
+        this.activeUser.firstName = "David";
+        this.activeUser.lastName = "Ching";
+        this.activeUser.userId = 1;
+        this.athlete = true;
+        this.athleticTrainer = true;
     }
     LoginService.prototype.getUser = function (username, password) {
         var _this = this;
@@ -40,6 +48,25 @@ var LoginService = (function () {
             return response.json().data;
         })
             .catch(function (err) { return _this.handleError(err); });
+    };
+    LoginService.prototype.loggedIn = function () {
+        return this.activeUser.userId != null;
+    };
+    LoginService.prototype.isAthlete = function () {
+        return this.athlete;
+    };
+    LoginService.prototype.isAthleticTrainer = function () {
+        return this.athleticTrainer;
+    };
+    LoginService.prototype.canViewScheduler = function () {
+        return this.loggedIn() && (this.isAthlete() || this.isAthleticTrainer());
+    };
+    LoginService.prototype.getUserFullName = function () {
+        return this.activeUser.getFullName();
+    };
+    LoginService.prototype.logout = function () {
+        this.activeUser = new user_1.User();
+        /* Route to the login screen after logging out. */
     };
     LoginService.prototype.handleError = function (error) {
         console.error('Error: ', error);

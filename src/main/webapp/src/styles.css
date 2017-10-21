@@ -73,3 +73,13 @@ div.centered {
   text-align: center;
   margin: auto;
 }
+
+.right {
+  text-align: right;
+  margin: auto;
+}
+
+.left {
+  text-align: left;
+  margin: auto;
+}

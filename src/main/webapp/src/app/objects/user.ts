@@ -12,4 +12,8 @@ export class User {
         this.firstName = "";
         this.lastName = "";
     }
+
+    public getFullName() : String {
+        return this.firstName + " " + this.lastName;
+    }
 }

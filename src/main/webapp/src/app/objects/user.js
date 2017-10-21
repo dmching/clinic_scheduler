@@ -8,6 +8,9 @@ var User = (function () {
         this.firstName = "";
         this.lastName = "";
     }
+    User.prototype.getFullName = function () {
+        return this.firstName + " " + this.lastName;
+    };
     return User;
 }());
 exports.User = User;

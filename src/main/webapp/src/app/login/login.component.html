@@ -1,28 +1,30 @@
-<div>
-    <div>
-        <div>
-            Username: <input [(ngModel)]="currentUser.username" placeholder="">
+<div class="containter">
+    <div class="row centered bordered">
+        <div class="row">
+            <label class="col-md-3">Username: </label><input class="col-md-3 left" [(ngModel)]="currentUser.username" placeholder="">
         </div>
-        <div>
-            <label>Password: </label><input type="password" [(ngModel)]="currentUser.password">
+        <div class="row">
+            <label class="col-md-3">Password: </label><input type="password" class="col-md-3 left" [(ngModel)]="currentUser.password">
         </div>
         <div>
             <button (click)="submit()">Submit</button>
         </div>
     </div>
-    <div>
-        <label>Current Username: {{currentUser.username}}</label>
-    </div>
-    <div>
-        <label>Current Password: {{currentUser.password}}</label>
-    </div>
-    <div>
-        <label>User ID: {{currentUser.userId}}</label>
-    </div>
-    <div>
-        <label>First Name: {{currentUser.firstName}}</label>
-    </div>
-    <div>
-        <label>Last Name: {{currentUser.lastName}}</label>
+    <div class="row centered bordered">
+        <div class="row">
+            <label>Current Username: {{currentUser.username}}</label>
+        </div>
+        <div class="row">
+            <label>Current Password: {{currentUser.password}}</label>
+        </div>
+        <div class="row">
+            <label>User ID: {{currentUser.userId}}</label>
+        </div>
+        <div class="row">
+            <label>First Name: {{currentUser.firstName}}</label>
+        </div>
+        <div class="row">
+            <label>Last Name: {{currentUser.lastName}}</label>
+        </div>
     </div>
 </div>

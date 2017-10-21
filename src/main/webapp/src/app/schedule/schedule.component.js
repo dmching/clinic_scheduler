@@ -12,8 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
 var timeSlot_1 = require("../objects/timeSlot");
+var login_service_1 = require("../login/login.service");
 var ScheduleComponent = (function () {
-    function ScheduleComponent() {
+    function ScheduleComponent(loginService) {
+        this.loginService = loginService;
         this.reservations = [];
         this.times = [];
         for (var i = 0; i < 5; i++) {
@@ -36,7 +38,7 @@ ScheduleComponent = __decorate([
         selector: 'schedule',
         templateUrl: './schedule.component.html'
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [login_service_1.LoginService])
 ], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

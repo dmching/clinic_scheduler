@@ -1,25 +1,25 @@
 <div class="container bordered">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row">
-                <label class="col-md-3">Time Slot:</label>
-                <select class="col-md-3">
-                    <option>First Choice</option>
-                    <option>Second Choice</option>
-                </select>
-            </div>
-            <div class="row">
-                <label class="col-md-3">Day:</label>
-                <select class="col-md-3">
-                    <option>Monday</option>
-                    <option>Tuesday</option>
-                    <option>Wednesday</option>
-                    <option>Thursday</option>
-                    <option>Friday</option>
-                </select>
-            </div>
+    <div *ngIf="this.loginService.isAthlete()" class="row">
+        <div class="col-md-12 left">
+            <label class="col-md-3">Time Slot:</label>
+            <select class="col-md-2 col-md-offset-1">
+                <option>First Choice</option>
+                <option>Second Choice</option>
+            </select>
         </div>
-        <div class="col-md-6 bordered">
+        <div class="col-md-12 left">
+            <label class="col-md-3">Day:</label>
+            <select class="col-md-2 col-md-offset-2">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 bordered">
             <label>Probably not for anything</label>
         </div>
     </div>

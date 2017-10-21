@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import {Reservation} from "../objects/reservation";
 import {TimeSlot} from "../objects/timeSlot";
+import {LoginService} from "../login/login.service";
 
 @Component({
     selector: 'schedule',
@@ -10,7 +11,7 @@ export class ScheduleComponent {
     private reservations : Reservation[];
     private times : TimeSlot[];
 
-    constructor() {
+    constructor(private loginService : LoginService) {
         this.reservations = [];
         this.times = [];
         for(var i = 0; i < 5; i++) {

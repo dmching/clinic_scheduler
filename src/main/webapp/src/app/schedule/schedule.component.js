@@ -13,9 +13,11 @@ var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
 var timeSlot_1 = require("../objects/timeSlot");
 var login_service_1 = require("../login/login.service");
+var schedule_service_1 = require("./schedule.service");
 var ScheduleComponent = (function () {
-    function ScheduleComponent(loginService) {
+    function ScheduleComponent(loginService, scheduleService) {
         this.loginService = loginService;
+        this.scheduleService = scheduleService;
         this.reservations = [];
         this.times = [];
         for (var i = 0; i < 5; i++) {
@@ -31,14 +33,18 @@ var ScheduleComponent = (function () {
     }
     ScheduleComponent.prototype.selectTime = function () {
     };
+    ScheduleComponent.prototype.reserve = function () {
+        this.scheduleService.reserve();
+    };
     return ScheduleComponent;
 }());
 ScheduleComponent = __decorate([
     core_1.Component({
         selector: 'schedule',
+        providers: [schedule_service_1.ScheduleService],
         templateUrl: './schedule.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
 ], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

@@ -17,6 +17,7 @@ var schedule_component_1 = require("./schedule/schedule.component");
 var http_1 = require("@angular/http");
 var login_service_1 = require("./login/login.service");
 var ng_bootstrap_1 = require("@ng-bootstrap/ng-bootstrap");
+var schedule_service_1 = require("./schedule/schedule.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -26,7 +27,7 @@ AppModule = __decorate([
     core_1.NgModule({
         imports: [platform_browser_1.BrowserModule, app_routing_module_1.AppRoutingModule, forms_1.FormsModule, http_1.HttpModule, ng_bootstrap_1.NgbModule.forRoot()],
         declarations: [app_component_1.AppComponent, dashboard_component_1.DashboardComponent, login_component_1.LoginComponent, schedule_component_1.ScheduleComponent],
-        providers: [login_service_1.LoginService],
+        providers: [login_service_1.LoginService, schedule_service_1.ScheduleService],
         bootstrap: [app_component_1.AppComponent]
     })
 ], AppModule);

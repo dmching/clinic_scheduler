@@ -24,6 +24,7 @@ var LoginService = (function () {
         this.activeUser.userId = 1;
         this.athlete = true;
         this.athleticTrainer = true;
+        this.loggedIn = true;
     }
     LoginService.prototype.getUser = function (username, password) {
         var _this = this;
@@ -49,8 +50,8 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
-    LoginService.prototype.loggedIn = function () {
-        return this.activeUser.userId != null;
+    LoginService.prototype.isLoggedIn = function () {
+        return this.loggedIn;
     };
     LoginService.prototype.isAthlete = function () {
         return this.athlete;
@@ -59,14 +60,27 @@ var LoginService = (function () {
         return this.athleticTrainer;
     };
     LoginService.prototype.canViewScheduler = function () {
-        return this.loggedIn() && (this.isAthlete() || this.isAthleticTrainer());
+        return this.isLoggedIn() && (this.isAthlete() || this.isAthleticTrainer());
     };
     LoginService.prototype.getUserFullName = function () {
         return this.activeUser.getFullName();
     };
     LoginService.prototype.logout = function () {
-        this.activeUser = new user_1.User();
+        this.loggedIn = false;
+        this.athlete = false;
+        this.athleticTrainer = false;
         /* Route to the login screen after logging out. */
+    };
+    LoginService.prototype.login = function (test) {
+        this.loggedIn = true;
+        if (test == "1") {
+            this.athleticTrainer = false;
+            this.athlete = true;
+        }
+        else {
+            this.athleticTrainer = true;
+            this.athlete = false;
+        }
     };
     LoginService.prototype.handleError = function (error) {
         console.error('Error: ', error);

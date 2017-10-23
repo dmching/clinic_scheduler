@@ -1,5 +1,5 @@
 <div class="container">
-    <div *ngIf="this.loginService.loggedIn()" class="row right">
+    <div *ngIf="this.loginService.isLoggedIn()" class="row right">
         <label>Welcome, {{this.loginService.getUserFullName()}}</label><br>
         <button class="btn-sm" (click)="this.loginService.logout()">Logout</button>
     </div>

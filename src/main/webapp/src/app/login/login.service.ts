@@ -9,6 +9,7 @@ export class LoginService {
     private activeUser : User;
     private athlete : boolean;
     private athleticTrainer : boolean;
+    private loggedIn : boolean;
 
     constructor(private http : Http) {
         this.activeUser = new User();
@@ -19,6 +20,7 @@ export class LoginService {
         this.activeUser.userId = 1;
         this.athlete = true;
         this.athleticTrainer = true;
+        this.loggedIn = true;
     }
 
     public getUser(username : string, password : string) : Promise<User> {
@@ -45,8 +47,8 @@ export class LoginService {
             .catch(err => this.handleError(err));
     }
 
-    public loggedIn() : boolean {
-        return this.activeUser.userId != null;
+    public isLoggedIn() : boolean {
+        return this.loggedIn;
     }
 
     public isAthlete() : boolean {
@@ -58,7 +60,7 @@ export class LoginService {
     }
 
     public canViewScheduler() : boolean {
-        return this.loggedIn() && (this.isAthlete() || this.isAthleticTrainer());
+        return this.isLoggedIn() && (this.isAthlete() || this.isAthleticTrainer());
     }
 
     public getUserFullName() : String {
@@ -66,8 +68,21 @@ export class LoginService {
     }
 
     public logout() : void {
-        this.activeUser = new User();
+        this.loggedIn = false;
+        this.athlete = false;
+        this.athleticTrainer = false;
         /* Route to the login screen after logging out. */
+    }
+
+    public login(test : string) : void {
+        this.loggedIn = true;
+        if (test == "1") {
+            this.athleticTrainer = false;
+            this.athlete = true;
+        } else {
+            this.athleticTrainer = true;
+            this.athlete = false;
+        }
     }
 
     public handleError(error : any) : Promise<any> {

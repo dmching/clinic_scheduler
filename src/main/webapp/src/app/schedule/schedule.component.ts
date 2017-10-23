@@ -2,16 +2,18 @@ import { Component } from "@angular/core";
 import {Reservation} from "../objects/reservation";
 import {TimeSlot} from "../objects/timeSlot";
 import {LoginService} from "../login/login.service";
+import {ScheduleService} from "./schedule.service";
 
 @Component({
     selector: 'schedule',
+    providers : [ScheduleService],
     templateUrl: './schedule.component.html'
 })
 export class ScheduleComponent {
     private reservations : Reservation[];
     private times : TimeSlot[];
 
-    constructor(private loginService : LoginService) {
+    constructor(private loginService : LoginService, private scheduleService : ScheduleService) {
         this.reservations = [];
         this.times = [];
         for(var i = 0; i < 5; i++) {
@@ -28,7 +30,11 @@ export class ScheduleComponent {
         }
     }
 
-    selectTime() {
+    public selectTime() : void {
 
+    }
+
+    public reserve() : void {
+        this.scheduleService.reserve();
     }
 }

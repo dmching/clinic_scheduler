@@ -9,11 +9,12 @@ import {ScheduleComponent} from "./schedule/schedule.component";
 import {HttpModule} from "@angular/http";
 import {LoginService} from "./login/login.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ScheduleService} from "./schedule/schedule.service";
 
 @NgModule({
   imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, NgbModule.forRoot() ],
   declarations: [ AppComponent, DashboardComponent, LoginComponent, ScheduleComponent ],
-  providers:    [ LoginService ],
+  providers:    [ LoginService, ScheduleService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {

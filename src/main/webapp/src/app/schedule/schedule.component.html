@@ -1,13 +1,13 @@
 <div class="container bordered">
     <div *ngIf="this.loginService.isAthlete()" class="row">
-        <div class="col-md-12 left">
+        <div class="col-md-12 centered">
             <label class="col-md-3">Time Slot:</label>
             <select class="col-md-2 col-md-offset-1">
                 <option>First Choice</option>
                 <option>Second Choice</option>
             </select>
         </div>
-        <div class="col-md-12 left">
+        <div class="col-md-12 centered">
             <label class="col-md-3">Day:</label>
             <select class="col-md-2 col-md-offset-2">
                 <option>Monday</option>
@@ -16,7 +16,9 @@
                 <option>Thursday</option>
                 <option>Friday</option>
             </select>
-            <button class="col-md-3" (click)="this.reserve()">Reserve</button>
+        </div>
+        <div class="col-md-12 centered">
+            <button (click)="this.reserve()">Reserve</button>
         </div>
     </div>
     <div class="row">

@@ -3,7 +3,7 @@ import {Athlete} from "../objects/athlete";
 import {AthleticTrainer} from "../objects/athleticTrainer";
 import {Reservation} from "../objects/reservation";
 
-@Injectable
+@Injectable()
 export class ScheduleService {
 
     constructor() {}

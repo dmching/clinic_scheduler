@@ -46,7 +46,8 @@ var LoginService = (function () {
         return this.http.get('http://localhost:8080/user/login/all')
             .toPromise()
             .then(function (response) {
-            return response.json().data;
+            console.log(response);
+            return response.json();
         })
             .catch(function (err) { return _this.handleError(err); });
     };
@@ -86,11 +87,11 @@ var LoginService = (function () {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     };
+    LoginService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http])
+    ], LoginService);
     return LoginService;
 }());
-LoginService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
-], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

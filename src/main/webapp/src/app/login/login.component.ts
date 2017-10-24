@@ -19,11 +19,14 @@ export class LoginComponent {
         /*this.loginService.getUser(this.currentUser.username, this.currentUser.password)
             .then(user => this.currentUser = user)
             .catch(err => this.loginService.handleError(err));*/
-        /*this.loginService.getUsers()
-            .then(users => this.currentUser = users[0])
-            .catch(err => this.loginService.handleError(err));*/
+        this.loginService.getUsers()
+            .then(users => {
+                this.currentUser = users.pop();
+                console.log(users);
+            })
+            .catch(err => this.loginService.handleError(err));
         console.log(this.currentUser.username + "\n" + this.loginService.isLoggedIn());
-        this.loginService.login(this.currentUser.username);
+        /*this.loginService.login(this.currentUser.username);*/
         // Issue with getting the app.component.html to recheck the ngIf after the user has logged out. 
     }
 }

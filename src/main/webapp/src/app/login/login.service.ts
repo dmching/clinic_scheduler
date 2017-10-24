@@ -38,11 +38,12 @@ export class LoginService {
             .catch(err => {return this.handleError(err)});
     }
 
-    public getUsers() : Promise<Array<User>> {
+    public getUsers() : Promise<User[]> {
         return this.http.get('http://localhost:8080/user/login/all')
             .toPromise()
             .then(response => {
-                return response.json().data as User[];
+                console.log(response);
+                return response.json() as User[];
             })
             .catch(err => this.handleError(err));
     }

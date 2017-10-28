@@ -35,9 +35,21 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
-    /*public athleticTrainerLogin(username : string, password : string) : Promise<AthleticTrainer> {
-
-    }*/
+    LoginService.prototype.athleticTrainerLogin = function (username, password) {
+        var _this = this;
+        var myHeaders = new http_1.Headers();
+        myHeaders.set('username', username);
+        myHeaders.set('password', password);
+        var options = new http_1.RequestOptions({ headers: myHeaders });
+        var url = this.userUrl + "/at";
+        return this.http.get(url, options)
+            .toPromise()
+            .then(function (response) {
+            _this.loggedIn = true;
+            return response.json();
+        })
+            .catch(function (err) { return _this.handleError(err); });
+    };
     // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {
         var _this = this;

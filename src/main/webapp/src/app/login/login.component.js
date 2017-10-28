@@ -10,29 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_1 = require("../objects/user");
 var login_service_1 = require("./login.service");
 var athlete_1 = require("../objects/athlete");
+var athleticTrainer_1 = require("../objects/athleticTrainer");
 var LoginComponent = (function () {
     function LoginComponent(loginService) {
         this.loginService = loginService;
-        this.currentUser = new user_1.User();
+        this.username = "";
+        this.password = "";
+        this.currentAT = new athleticTrainer_1.AthleticTrainer();
         this.currentAthlete = new athlete_1.Athlete();
         this.userType = "Athlete";
     }
     LoginComponent.prototype.login = function () {
         var _this = this;
         // Take username and password and search database for a matching user.
-        if (this.currentUser.username && this.currentUser.password && this.userType) {
+        if (this.username && this.password && this.userType) {
             if (this.userType == "Athlete") {
-                this.loginService.athleteLogin(this.currentUser.username, this.currentUser.password)
+                this.loginService.athleteLogin(this.username, this.password)
                     .then(function (athlete) {
-                    _this.currentUser = athlete.user;
                     _this.currentAthlete = athlete;
                 })
                     .catch(function (err) { return _this.loginService.handleError(err); });
             }
             else if (this.userType == "Athletic Trainer") {
+                this.loginService.athleticTrainerLogin(this.username, this.password)
+                    .then(function (at) {
+                    _this.currentAT = at;
+                    console.log(_this.currentAT);
+                })
+                    .catch(function (err) { return _this.loginService.handleError(err); });
             }
         }
         else {

@@ -20,8 +20,9 @@ public class UserConnection implements RepositoryConnection<User> {
             Class.forName(JDBC_DRIVER);
             this.connection = DriverManager.getConnection(DB_URL,
                     USER, PASS);
-        } catch(Exception e) {
-            // Handles errors for Class.forName
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

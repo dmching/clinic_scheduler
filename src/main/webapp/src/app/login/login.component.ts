@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {User} from "../objects/user";
 import {LoginService} from "./login.service";
 import {Athlete} from "../objects/athlete";
+import {AthleticTrainer} from "../objects/athleticTrainer";
 
 @Component({
     selector: 'login',
@@ -9,28 +10,37 @@ import {Athlete} from "../objects/athlete";
     templateUrl: './login.component.html',
 })
 export class LoginComponent {
-    currentUser : User;
     currentAthlete : Athlete;
+    currentAT : AthleticTrainer;
+    username : string;
+    password : string;
     userType : string;
 
     constructor(private loginService : LoginService) {
-        this.currentUser = new User();
+        this.username = "";
+        this.password = "";
+        this.currentAT = new AthleticTrainer();
         this.currentAthlete = new Athlete();
+
         this.userType = "Athlete";
     }
 
     login() : void {
         // Take username and password and search database for a matching user.
-        if (this.currentUser.username && this.currentUser.password && this.userType) {
+        if (this.username && this.password && this.userType) {
             if (this.userType == "Athlete") {
-                this.loginService.athleteLogin(this.currentUser.username, this.currentUser.password)
+                this.loginService.athleteLogin(this.username, this.password)
                     .then(athlete => {
-                        this.currentUser = athlete.user;
                         this.currentAthlete = athlete;
                     })
                     .catch(err => this.loginService.handleError(err));
             } else if (this.userType == "Athletic Trainer") {
-
+                this.loginService.athleticTrainerLogin(this.username, this.password)
+                    .then(at => {
+                        this.currentAT = at;
+                        console.log(this.currentAT);
+                    })
+                    .catch(err => this.loginService.handleError(err));
             }
         } else {
             // TODO: Use bootstrap to show an alert to the user.

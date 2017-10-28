@@ -2,14 +2,14 @@
     <div class="row centered bordered">
         <div class="col-md-12">
             <label>Username: </label>
-            <input [(ngModel)]="currentUser.username" placeholder="">
+            <input [(ngModel)]="username" placeholder="">
         </div>
         <div class="col-md-12">
             <label>Password: </label>
-            <input type="password" [(ngModel)]="currentUser.password">
+            <input type="password" [(ngModel)]="password">
         </div>
         <div class="col-md-12">
-            <select [(ngModel)]="this.userType">
+            <select [(ngModel)]="userType">
                 <option selected>Athlete</option>
                 <option>Athletic Trainer</option>
             </select>
@@ -20,19 +20,19 @@
     </div>
     <div class="row centered bordered">
         <div class="col-md-12">
-            <label>Current Username: {{currentUser.username}}</label>
+            <label>Current Username: {{currentAthlete.user.username}}</label>
         </div>
         <div class="col-md-12">
-            <label>Current Password: {{currentUser.password}}</label>
+            <label>Current Password: {{currentAthlete.user.password}}</label>
         </div>
         <div class="col-md-12">
-            <label>User ID: {{currentUser.userId}}</label>
+            <label>User ID: {{currentAthlete.user.userId}}</label>
         </div>
         <div class="col-md-12">
-            <label>First Name: {{currentUser.firstName}}</label>
+            <label>First Name: {{currentAthlete.user.firstName}}</label>
         </div>
         <div class="col-md-12">
-            <label>Last Name: {{currentUser.lastName}}</label>
+            <label>Last Name: {{currentAthlete.user.lastName}}</label>
         </div>
         <div class="col-md-12">
             <label>Type: {{userType}}</label>

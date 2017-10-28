@@ -1,7 +1,6 @@
 package maven.repositories;
 
 import maven.objects.Athlete;
-import maven.objects.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,15 +11,15 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
 
     private Connection connection;
     private ResultSet resultSet;
-    private User user;
 
     public AthleteConnection() {
         try {
             Class.forName(JDBC_DRIVER);
             this.connection = DriverManager.getConnection(DB_URL,
                     USER, PASS);
-        } catch(Exception e) {
-            // Handles errors for Class.forName
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

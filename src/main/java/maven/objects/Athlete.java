@@ -3,7 +3,7 @@ package maven.objects;
 import java.util.Date;
 
 public class Athlete {
-    private int athleteId;
+    private int id;
     private String complaint;
     private Date lastVisit;
     private String primarySport;
@@ -11,7 +11,7 @@ public class Athlete {
     private User user;
 
     public Athlete() {
-        this.athleteId = -1;
+        this.id = -1;
         this.complaint = "";
         this.lastVisit = null;
         this.primarySport = "";
@@ -20,11 +20,11 @@ public class Athlete {
     }
 
     public int getAthleteId() {
-        return athleteId;
+        return id;
     }
 
     public void setAthleteId(int athleteId) {
-        this.athleteId = athleteId;
+        this.id = athleteId;
     }
 
     public String getComplaint() {

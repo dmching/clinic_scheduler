@@ -17,19 +17,18 @@ var LoginComponent = (function () {
         this.loginService = loginService;
         this.currentUser = new user_1.User();
     }
-    LoginComponent.prototype.submit = function () {
+    LoginComponent.prototype.login = function () {
         var _this = this;
         // Take username and password and search database for a matching user.
-        /*this.loginService.getUser(this.currentUser.username, this.currentUser.password)
-            .then(user => this.currentUser = user)
-            .catch(err => this.loginService.handleError(err));*/
-        this.loginService.getUsers()
-            .then(function (users) {
-            _this.currentUser = users.pop();
-            console.log(users);
-        })
+        this.loginService.login(this.currentUser.username, this.currentUser.password)
+            .then(function (user) { return _this.currentUser = user; })
             .catch(function (err) { return _this.loginService.handleError(err); });
-        console.log(this.currentUser.username + "\n" + this.loginService.isLoggedIn());
+        /*this.loginService.getUsers()
+            .then(users => {
+                this.currentUser = users.pop();
+                console.log(users);
+            })
+            .catch(err => this.loginService.handleError(err));*/
         /*this.loginService.login(this.currentUser.username);*/
         // Issue with getting the app.component.html to recheck the ngIf after the user has logged out. 
     };

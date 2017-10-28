@@ -16,34 +16,30 @@ require("rxjs/add/operator/toPromise");
 var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
-        this.userUrl = "/user/login";
+        this.userUrl = "http://localhost:8080/user/login";
         this.activeUser = new user_1.User();
-        /* Remove the following lines when back end is connected to front end.*/
-        this.activeUser.firstName = "David";
-        this.activeUser.lastName = "Ching";
-        this.activeUser.userId = 1;
-        this.athlete = true;
-        this.athleticTrainer = true;
-        this.loggedIn = true;
+        this.loggedIn = false;
+        this.athlete = false;
+        this.athleticTrainer = false;
     }
-    LoginService.prototype.getUser = function (username, password) {
+    LoginService.prototype.login = function (username, password) {
         var _this = this;
         var myHeaders = new http_1.Headers();
-        myHeaders.set('Content-Type', 'application/json');
-        var myParams = new URLSearchParams();
-        myParams.set('username', username);
-        myParams.set('password', password);
-        var options = new http_1.RequestOptions({ headers: myHeaders, params: myParams });
+        myHeaders.set('username', username);
+        myHeaders.set('password', password);
+        var options = new http_1.RequestOptions({ headers: myHeaders });
         return this.http.get(this.userUrl, options)
             .toPromise()
             .then(function (response) {
-            return response.json().data;
+            _this.loggedIn = true;
+            return response.json();
         })
             .catch(function (err) { return _this.handleError(err); });
     };
+    // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {
         var _this = this;
-        return this.http.get('http://localhost:8080/user/login/all')
+        return this.http.get(this.userUrl + '/all')
             .toPromise()
             .then(function (response) {
             console.log(response);
@@ -51,47 +47,15 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
-    LoginService.prototype.isLoggedIn = function () {
-        return this.loggedIn;
-    };
-    LoginService.prototype.isAthlete = function () {
-        return this.athlete;
-    };
-    LoginService.prototype.isAthleticTrainer = function () {
-        return this.athleticTrainer;
-    };
-    LoginService.prototype.canViewScheduler = function () {
-        return this.isLoggedIn() && (this.isAthlete() || this.isAthleticTrainer());
-    };
-    LoginService.prototype.getUserFullName = function () {
-        return this.activeUser.getFullName();
-    };
-    LoginService.prototype.logout = function () {
-        this.loggedIn = false;
-        this.athlete = false;
-        this.athleticTrainer = false;
-        /* Route to the login screen after logging out. */
-    };
-    LoginService.prototype.login = function (test) {
-        this.loggedIn = true;
-        if (test == "1") {
-            this.athleticTrainer = false;
-            this.athlete = true;
-        }
-        else {
-            this.athleticTrainer = true;
-            this.athlete = false;
-        }
-    };
     LoginService.prototype.handleError = function (error) {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     };
-    LoginService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http])
-    ], LoginService);
     return LoginService;
 }());
+LoginService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http])
+], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

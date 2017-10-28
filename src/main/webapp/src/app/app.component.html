@@ -1,8 +1,4 @@
 <div class="container">
-    <div *ngIf="this.loginService.isLoggedIn()" class="row right">
-        <label>Welcome, {{this.loginService.getUserFullName()}}</label><br>
-        <button class="btn-sm" (click)="this.loginService.logout()">Logout</button>
-    </div>
     <div class="row">
         <div class="col-md-12 centered">
             <h1>Texas Lutheran Athletic Training Clinic Scheduler</h1>
@@ -14,7 +10,7 @@
                 <nav>
                     <a class="col-md-2 col-md-offset-2" routerLink="/dashboard">Dashboard</a>
                     <a class="col-md-2 col-md-offset-1" routerLink="/login">Login</a>
-                    <a class="col-md-2 col-md-offset-1" routerLink="/schedule" *ngIf="this.loginService.canViewScheduler()">Schedule</a>
+                    <a class="col-md-2 col-md-offset-1" routerLink="/schedule">Schedule</a>
                 </nav>
             </div>
         </div>

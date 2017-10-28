@@ -1,13 +1,13 @@
 <div class="containter">
     <div class="row centered bordered">
-        <div class="row">
+        <div class="row centered">
             <label class="col-md-3">Username: </label><input class="col-md-3 left" [(ngModel)]="currentUser.username" placeholder="">
         </div>
-        <div class="row">
+        <div class="row centered">
             <label class="col-md-3">Password: </label><input type="password" class="col-md-3 left" [(ngModel)]="currentUser.password">
         </div>
         <div>
-            <button (click)="submit()">Submit</button>
+            <button (click)="login()">Login</button>
         </div>
     </div>
     <div class="row centered bordered">

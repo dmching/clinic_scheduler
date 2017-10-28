@@ -9,5 +9,6 @@ public interface RepositoryConnection<T> {
     String USER = "root";
     String PASS = "csci437";
 
+    // Converts the ResultSet into the specific java object requested.
     public List<T> getResults(ResultSet resultSet);
 }

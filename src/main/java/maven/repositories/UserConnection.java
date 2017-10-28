@@ -9,7 +9,7 @@ import java.util.List;
 public class UserConnection implements RepositoryConnection<User> {
 
     private static final String GET_USER = "SELECT * FROM tlu_clinic_db.users WHERE username=? AND password=?";
-    private static final String GET_USERS = "SELECT * FROM tlu_clinic_db.users;";
+    private static final String GET_USERS = "SELECT * FROM tlu_clinic_db.users";
 
     private Connection connection;
     private ResultSet resultSet;
@@ -26,7 +26,8 @@ public class UserConnection implements RepositoryConnection<User> {
         }
     }
 
-    public User getUser(String username, String password) {
+    // Not used, AthleteConnection is more specific.
+    /*public User getUser(String username, String password) {
         try {
             PreparedStatement preparedStatement
                     = connection.prepareStatement(GET_USER);
@@ -40,7 +41,7 @@ public class UserConnection implements RepositoryConnection<User> {
         }
 
         return this.getResults(this.resultSet).get(0);
-    }
+    }*/
 
     public List<User> getUsers() {
         try {

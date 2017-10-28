@@ -2,28 +2,28 @@ import {Injectable} from "@angular/core";
 import {User} from "../objects/user";
 import {Http, RequestOptions, Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
+import {AthleticTrainer} from "../objects/athleticTrainer";
+import {Athlete} from "../objects/athlete";
 
 @Injectable()
 export class LoginService {
     private userUrl : string = "http://localhost:8080/user/login";
     private activeUser : User;
-    private athlete : boolean;
-    private athleticTrainer : boolean;
     private loggedIn : boolean;
 
     constructor(private http : Http) {
         this.activeUser = new User();
         this.loggedIn = false;
-        this.athlete = false;
-        this.athleticTrainer = false;
     }
 
-    public login(username : string, password : string) : Promise<User> {
+    public athleteLogin(username : string, password : string) : Promise<Athlete> {
         let myHeaders = new Headers();
         myHeaders.set('username', username);
         myHeaders.set('password', password);
         let options = new RequestOptions({headers: myHeaders});
-        return this.http.get(this.userUrl, options)
+
+        let url = this.userUrl + "/athlete";
+        return this.http.get(url, options)
             .toPromise()
             .then(response => {
                 this.loggedIn = true;
@@ -31,6 +31,10 @@ export class LoginService {
             })
             .catch(err => {return this.handleError(err)});
     }
+
+    /*public athleticTrainerLogin(username : string, password : string) : Promise<AthleticTrainer> {
+
+    }*/
 
     // Used to test the Connection to DB.
     public getUsers() : Promise<User[]> {

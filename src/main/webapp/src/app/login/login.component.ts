@@ -1,6 +1,7 @@
 import {Component} from "@angular/core";
 import {User} from "../objects/user";
 import {LoginService} from "./login.service";
+import {Athlete} from "../objects/athlete";
 
 @Component({
     selector: 'login',
@@ -9,16 +10,31 @@ import {LoginService} from "./login.service";
 })
 export class LoginComponent {
     currentUser : User;
+    currentAthlete : Athlete;
+    userType : string;
 
     constructor(private loginService : LoginService) {
         this.currentUser = new User();
+        this.currentAthlete = new Athlete();
+        this.userType = "Athlete";
     }
 
     login() : void {
         // Take username and password and search database for a matching user.
-        this.loginService.login(this.currentUser.username, this.currentUser.password)
-            .then(user => this.currentUser = user)
-            .catch(err => this.loginService.handleError(err));
+        if (this.currentUser.username && this.currentUser.password && this.userType) {
+            if (this.userType == "Athlete") {
+                this.loginService.athleteLogin(this.currentUser.username, this.currentUser.password)
+                    .then(athlete => {
+                        this.currentUser = athlete.user;
+                        this.currentAthlete = athlete;
+                    })
+                    .catch(err => this.loginService.handleError(err));
+            } else if (this.userType == "Athletic Trainer") {
+
+            }
+        } else {
+            // TODO: Use bootstrap to show an alert to the user.
+        }
         /*this.loginService.getUsers()
             .then(users => {
                 this.currentUser = users.pop();

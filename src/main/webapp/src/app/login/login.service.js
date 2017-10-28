@@ -19,16 +19,15 @@ var LoginService = (function () {
         this.userUrl = "http://localhost:8080/user/login";
         this.activeUser = new user_1.User();
         this.loggedIn = false;
-        this.athlete = false;
-        this.athleticTrainer = false;
     }
-    LoginService.prototype.login = function (username, password) {
+    LoginService.prototype.athleteLogin = function (username, password) {
         var _this = this;
         var myHeaders = new http_1.Headers();
         myHeaders.set('username', username);
         myHeaders.set('password', password);
         var options = new http_1.RequestOptions({ headers: myHeaders });
-        return this.http.get(this.userUrl, options)
+        var url = this.userUrl + "/athlete";
+        return this.http.get(url, options)
             .toPromise()
             .then(function (response) {
             _this.loggedIn = true;
@@ -36,6 +35,9 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
+    /*public athleticTrainerLogin(username : string, password : string) : Promise<AthleticTrainer> {
+
+    }*/
     // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {
         var _this = this;

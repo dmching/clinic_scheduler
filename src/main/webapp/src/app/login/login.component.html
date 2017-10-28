@@ -1,30 +1,53 @@
 <div class="containter">
     <div class="row centered bordered">
-        <div class="row centered">
-            <label class="col-md-3">Username: </label><input class="col-md-3 left" [(ngModel)]="currentUser.username" placeholder="">
+        <div class="col-md-12">
+            <label>Username: </label>
+            <input [(ngModel)]="currentUser.username" placeholder="">
         </div>
-        <div class="row centered">
-            <label class="col-md-3">Password: </label><input type="password" class="col-md-3 left" [(ngModel)]="currentUser.password">
+        <div class="col-md-12">
+            <label>Password: </label>
+            <input type="password" [(ngModel)]="currentUser.password">
         </div>
-        <div>
+        <div class="col-md-12">
+            <select [(ngModel)]="this.userType">
+                <option selected>Athlete</option>
+                <option>Athletic Trainer</option>
+            </select>
+        </div>
+        <div class="col-md-12">
             <button (click)="login()">Login</button>
         </div>
     </div>
     <div class="row centered bordered">
-        <div class="row">
+        <div class="col-md-12">
             <label>Current Username: {{currentUser.username}}</label>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <label>Current Password: {{currentUser.password}}</label>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <label>User ID: {{currentUser.userId}}</label>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <label>First Name: {{currentUser.firstName}}</label>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <label>Last Name: {{currentUser.lastName}}</label>
+        </div>
+        <div class="col-md-12">
+            <label>Type: {{userType}}</label>
+        </div>
+        <div class="col-md-12">
+            <label>Complaint: {{currentAthlete.complaint}}</label>
+        </div>
+        <div class="col-md-12">
+            <label>Last Visit: {{currentAthlete.lastVisit}}</label>
+        </div>
+        <div class="col-md-12">
+            <label>Primary Sport: {{currentAthlete.primarySport}}</label>
+        </div>
+        <div class="col-md-12">
+            <label>Secondary Sport: {{currentAthlete.secondarySport}}</label>
         </div>
     </div>
 </div>

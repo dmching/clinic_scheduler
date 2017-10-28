@@ -45,6 +45,7 @@ CREATE TABLE reservations (
 	athlete_id int NOT NULL,
   at_id int NOT NULL,
   time_slot_id int NOT NULL,
+	schedule_date DATETIME NOT NULL,
 	PRIMARY KEY (id),
 	FOREIGN KEY (athlete_id) REFERENCES athletes(id),
 	FOREIGN KEY (at_id) REFERENCES athletic_trainers(id),

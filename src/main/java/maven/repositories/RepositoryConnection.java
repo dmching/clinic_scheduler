@@ -1,13 +1,13 @@
 package maven.repositories;
 
-public interface RepositoryConnection {
+import java.sql.ResultSet;
+import java.util.List;
+
+public interface RepositoryConnection<T> {
     String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     String DB_URL = "jdbc:mysql://localhost";
     String USER = "root";
     String PASS = "csci437";
 
-    public Object select();
-    public boolean update();
-    public boolean insert();
-    public boolean delete();
+    public List<T> getResults(ResultSet resultSet);
 }

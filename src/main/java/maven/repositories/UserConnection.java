@@ -6,7 +6,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserConnection implements RepositoryConnection{
+public class UserConnection implements RepositoryConnection<User> {
+
+    private static final String GET_USER = "SELECT * FROM tlu_clinic_db.users WHERE username=? AND password=?";
+    private static final String GET_USERS = "SELECT * FROM tlu_clinic_db.users;";
 
     private Connection connection;
     private ResultSet resultSet;
@@ -25,9 +28,8 @@ public class UserConnection implements RepositoryConnection{
 
     public User getUser(String username, String password) {
         try {
-            String sql = "select * from tlu_clinic_db.users where username=? and password=?";
             PreparedStatement preparedStatement
-                    = connection.prepareStatement(sql);
+                    = connection.prepareStatement(GET_USER);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 
@@ -43,7 +45,7 @@ public class UserConnection implements RepositoryConnection{
     public List<User> getUsers() {
         try {
             Statement statement = connection.createStatement();
-            this.resultSet = statement.executeQuery("SELECT * FROM tlu_clinic_db.users;");
+            this.resultSet = statement.executeQuery(GET_USERS);
         } catch(SQLException se) {
             se.printStackTrace();
         }
@@ -51,25 +53,6 @@ public class UserConnection implements RepositoryConnection{
     }
 
     @Override
-    public Object select() {
-        return null;
-    }
-
-    @Override
-    public boolean update() {
-        return false;
-    }
-
-    @Override
-    public boolean insert() {
-        return false;
-    }
-
-    @Override
-    public boolean delete() {
-        return false;
-    }
-
     public List<User> getResults(ResultSet resultSet) {
         List<User> users = new ArrayList<User>();
 

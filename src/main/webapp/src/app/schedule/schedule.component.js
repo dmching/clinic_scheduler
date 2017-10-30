@@ -18,6 +18,7 @@ var ScheduleComponent = (function () {
     function ScheduleComponent(loginService, scheduleService) {
         this.loginService = loginService;
         this.scheduleService = scheduleService;
+        this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         this.reservations = [];
         this.times = [];
         for (var i = 0; i < 5; i++) {
@@ -31,20 +32,22 @@ var ScheduleComponent = (function () {
             this.times.push(time);
         }
     }
+    ScheduleComponent.prototype.ngOnInit = function () {
+    };
     ScheduleComponent.prototype.selectTime = function () {
     };
     ScheduleComponent.prototype.reserve = function () {
         this.scheduleService.reserve();
     };
+    ScheduleComponent = __decorate([
+        core_1.Component({
+            selector: 'schedule',
+            providers: [schedule_service_1.ScheduleService],
+            templateUrl: './schedule.component.html'
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
+    ], ScheduleComponent);
     return ScheduleComponent;
 }());
-ScheduleComponent = __decorate([
-    core_1.Component({
-        selector: 'schedule',
-        providers: [schedule_service_1.ScheduleService],
-        templateUrl: './schedule.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
-], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

@@ -1,5 +1,4 @@
 import {Component} from "@angular/core";
-import {User} from "../objects/user";
 import {LoginService} from "./login.service";
 import {Athlete} from "../objects/athlete";
 import {AthleticTrainer} from "../objects/athleticTrainer";
@@ -16,6 +15,8 @@ export class LoginComponent {
     password : string;
     userType : string;
 
+    types : string[] = ["Athlete", "Athletic Trainer"];
+
     constructor(private loginService : LoginService) {
         this.username = "";
         this.password = "";
@@ -28,13 +29,13 @@ export class LoginComponent {
     login() : void {
         // Take username and password and search database for a matching user.
         if (this.username && this.password && this.userType) {
-            if (this.userType == "Athlete") {
+            if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(athlete => {
                         this.currentAthlete = athlete;
                     })
                     .catch(err => this.loginService.handleError(err));
-            } else if (this.userType == "Athletic Trainer") {
+            } else if (this.types.indexOf(this.userType) == this.types.indexOf("Athletic Trainer")) {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(at => {
                         this.currentAT = at;
@@ -45,13 +46,5 @@ export class LoginComponent {
         } else {
             // TODO: Use bootstrap to show an alert to the user.
         }
-        /*this.loginService.getUsers()
-            .then(users => {
-                this.currentUser = users.pop();
-                console.log(users);
-            })
-            .catch(err => this.loginService.handleError(err));*/
-        /*this.loginService.login(this.currentUser.username);*/
-        // Issue with getting the app.component.html to recheck the ngIf after the user has logged out. 
     }
 }

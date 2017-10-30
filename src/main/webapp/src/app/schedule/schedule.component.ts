@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Reservation} from "../objects/reservation";
 import {TimeSlot} from "../objects/timeSlot";
 import {LoginService} from "../login/login.service";
@@ -9,9 +9,11 @@ import {ScheduleService} from "./schedule.service";
     providers : [ScheduleService],
     templateUrl: './schedule.component.html'
 })
-export class ScheduleComponent {
+export class ScheduleComponent implements OnInit {
     private reservations : Reservation[];
     private times : TimeSlot[];
+
+    private days : string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
     constructor(private loginService : LoginService, private scheduleService : ScheduleService) {
         this.reservations = [];
@@ -28,6 +30,10 @@ export class ScheduleComponent {
             time.end_time = i + .5;
             this.times.push(time);
         }
+    }
+
+    ngOnInit() {
+
     }
 
     public selectTime() : void {

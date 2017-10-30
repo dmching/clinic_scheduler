@@ -10,8 +10,7 @@
         </div>
         <div class="col-md-12">
             <select [(ngModel)]="userType">
-                <option selected>Athlete</option>
-                <option>Athletic Trainer</option>
+                <option *ngFor="let type of types">{{type}}</option>
             </select>
         </div>
         <div class="col-md-12">

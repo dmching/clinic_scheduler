@@ -16,6 +16,7 @@ var athleticTrainer_1 = require("../objects/athleticTrainer");
 var LoginComponent = (function () {
     function LoginComponent(loginService) {
         this.loginService = loginService;
+        this.types = ["Athlete", "Athletic Trainer"];
         this.username = "";
         this.password = "";
         this.currentAT = new athleticTrainer_1.AthleticTrainer();
@@ -26,14 +27,14 @@ var LoginComponent = (function () {
         var _this = this;
         // Take username and password and search database for a matching user.
         if (this.username && this.password && this.userType) {
-            if (this.userType == "Athlete") {
+            if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(function (athlete) {
                     _this.currentAthlete = athlete;
                 })
                     .catch(function (err) { return _this.loginService.handleError(err); });
             }
-            else if (this.userType == "Athletic Trainer") {
+            else if (this.types.indexOf(this.userType) == this.types.indexOf("Athletic Trainer")) {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(function (at) {
                     _this.currentAT = at;
@@ -45,14 +46,6 @@ var LoginComponent = (function () {
         else {
             // TODO: Use bootstrap to show an alert to the user.
         }
-        /*this.loginService.getUsers()
-            .then(users => {
-                this.currentUser = users.pop();
-                console.log(users);
-            })
-            .catch(err => this.loginService.handleError(err));*/
-        /*this.loginService.login(this.currentUser.username);*/
-        // Issue with getting the app.component.html to recheck the ngIf after the user has logged out. 
     };
     return LoginComponent;
 }());

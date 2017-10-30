@@ -1,20 +1,16 @@
 <div class="container bordered">
     <div class="row">
         <div class="col-md-12 centered">
-            <label class="col-md-3">Time Slot:</label>
-            <select class="col-md-2 col-md-offset-1">
+            <label>Time Slot:</label>
+            <select>
                 <option>First Choice</option>
                 <option>Second Choice</option>
             </select>
         </div>
         <div class="col-md-12 centered">
-            <label class="col-md-3">Day:</label>
-            <select class="col-md-2 col-md-offset-2">
-                <option>Monday</option>
-                <option>Tuesday</option>
-                <option>Wednesday</option>
-                <option>Thursday</option>
-                <option>Friday</option>
+            <label>Day:</label>
+            <select>
+                <option *ngFor="let day of days">{{day}}</option>
             </select>
         </div>
         <div class="col-md-12 centered">

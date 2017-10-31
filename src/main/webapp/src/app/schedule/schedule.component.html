@@ -3,8 +3,7 @@
         <div class="col-md-12 centered">
             <label>Time Slot:</label>
             <select>
-                <option>First Choice</option>
-                <option>Second Choice</option>
+                <option *ngFor="let time of times">{{time.startTime}} - {{time.endTime}}</option>
             </select>
         </div>
         <div class="col-md-12 centered">

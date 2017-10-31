@@ -10,5 +10,5 @@ public interface RepositoryConnection<T> {
     String PASS = "csci437";
 
     // Converts the ResultSet into the specific java object requested.
-    public List<T> getResults(ResultSet resultSet);
+    List<T> getResults(ResultSet resultSet);
 }

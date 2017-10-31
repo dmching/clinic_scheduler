@@ -56,7 +56,6 @@ var LoginService = (function () {
         return this.http.get(this.userUrl + '/all')
             .toPromise()
             .then(function (response) {
-            console.log(response);
             return response.json();
         })
             .catch(function (err) { return _this.handleError(err); });

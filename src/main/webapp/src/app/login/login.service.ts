@@ -53,7 +53,6 @@ export class LoginService {
         return this.http.get(this.userUrl + '/all')
             .toPromise()
             .then(response => {
-                console.log(response);
                 return response.json() as User[];
             })
             .catch(err => this.handleError(err));

@@ -2,11 +2,26 @@ import {Injectable} from "@angular/core";
 import {Athlete} from "../objects/athlete";
 import {AthleticTrainer} from "../objects/athleticTrainer";
 import {Reservation} from "../objects/reservation";
+import {TimeSlot} from "../objects/timeSlot";
+import {Http} from "@angular/http";
 
 @Injectable()
 export class ScheduleService {
+    private scheduleUrl : string = "http://localhost:8080/schedule";
 
-    constructor() {}
+    constructor(private http : Http) {
+    }
+
+    public getTimes() : Promise<TimeSlot[]> {
+        return this.http.get(this.scheduleUrl + "/times")
+            .toPromise()
+            .then(response => {
+                return response.json() as TimeSlot[];
+            })
+            .catch(err => {
+                return this.handleError(err);
+            });
+    }
 
     public reserve() : void {
         // Reserve the time and day from the schedule screen.
@@ -28,5 +43,8 @@ export class ScheduleService {
         return null;
     }
 
-
+    public handleError(error : any) : Promise<any> {
+        console.error('Error: ', error);
+        return Promise.reject(error.message || error);
+    }
 }

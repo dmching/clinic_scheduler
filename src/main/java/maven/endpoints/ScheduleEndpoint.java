@@ -1,0 +1,22 @@
+package maven.endpoints;
+
+import maven.objects.TimeSlot;
+import maven.repositories.TimeSlotConnection;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@CrossOrigin
+@RestController
+public class ScheduleEndpoint {
+
+    @RequestMapping("schedule/times")
+    public ResponseEntity<List<TimeSlot>> getTimeSlots() {
+        TimeSlotConnection userConnection = new TimeSlotConnection();
+        return new ResponseEntity<List<TimeSlot>>(userConnection.getTimes(), HttpStatus.OK);
+    }
+}

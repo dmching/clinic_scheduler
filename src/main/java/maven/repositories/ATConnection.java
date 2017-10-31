@@ -26,7 +26,7 @@ public class ATConnection implements RepositoryConnection<AthleticTrainer> {
 
     public AthleticTrainer getAthleticTrainer(String username, String password) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_AT);
+            PreparedStatement preparedStatement = this.connection.prepareStatement(GET_AT);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 

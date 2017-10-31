@@ -26,7 +26,7 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
 
     public Athlete getAthlete(String username, String password) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(GET_ATHLETE);
+            PreparedStatement preparedStatement = this.connection.prepareStatement(GET_ATHLETE);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
 

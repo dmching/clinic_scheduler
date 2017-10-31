@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
-var timeSlot_1 = require("../objects/timeSlot");
 var login_service_1 = require("../login/login.service");
 var schedule_service_1 = require("./schedule.service");
 var ScheduleComponent = (function () {
@@ -20,34 +19,31 @@ var ScheduleComponent = (function () {
         this.scheduleService = scheduleService;
         this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         this.reservations = [];
-        this.times = [];
         for (var i = 0; i < 5; i++) {
             var reservation = new reservation_1.Reservation();
-            var time = new timeSlot_1.TimeSlot();
             reservation.athlete.user.firstName = "David";
             reservation.athleticTrainer.user.firstName = "Ching";
             this.reservations.push(reservation);
-            time.start_time = i;
-            time.end_time = i + .5;
-            this.times.push(time);
         }
     }
     ScheduleComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.scheduleService.getTimes().then(function (response) { _this.times = response; });
     };
     ScheduleComponent.prototype.selectTime = function () {
     };
     ScheduleComponent.prototype.reserve = function () {
         this.scheduleService.reserve();
     };
-    ScheduleComponent = __decorate([
-        core_1.Component({
-            selector: 'schedule',
-            providers: [schedule_service_1.ScheduleService],
-            templateUrl: './schedule.component.html'
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
-    ], ScheduleComponent);
     return ScheduleComponent;
 }());
+ScheduleComponent = __decorate([
+    core_1.Component({
+        selector: 'schedule',
+        providers: [schedule_service_1.ScheduleService],
+        templateUrl: './schedule.component.html'
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
+], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

@@ -16,14 +16,6 @@ import java.util.List;
 @RestController
 public class UserEndpoint {
 
-    /*@RequestMapping("/user/login")
-    public ResponseEntity<User> getUser(
-            @RequestHeader(value="username") String username,
-            @RequestHeader(value="password") String password) {
-        UserConnection userConnection = new UserConnection();
-        return new ResponseEntity<User>(userConnection.getUser(username, password), HttpStatus.OK);
-    }*/
-
     @RequestMapping("/user/login/all")
     public ResponseEntity<List<User>> getAllUsers() {
         UserConnection userConnection = new UserConnection();

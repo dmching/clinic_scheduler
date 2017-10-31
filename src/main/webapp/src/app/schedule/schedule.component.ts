@@ -17,23 +17,17 @@ export class ScheduleComponent implements OnInit {
 
     constructor(private loginService : LoginService, private scheduleService : ScheduleService) {
         this.reservations = [];
-        this.times = [];
         for(var i = 0; i < 5; i++) {
             var reservation : Reservation = new Reservation();
-            var time : TimeSlot = new TimeSlot();
 
             reservation.athlete.user.firstName = "David";
             reservation.athleticTrainer.user.firstName = "Ching";
             this.reservations.push(reservation);
-
-            time.start_time = i;
-            time.end_time = i + .5;
-            this.times.push(time);
         }
     }
 
     ngOnInit() {
-
+        this.scheduleService.getTimes().then(response => {this.times = response;});
     }
 
     public selectTime() : void {

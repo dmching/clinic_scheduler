@@ -2,13 +2,13 @@ package maven.objects;
 
 public class TimeSlot {
     private int id;
-    private double startTime;
-    private double endTime;
+    private String startTime;
+    private String endTime;
 
     public TimeSlot() {
         this.id = -1;
-        this.startTime = -1;
-        this.endTime = -1;
+        this.startTime = "";
+        this.endTime = "";
     }
 
     public int getId() {
@@ -19,19 +19,19 @@ public class TimeSlot {
         this.id = id;
     }
 
-    public double getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(double startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public double getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(double endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 }

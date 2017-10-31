@@ -48,8 +48,8 @@ public class TimeSlotConnection implements RepositoryConnection<TimeSlot> {
 
                     // User values
                     currentTime.setId(resultSet.getInt(1));
-                    currentTime.setStartTime(resultSet.getDouble(2));
-                    currentTime.setEndTime(resultSet.getDouble(3));
+                    currentTime.setStartTime(resultSet.getString(2));
+                    currentTime.setEndTime(resultSet.getString(3));
 
                     timeSlots.add(currentTime);
                 }

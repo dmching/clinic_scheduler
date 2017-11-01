@@ -1,6 +1,5 @@
 package maven.repositories;
 
-import maven.objects.Athlete;
 import maven.objects.AthleticTrainer;
 
 import java.sql.*;
@@ -8,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ATConnection implements RepositoryConnection<AthleticTrainer> {
-    private static final String GET_AT = "SELECT users.*, athletic_trainers.id, classifications.name FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications WHERE users.username=? AND users.password=? AND users.id = athletic_trainers.user_id AND athletic_trainers.classification_id = classifications.id";
-
+    private static final String GET_AT = "SELECT users.*, athletic_trainers.id, athletic_trainers.primary_sport, classifications.name FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications WHERE users.username=? AND users.password=? AND users.id = athletic_trainers.user_id AND athletic_trainers.classification_id = classifications.id";
+    private static final String GET_ALL_ATS = "SELECT users.*, athletic_trainers.id, athletic_trainers.primary_sport, classifications.name FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications WHERE users.id = athletic_trainers.user_id and athletic_trainers.classification_id = classifications.id";
     private Connection connection;
     private ResultSet resultSet;
 
@@ -38,6 +37,17 @@ public class ATConnection implements RepositoryConnection<AthleticTrainer> {
         return this.getResults(this.resultSet).get(0);
     }
 
+    public List<AthleticTrainer> getATs() {
+        try {
+            Statement statement = this.connection.createStatement();
+            this.resultSet = statement.executeQuery(GET_ALL_ATS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return this.getResults(this.resultSet);
+    }
+
     @Override
     public List<AthleticTrainer> getResults(ResultSet resultSet) {
         List<AthleticTrainer> athleticTrainers = new ArrayList<AthleticTrainer>();
@@ -56,7 +66,8 @@ public class ATConnection implements RepositoryConnection<AthleticTrainer> {
                     currentAT.getUser().setLastName(resultSet.getString(5));
 
                     currentAT.setId(resultSet.getInt(6));
-                    currentAT.setClassification(resultSet.getString(7));
+                    currentAT.setPrimarySport(resultSet.getString(7));
+                    currentAT.setClassification(resultSet.getString(8));
 
                     athleticTrainers.add(currentAT);
                 }

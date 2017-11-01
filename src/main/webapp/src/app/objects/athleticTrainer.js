@@ -5,9 +5,12 @@ var AthleticTrainer = (function () {
     function AthleticTrainer() {
         this.id;
         this.user = new user_1.User();
-        this.type = "";
+        this.classification = "";
         this.primarySport = "";
     }
+    AthleticTrainer.prototype.getFullTitle = function () {
+        return this.user.firstName + " " + this.user.lastName + " - " + this.classification;
+    };
     return AthleticTrainer;
 }());
 exports.AthleticTrainer = AthleticTrainer;

@@ -31,6 +31,7 @@ var LoginComponent = (function () {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(function (athlete) {
                     _this.currentAthlete = athlete;
+                    _this.loginService.setActiveUser(athlete.user);
                 })
                     .catch(function (err) { return _this.loginService.handleError(err); });
             }
@@ -38,7 +39,7 @@ var LoginComponent = (function () {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(function (at) {
                     _this.currentAT = at;
-                    console.log(_this.currentAT);
+                    _this.loginService.setActiveUser(at.user);
                 })
                     .catch(function (err) { return _this.loginService.handleError(err); });
             }

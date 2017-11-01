@@ -27,6 +27,15 @@ var ScheduleService = (function () {
             return _this.handleError(err);
         });
     };
+    ScheduleService.prototype.getATs = function () {
+        var _this = this;
+        return this.http.get(this.scheduleUrl + "/ats")
+            .toPromise()
+            .then(function (response) {
+            return response.json();
+        })
+            .catch(function (err) { return _this.handleError(err); });
+    };
     ScheduleService.prototype.reserve = function () {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.

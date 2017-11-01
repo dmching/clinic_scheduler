@@ -1,24 +1,43 @@
 <div class="container bordered">
-    <div class="row">
-        <div class="col-md-12 centered">
-            <label>Time Slot:</label>
-            <select>
-                <option *ngFor="let time of times">{{time.startTime}} - {{time.endTime}}</option>
-            </select>
+    <div class="row centered">
+        <div class="col-md-12">
+            <div class="col-md-6 right">
+                <label>Time Slot:</label>
+            </div>
+            <div class="col-md-6 left">
+                <select>
+                    <option *ngFor="let time of times">{{time.startTime}} - {{time.endTime}}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-12 centered">
-            <label>Day:</label>
-            <select>
-                <option *ngFor="let day of days">{{day}}</option>
-            </select>
+        <div class="col-md-12">
+            <div class="col-md-6 right">
+                <label>Day:</label>
+            </div>
+            <div class="col-md-6 left">
+                <select>
+                    <option *ngFor="let day of days">{{day}}</option>
+                </select>
+            </div>
         </div>
-        <div class="col-md-12 centered">
+        <div class="col-md-12">
+            <div class="col-md-6 right">
+                <label>Athletic Trainer:</label>
+            </div>
+            <div class="col-md-6 left">
+                <select>
+                    <option *ngFor="let at of athleticTrainers">{{at.user.firstName
+                        + " " + at.user.lastName + " - " + at.classification}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-12">
             <button (click)="this.reserve()">Reserve</button>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12 bordered">
-            <label>Probably not for anything</label>
+            <label>{{this.loginService.activeUser.firstName}}</label>
         </div>
     </div>
     <div class="row">

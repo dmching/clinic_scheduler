@@ -50,6 +50,9 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
+    LoginService.prototype.setActiveUser = function (user) {
+        this.activeUser = user;
+    };
     // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {
         var _this = this;

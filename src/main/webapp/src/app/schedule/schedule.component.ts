@@ -3,6 +3,7 @@ import {Reservation} from "../objects/reservation";
 import {TimeSlot} from "../objects/timeSlot";
 import {LoginService} from "../login/login.service";
 import {ScheduleService} from "./schedule.service";
+import {AthleticTrainer} from "../objects/athleticTrainer";
 
 @Component({
     selector: 'schedule',
@@ -12,6 +13,7 @@ import {ScheduleService} from "./schedule.service";
 export class ScheduleComponent implements OnInit {
     private reservations : Reservation[];
     private times : TimeSlot[];
+    private athleticTrainers : AthleticTrainer[];
 
     private days : string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
 
@@ -28,6 +30,7 @@ export class ScheduleComponent implements OnInit {
 
     ngOnInit() {
         this.scheduleService.getTimes().then(response => {this.times = response;});
+        this.scheduleService.getATs().then(response => {this.athleticTrainers = response;});
     }
 
     public selectTime() : void {

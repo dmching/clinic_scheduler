@@ -27,7 +27,7 @@ export class LoginService {
             .toPromise()
             .then(response => {
                 this.loggedIn = true;
-                return response.json() as User;
+                return response.json() as Athlete;
             })
             .catch(err => {return this.handleError(err)});
     }
@@ -43,9 +43,13 @@ export class LoginService {
             .toPromise()
             .then(response => {
                 this.loggedIn = true;
-                return response.json() as User;
+                return response.json() as AthleticTrainer;
             })
             .catch(err => {return this.handleError(err)});
+    }
+
+    public setActiveUser(user : User) : void {
+        this.activeUser = user;
     }
 
     // Used to test the Connection to DB.

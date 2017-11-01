@@ -23,6 +23,15 @@ export class ScheduleService {
             });
     }
 
+    public getATs() : Promise<AthleticTrainer[]> {
+        return this.http.get(this.scheduleUrl + "/ats")
+            .toPromise()
+            .then(response => {
+                return response.json() as AthleticTrainer[];
+            })
+            .catch(err => this.handleError(err));
+    }
+
     public reserve() : void {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.

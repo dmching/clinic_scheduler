@@ -15,8 +15,8 @@ CREATE TABLE classifications (
 
 CREATE TABLE time_slots (
 	id int NOT NULL UNIQUE AUTO_INCREMENT,
-	start_time DOUBLE NOT NULL UNIQUE,
-	end_time DOUBLE NOT NULL UNIQUE,
+	start_time VARCHAR(10) NOT NULL UNIQUE,
+	end_time VARCHAR(10) NOT NULL UNIQUE,
 	PRIMARY KEY (id)
 );
 
@@ -35,6 +35,7 @@ CREATE TABLE athletic_trainers (
 	id int NOT NULL UNIQUE AUTO_INCREMENT,
   user_id int NOT NULL UNIQUE,
   classification_id int NOT NULL,
+	primary_sport VARCHAR(50),
   PRIMARY KEY (id),
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (classification_id) REFERENCES classifications(id)

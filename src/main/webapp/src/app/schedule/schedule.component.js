@@ -29,6 +29,7 @@ var ScheduleComponent = (function () {
     ScheduleComponent.prototype.ngOnInit = function () {
         var _this = this;
         this.scheduleService.getTimes().then(function (response) { _this.times = response; });
+        this.scheduleService.getATs().then(function (response) { _this.athleticTrainers = response; });
     };
     ScheduleComponent.prototype.selectTime = function () {
     };

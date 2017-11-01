@@ -13,7 +13,7 @@ export class User {
         this.lastName = "";
     }
 
-    public getFullName() : String {
+    public getFullName() : string {
         return this.firstName + " " + this.lastName;
     }
 }

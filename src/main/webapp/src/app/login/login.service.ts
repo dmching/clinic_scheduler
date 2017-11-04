@@ -8,7 +8,7 @@ import {Athlete} from "../objects/athlete";
 @Injectable()
 export class LoginService {
     private userUrl : string = "http://localhost:8080/user/login";
-    private activeUser : User;
+    public activeUser : User;
     private loggedIn : boolean;
 
     constructor(private http : Http) {
@@ -50,6 +50,14 @@ export class LoginService {
 
     public setActiveUser(user : User) : void {
         this.activeUser = user;
+    }
+
+    public isLoggedIn() : boolean {
+        return this.loggedIn;
+    }
+
+    public getActiveUser() : string {
+        return this.activeUser.firstName + " " + this.activeUser.lastName;
     }
 
     // Used to test the Connection to DB.

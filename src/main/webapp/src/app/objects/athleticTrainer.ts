@@ -12,8 +12,4 @@ export class AthleticTrainer {
         this.classification = "";
         this.primarySport = "";
     }
-
-    getFullTitle() : string {
-        return this.user.firstName + " " + this.user.lastName + " - " + this.classification;
-    }
 }

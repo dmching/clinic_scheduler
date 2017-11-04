@@ -8,9 +8,6 @@ var AthleticTrainer = (function () {
         this.classification = "";
         this.primarySport = "";
     }
-    AthleticTrainer.prototype.getFullTitle = function () {
-        return this.user.firstName + " " + this.user.lastName + " - " + this.classification;
-    };
     return AthleticTrainer;
 }());
 exports.AthleticTrainer = AthleticTrainer;

@@ -11,19 +11,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
+var timeSlot_1 = require("../objects/timeSlot");
 var login_service_1 = require("../login/login.service");
 var schedule_service_1 = require("./schedule.service");
+var athleticTrainer_1 = require("../objects/athleticTrainer");
 var ScheduleComponent = (function () {
     function ScheduleComponent(loginService, scheduleService) {
         this.loginService = loginService;
         this.scheduleService = scheduleService;
         this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         this.reservations = [];
+        this.currentReservation = new reservation_1.Reservation();
+        this.date = new Date();
+        this.selectedDay = "Tuesday";
+        this.selectedTimeSlot = new timeSlot_1.TimeSlot();
+        this.selectedAT = new athleticTrainer_1.AthleticTrainer();
         for (var i = 0; i < 5; i++) {
             var reservation = new reservation_1.Reservation();
             reservation.athlete.user.firstName = "David";
             reservation.athleticTrainer.user.firstName = "Ching";
             this.reservations.push(reservation);
+        }
+        //testing dates
+        // TODO: add this to the reserve button
+        var test = new Date();
+        var day = this.days.indexOf(this.selectedDay) + 1;
+        console.log(test);
+        console.log("Current Day: " + test.getDay());
+        console.log("Selected Day: " + this.selectedDay + " Index: " + day);
+        if (day < test.getDay()) {
+            test.setDate(test.getDate() + (day) + 1);
+            console.log(test);
         }
     }
     ScheduleComponent.prototype.ngOnInit = function () {
@@ -34,7 +52,11 @@ var ScheduleComponent = (function () {
     ScheduleComponent.prototype.selectTime = function () {
     };
     ScheduleComponent.prototype.reserve = function () {
-        this.scheduleService.reserve();
+        this.currentReservation.athlete.id = this.loginService.activeUser.userId;
+        this.currentReservation.athleticTrainer = this.selectedAT;
+        this.currentReservation.timeSlot = this.selectedTimeSlot;
+        /*this.currentReservation.scheduledDate.;*/
+        /*this.scheduleService.reserve();*/
     };
     return ScheduleComponent;
 }());

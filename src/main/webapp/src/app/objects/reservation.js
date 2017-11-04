@@ -9,6 +9,7 @@ var Reservation = (function () {
         this.athlete = new athlete_1.Athlete();
         this.athleticTrainer = new athleticTrainer_1.AthleticTrainer();
         this.timeSlot = new timeSlot_1.TimeSlot();
+        this.scheduledDate = new Date();
     }
     return Reservation;
 }());

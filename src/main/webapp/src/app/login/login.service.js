@@ -53,6 +53,12 @@ var LoginService = (function () {
     LoginService.prototype.setActiveUser = function (user) {
         this.activeUser = user;
     };
+    LoginService.prototype.isLoggedIn = function () {
+        return this.loggedIn;
+    };
+    LoginService.prototype.getActiveUser = function () {
+        return this.activeUser.firstName + " " + this.activeUser.lastName;
+    };
     // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {
         var _this = this;

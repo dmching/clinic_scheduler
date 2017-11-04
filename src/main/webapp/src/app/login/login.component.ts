@@ -5,7 +5,6 @@ import {AthleticTrainer} from "../objects/athleticTrainer";
 
 @Component({
     selector: 'login',
-    providers: [ LoginService ],
     templateUrl: './login.component.html',
 })
 export class LoginComponent {

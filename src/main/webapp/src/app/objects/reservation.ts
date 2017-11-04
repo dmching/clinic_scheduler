@@ -7,11 +7,13 @@ export class Reservation {
     athlete : Athlete;
     athleticTrainer : AthleticTrainer;
     timeSlot : TimeSlot;
+    scheduledDate : Date;
 
     constructor() {
         this.id = -1;
         this.athlete = new Athlete();
         this.athleticTrainer = new AthleticTrainer();
         this.timeSlot = new TimeSlot();
+        this.scheduledDate = new Date();
     }
 }

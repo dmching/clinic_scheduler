@@ -3,6 +3,9 @@
         <div class="col-md-12 centered">
             <h1>Texas Lutheran Athletic Training Clinic Scheduler</h1>
         </div>
+        <div [hidden]=!loginService.isLoggedIn() class="col-md-12 right">
+            <label>Welcome, {{loginService.getActiveUser()}}</label>
+        </div>
     </div>
     <div class="row">
         <div class="row">
@@ -12,11 +15,6 @@
                     <a class="col-md-2 col-md-offset-1" routerLink="/login">Login</a>
                     <a class="col-md-2 col-md-offset-1" routerLink="/schedule">Schedule</a>
                 </nav>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>Logged in as: {{this.loginService.activeUser.firstName + " " + this.loginService.activeUser.lastName}}</p>
             </div>
         </div>
         <div class="row">

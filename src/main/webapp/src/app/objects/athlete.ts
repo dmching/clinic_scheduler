@@ -10,7 +10,7 @@ export class Athlete {
     user : User;
 
     constructor() {
-        this.id = null;
+        this.id = -1;
         this.complaint = "";
         // TODO: Format the date attribute for MM/DD/YYYY
         this.lastVisit = new Date();

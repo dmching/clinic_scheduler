@@ -16,7 +16,7 @@ export class ScheduleService {
         return this.http.get(this.scheduleUrl + "/times")
             .toPromise()
             .then(response => {
-                return response.json() as TimeSlot[];
+                return response.json() as TimeSlot;
             })
             .catch(err => {
                 return this.handleError(err);
@@ -32,9 +32,11 @@ export class ScheduleService {
             .catch(err => this.handleError(err));
     }
 
-    public reserve() : void {
+    public reserve(reservation : Reservation) : Promise<boolean> {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.
+
+        return null;
     }
 
     public getReservations() : Reservation[]{

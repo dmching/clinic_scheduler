@@ -17,20 +17,18 @@ export class ScheduleComponent implements OnInit {
     private athleticTrainers : AthleticTrainer[];
 
     public selectedDay : string;
-    public selectedTimeSlot : TimeSlot;
-    public selectedAT : AthleticTrainer;
-    public date : Date;
+    public selectedTimeSlot : string;
+    public selectedAT : string;
     public currentReservation : Reservation;
 
     private days : string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    private timesList : string[] = [];
+    private atList : string[] = [];
 
     constructor(private loginService : LoginService, private scheduleService : ScheduleService) {
         this.reservations = [];
         this.currentReservation = new Reservation();
-        this.date = new Date();
-        this.selectedDay = "Tuesday";
-        this.selectedTimeSlot = new TimeSlot();
-        this.selectedAT = new AthleticTrainer();
+        this.selectedDay = this.days[0];
 
         for(var i = 0; i < 5; i++) {
             var reservation : Reservation = new Reservation();
@@ -39,35 +37,48 @@ export class ScheduleComponent implements OnInit {
             reservation.athleticTrainer.user.firstName = "Ching";
             this.reservations.push(reservation);
         }
-
-
-        //testing dates
-        // TODO: add this to the reserve button
-        let test : Date = new Date();
-        let day : number = this.days.indexOf(this.selectedDay) + 1;
-        console.log(test);
-        console.log("Current Day: " + test.getDay());
-        console.log("Selected Day: " + this.selectedDay + " Index: " + day);
-        if (day < test.getDay()) {
-            test.setDate(test.getDate() + (day) + 1)
-            console.log(test);
-        }
     }
 
     ngOnInit() {
-        this.scheduleService.getTimes().then(response => {this.times = response;});
-        this.scheduleService.getATs().then(response => {this.athleticTrainers = response;});
+        this.scheduleService.getTimes().then(response => {
+            this.times = response;
+            for (let time of this.times) {
+                this.timesList.push(time.startTime + " - " + time.endTime);
+            }
+            this.selectedTimeSlot = this.timesList[0];
+        });
+        this.scheduleService.getATs().then(response => {
+            this.athleticTrainers = response;
+            for (let at of this.athleticTrainers) {
+                this.atList.push(at.user.firstName + " " + at.user.lastName + " - " + at.classification);
+            }
+            this.selectedAT = this.atList[0];
+        });
     }
 
-    public selectTime() : void {
-
+    public selectTime(time : any) : void {
+        this.selectedTimeSlot = time;
+        console.log(time);
+        console.log(this.selectedTimeSlot);
     }
 
     public reserve() : void {
-        this.currentReservation.athlete.id = this.loginService.activeUser.userId;
-        this.currentReservation.athleticTrainer = this.selectedAT;
-        this.currentReservation.timeSlot = this.selectedTimeSlot;
-        /*this.currentReservation.scheduledDate.;*/
-        /*this.scheduleService.reserve();*/
+        this.currentReservation.athlete.user = this.loginService.activeUser;
+        this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
+        this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
+
+        let today: Date = new Date();
+        let day: number = this.days.indexOf(this.selectedDay) + 1;
+        // The list does not include Sunday, so we increment by 1 to get Monday and on.
+        if (day < today.getDay()) {
+            this.currentReservation.scheduledDate.setDate(today.getDate() + day + 1);
+            // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
+        } else if (day > today.getDay()) {
+            this.currentReservation.scheduledDate.setDate(today.getDate() + day);
+        } else {
+            this.currentReservation.scheduledDate.setDate(today.getDate() + 7);
+        }
+
+        this.scheduleService.reserve(this.currentReservation);
     }
 }

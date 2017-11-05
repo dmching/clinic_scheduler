@@ -36,9 +36,10 @@ var ScheduleService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
-    ScheduleService.prototype.reserve = function () {
+    ScheduleService.prototype.reserve = function (reservation) {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.
+        return null;
     };
     ScheduleService.prototype.getReservations = function () {
         // Returns the reservations for the current day, for all AT staff.

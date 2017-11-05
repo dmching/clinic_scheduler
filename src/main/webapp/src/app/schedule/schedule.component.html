@@ -37,12 +37,11 @@
     </div>
     <div class="row">
         <div class="col-md-12 bordered">
-            <label>{{loginService.activeUser.firstName}}</label>
             <label>{{days.indexOf(selectedDay) + 1}}</label>
             <label>{{currentReservation.athlete.user.firstName}}</label>
             <label>{{currentReservation.athleticTrainer.user.firstName}}</label>
             <label>{{currentReservation.timeSlot.startTime}}</label>
-            <label>{{currentReservation.scheduledDate}}</label>
+            <label>{{this.currentReservation.scheduledDate}}</label>
         </div>
     </div>
     <div class="row">

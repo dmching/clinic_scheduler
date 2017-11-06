@@ -1,6 +1,7 @@
 package maven.endpoints;
 
 import maven.objects.AthleticTrainer;
+import maven.objects.Reservation;
 import maven.objects.TimeSlot;
 import maven.repositories.ATConnection;
 import maven.repositories.ReservationConnection;
@@ -43,5 +44,13 @@ public class ScheduleEndpoint {
                 Integer.parseInt(atID),
                 Integer.parseInt(timeslotID),
                 date), HttpStatus.OK);
+    }
+
+    @RequestMapping("schedule/reservation/me")
+    public ResponseEntity<List<Reservation>> getMyReservations(
+        @RequestHeader(value="athleteID") String athleteID
+    ) {
+        ReservationConnection reservationConnection = new ReservationConnection();
+        return null;
     }
 }

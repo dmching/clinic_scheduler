@@ -1,5 +1,6 @@
 package maven.repositories;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import maven.objects.Reservation;
 
 import java.sql.*;
@@ -8,6 +9,11 @@ import java.util.List;
 public class ReservationConnection implements RepositoryConnection<Reservation> {
 
     private static final String POST_RESERVATION = "INSERT INTO tlu_clinic_db.reservations (athlete_id, at_id, time_slot_id, schedule_date) VALUES (?, ?, ?, ?)";
+    private static final String GET_MY_RESERVATIONS =
+            "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as ats, tlu_clinic_db.athletes as athletes, " +
+            "tlu_clinic_db.reservations as reservations, tlu_clinic_db.time_slots as time_slots WHERE reservations.at_id = athletic_trainers.id" +
+            " and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletic_trainers.id" +
+            "and athletes.id = ?";
 
     private Connection connection;
     private ResultSet resultSet;
@@ -36,11 +42,24 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
 
             preparedStatement.executeUpdate();
             result = true;
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            // Attempting to create a reservation by the same athlete with the same athletic trainer
+            // in the same time slot on the same day.
+            result = false;
         } catch (SQLException e) {
             e.printStackTrace();
             result = false;
         }
         return result;
+    }
+
+    public List<Reservation> getReservations(int athleteID) {
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(GET_MY_RESERVATIONS);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override

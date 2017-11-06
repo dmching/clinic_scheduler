@@ -46,9 +46,12 @@ CREATE TABLE reservations (
 	athlete_id int NOT NULL,
   at_id int NOT NULL,
   time_slot_id int NOT NULL,
-	schedule_date DATETIME NOT NULL,
-	PRIMARY KEY (id),
+	schedule_date VARCHAR(30) NOT NULL,
+	PRIMARY KEY (athlete_id, at_id, time_slot_id, schedule_date),
 	FOREIGN KEY (athlete_id) REFERENCES athletes(id),
 	FOREIGN KEY (at_id) REFERENCES athletic_trainers(id),
 	FOREIGN KEY (time_slot_id) REFERENCES time_slots(id)
 );
+
+alter table reservations
+	add constraint reservations_uc UNIQUE (athlete_id, at_id, time_slot_id, schedule_date);

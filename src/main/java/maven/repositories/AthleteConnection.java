@@ -55,7 +55,7 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
                     currentAthlete.getUser().setFirstName(resultSet.getString(4));
                     currentAthlete.getUser().setLastName(resultSet.getString(5));
 
-                    currentAthlete.setAthleteId(resultSet.getInt(6));
+                    currentAthlete.setId(resultSet.getInt(6));
                     currentAthlete.setComplaint(resultSet.getString(8));
                     currentAthlete.setLastVisit(resultSet.getDate(9));
                     currentAthlete.setPrimarySport(resultSet.getString(10));

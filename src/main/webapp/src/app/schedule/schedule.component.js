@@ -49,13 +49,8 @@ var ScheduleComponent = (function () {
             _this.selectedAT = _this.atList[0];
         });
     };
-    ScheduleComponent.prototype.selectTime = function (time) {
-        this.selectedTimeSlot = time;
-        console.log(time);
-        console.log(this.selectedTimeSlot);
-    };
     ScheduleComponent.prototype.reserve = function () {
-        this.currentReservation.athlete.user = this.loginService.activeUser;
+        this.currentReservation.athlete = this.loginService.activeAthlete;
         this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
         this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
         var today = new Date();
@@ -71,7 +66,14 @@ var ScheduleComponent = (function () {
         else {
             this.currentReservation.scheduledDate.setDate(today.getDate() + 7);
         }
-        this.scheduleService.reserve(this.currentReservation);
+        this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
+            if (reservation) {
+                console.log("Success");
+            }
+            else {
+                // TODO: Error in post. Notify user.
+            }
+        });
     };
     return ScheduleComponent;
 }());

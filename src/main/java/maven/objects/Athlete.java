@@ -19,12 +19,12 @@ public class Athlete {
         this.user = new User();
     }
 
-    public int getAthleteId() {
+    public int getId() {
         return id;
     }
 
-    public void setAthleteId(int athleteId) {
-        this.id = athleteId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getComplaint() {

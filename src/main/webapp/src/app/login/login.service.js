@@ -10,14 +10,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
-var user_1 = require("../objects/user");
 var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
+var athleticTrainer_1 = require("../objects/athleticTrainer");
+var athlete_1 = require("../objects/athlete");
 var LoginService = (function () {
     function LoginService(http) {
         this.http = http;
         this.userUrl = "http://localhost:8080/user/login";
-        this.activeUser = new user_1.User();
+        this.activeAthlete = new athlete_1.Athlete();
+        this.activeAT = new athleticTrainer_1.AthleticTrainer();
         this.loggedIn = false;
     }
     LoginService.prototype.athleteLogin = function (username, password) {
@@ -31,7 +33,11 @@ var LoginService = (function () {
             .toPromise()
             .then(function (response) {
             _this.loggedIn = true;
-            return response.json();
+            _this.isAthlete = true;
+            console.log(_this.activeAthlete);
+            _this.activeAthlete = response.json();
+            console.log(_this.activeAthlete);
+            return _this.activeAthlete;
         })
             .catch(function (err) { return _this.handleError(err); });
     };
@@ -46,18 +52,22 @@ var LoginService = (function () {
             .toPromise()
             .then(function (response) {
             _this.loggedIn = true;
-            return response.json();
+            _this.isAthlete = false;
+            _this.activeAT = response.json();
+            return _this.activeAT;
         })
             .catch(function (err) { return _this.handleError(err); });
-    };
-    LoginService.prototype.setActiveUser = function (user) {
-        this.activeUser = user;
     };
     LoginService.prototype.isLoggedIn = function () {
         return this.loggedIn;
     };
     LoginService.prototype.getActiveUser = function () {
-        return this.activeUser.firstName + " " + this.activeUser.lastName;
+        if (this.isAthlete) {
+            return this.activeAthlete.user.firstName + " " + this.activeAthlete.user.lastName;
+        }
+        else {
+            return this.activeAT.user.firstName + " " + this.activeAT.user.lastName;
+        }
     };
     // Used to test the Connection to DB.
     LoginService.prototype.getUsers = function () {

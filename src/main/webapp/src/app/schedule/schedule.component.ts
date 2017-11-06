@@ -56,14 +56,8 @@ export class ScheduleComponent implements OnInit {
         });
     }
 
-    public selectTime(time : any) : void {
-        this.selectedTimeSlot = time;
-        console.log(time);
-        console.log(this.selectedTimeSlot);
-    }
-
     public reserve() : void {
-        this.currentReservation.athlete.user = this.loginService.activeUser;
+        this.currentReservation.athlete = this.loginService.activeAthlete;
         this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
         this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
 
@@ -79,6 +73,13 @@ export class ScheduleComponent implements OnInit {
             this.currentReservation.scheduledDate.setDate(today.getDate() + 7);
         }
 
-        this.scheduleService.reserve(this.currentReservation);
+        this.scheduleService.reserve(this.currentReservation).then(reservation => {
+                if (reservation) {
+                    console.log("Success");
+                } else {
+                    // TODO: Error in post. Notify user.
+                }
+            }
+        );
     }
 }

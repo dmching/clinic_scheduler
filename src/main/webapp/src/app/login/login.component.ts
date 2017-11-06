@@ -32,14 +32,12 @@ export class LoginComponent {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(athlete => {
                         this.currentAthlete = athlete;
-                        this.loginService.setActiveUser(athlete.user);
                     })
                     .catch(err => this.loginService.handleError(err));
             } else if (this.types.indexOf(this.userType) == this.types.indexOf("Athletic Trainer")) {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(at => {
                         this.currentAT = at;
-                        this.loginService.setActiveUser(at.user);
                     })
                     .catch(err => this.loginService.handleError(err));
             }

@@ -8,11 +8,16 @@ import {Athlete} from "../objects/athlete";
 @Injectable()
 export class LoginService {
     private userUrl : string = "http://localhost:8080/user/login";
-    public activeUser : User;
     private loggedIn : boolean;
 
+    // Either an Athlete or an Athletic Trainer
+    public activeAthlete : Athlete;
+    public activeAT : AthleticTrainer;
+    public isAthlete : boolean;
+
     constructor(private http : Http) {
-        this.activeUser = new User();
+        this.activeAthlete = new Athlete();
+        this.activeAT = new AthleticTrainer();
         this.loggedIn = false;
     }
 
@@ -27,7 +32,11 @@ export class LoginService {
             .toPromise()
             .then(response => {
                 this.loggedIn = true;
-                return response.json() as Athlete;
+                this.isAthlete = true;
+                console.log(this.activeAthlete);
+                this.activeAthlete = response.json() as Athlete;
+                console.log(this.activeAthlete);
+                return this.activeAthlete;
             })
             .catch(err => {return this.handleError(err)});
     }
@@ -43,13 +52,11 @@ export class LoginService {
             .toPromise()
             .then(response => {
                 this.loggedIn = true;
-                return response.json() as AthleticTrainer;
+                this.isAthlete = false;
+                this.activeAT = response.json() as AthleticTrainer;
+                return this.activeAT;
             })
             .catch(err => {return this.handleError(err)});
-    }
-
-    public setActiveUser(user : User) : void {
-        this.activeUser = user;
     }
 
     public isLoggedIn() : boolean {
@@ -57,7 +64,11 @@ export class LoginService {
     }
 
     public getActiveUser() : string {
-        return this.activeUser.firstName + " " + this.activeUser.lastName;
+        if (this.isAthlete) {
+            return this.activeAthlete.user.firstName + " " + this.activeAthlete.user.lastName;
+        } else {
+            return this.activeAT.user.firstName + " " + this.activeAT.user.lastName;
+        }
     }
 
     // Used to test the Connection to DB.

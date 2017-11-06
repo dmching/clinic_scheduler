@@ -3,13 +3,14 @@ import {Athlete} from "../objects/athlete";
 import {AthleticTrainer} from "../objects/athleticTrainer";
 import {Reservation} from "../objects/reservation";
 import {TimeSlot} from "../objects/timeSlot";
-import {Http} from "@angular/http";
+import {Http, RequestOptions, Headers} from "@angular/http";
+import {LoginService} from "../login/login.service";
 
 @Injectable()
 export class ScheduleService {
     private scheduleUrl : string = "http://localhost:8080/schedule";
 
-    constructor(private http : Http) {
+    constructor(private http : Http, private loginService : LoginService) {
     }
 
     public getTimes() : Promise<TimeSlot[]> {
@@ -35,8 +36,27 @@ export class ScheduleService {
     public reserve(reservation : Reservation) : Promise<boolean> {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.
+        console.log(reservation);
+        console.log(reservation.athlete.id);
+        console.log(reservation.athleticTrainer.id);
+        console.log(reservation.scheduledDate.toDateString());
 
-        return null;
+        let myHeaders = new Headers();
+        myHeaders.set("athleteID", reservation.athlete.id + "");
+        myHeaders.set("atID", reservation.athleticTrainer.id + "");
+        myHeaders.set("timeslotID", reservation.timeSlot.id + "");
+        myHeaders.set("scheduleDate", reservation.scheduledDate.toDateString());
+        let options = new RequestOptions({headers : myHeaders});
+
+        console.log(myHeaders);
+
+        return this.http.get(this.scheduleUrl + "/reservation", options)
+            .toPromise()
+            .then(response => {
+                console.log(response);
+                return response.json() as Boolean;
+            })
+            .catch(err => this.handleError(err));
     }
 
     public getReservations() : Reservation[]{

@@ -34,9 +34,7 @@ var LoginService = (function () {
             .then(function (response) {
             _this.loggedIn = true;
             _this.isAthlete = true;
-            console.log(_this.activeAthlete);
             _this.activeAthlete = response.json();
-            console.log(_this.activeAthlete);
             return _this.activeAthlete;
         })
             .catch(function (err) { return _this.handleError(err); });

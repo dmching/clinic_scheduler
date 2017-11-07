@@ -1,4 +1,4 @@
-<div class="container bordered">
+<div class="container-fluid bordered">
     <div class="row centered">
         <div class="col-md-12">
             <div class="col-md-6 right">
@@ -45,7 +45,12 @@
         </div>
     </div>
     <div class="row">
-        <table class="table table-striped">
+        <div class="right btn-sm">
+            <button (click)="refresh()">Refresh</button>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table table-striped col-md-12">
             <tr>
                 <th>Time Slot</th>
                 <th>Athlete</th>

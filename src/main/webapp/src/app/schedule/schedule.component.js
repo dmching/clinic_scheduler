@@ -75,6 +75,23 @@ var ScheduleComponent = (function () {
             }
         });
     };
+    ScheduleComponent.prototype.refresh = function () {
+        var _this = this;
+        if (this.loginService.isLoggedIn()) {
+            if (this.loginService.isAthlete) {
+                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                    .then(function (response) {
+                    _this.reservations = response;
+                });
+            }
+            else {
+                // Athletic Trainer refreshing the list.
+            }
+        }
+        else {
+            // not logged in.
+        }
+    };
     return ScheduleComponent;
 }());
 ScheduleComponent = __decorate([

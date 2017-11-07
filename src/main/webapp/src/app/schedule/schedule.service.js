@@ -39,24 +39,18 @@ var ScheduleService = (function () {
             .catch(function (err) { return _this.handleError(err); });
     };
     ScheduleService.prototype.reserve = function (reservation) {
-        var _this = this;
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.
-        console.log(reservation);
-        console.log(reservation.athlete.id);
-        console.log(reservation.athleticTrainer.id);
-        console.log(reservation.scheduledDate.toDateString());
+        var _this = this;
         var myHeaders = new http_1.Headers();
         myHeaders.set("athleteID", reservation.athlete.id + "");
         myHeaders.set("atID", reservation.athleticTrainer.id + "");
         myHeaders.set("timeslotID", reservation.timeSlot.id + "");
         myHeaders.set("scheduleDate", reservation.scheduledDate.toDateString());
         var options = new http_1.RequestOptions({ headers: myHeaders });
-        console.log(myHeaders);
         return this.http.get(this.scheduleUrl + "/reservation", options)
             .toPromise()
             .then(function (response) {
-            console.log(response);
             return response.json();
         })
             .catch(function (err) { return _this.handleError(err); });
@@ -70,8 +64,18 @@ var ScheduleService = (function () {
         return null;
     };
     ScheduleService.prototype.getAthleteHistory = function (athlete) {
+        var _this = this;
         // Returns every reservation made by an athlete, from newest to oldest.
-        return null;
+        var myHeaders = new http_1.Headers();
+        myHeaders.set("athleteID", athlete.id + "");
+        var options = new http_1.RequestOptions({ headers: myHeaders });
+        return this.http.get(this.scheduleUrl + "/reservation/me", options)
+            .toPromise()
+            .then(function (response) {
+            console.log("yes");
+            return response.json();
+        })
+            .catch(function (err) { return _this.handleError(err); });
     };
     ScheduleService.prototype.handleError = function (error) {
         console.error('Error: ', error);

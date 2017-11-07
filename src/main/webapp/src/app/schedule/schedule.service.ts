@@ -36,10 +36,6 @@ export class ScheduleService {
     public reserve(reservation : Reservation) : Promise<boolean> {
         // Reserve the time and day from the schedule screen.
         // This method is only accessable to athletes.
-        console.log(reservation);
-        console.log(reservation.athlete.id);
-        console.log(reservation.athleticTrainer.id);
-        console.log(reservation.scheduledDate.toDateString());
 
         let myHeaders = new Headers();
         myHeaders.set("athleteID", reservation.athlete.id + "");
@@ -48,12 +44,9 @@ export class ScheduleService {
         myHeaders.set("scheduleDate", reservation.scheduledDate.toDateString());
         let options = new RequestOptions({headers : myHeaders});
 
-        console.log(myHeaders);
-
         return this.http.get(this.scheduleUrl + "/reservation", options)
             .toPromise()
             .then(response => {
-                console.log(response);
                 return response.json() as Boolean;
             })
             .catch(err => this.handleError(err));
@@ -69,9 +62,18 @@ export class ScheduleService {
         return null;
     }
 
-    public getAthleteHistory(athlete : Athlete) : Reservation[] {
+    public getAthleteHistory(athlete : Athlete) : Promise<Reservation[]> {
         // Returns every reservation made by an athlete, from newest to oldest.
-        return null;
+        let myHeaders = new Headers();
+        myHeaders.set("athleteID", athlete.id + "");
+        let options = new RequestOptions({headers : myHeaders});
+        return this.http.get(this.scheduleUrl + "/reservation/me", options)
+            .toPromise()
+            .then(response => {
+                console.log("yes");
+                return response.json() as Reservation[];
+            })
+            .catch(err => this.handleError(err));
     }
 
     public handleError(error : any) : Promise<any> {

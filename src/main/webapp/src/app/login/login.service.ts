@@ -33,9 +33,7 @@ export class LoginService {
             .then(response => {
                 this.loggedIn = true;
                 this.isAthlete = true;
-                console.log(this.activeAthlete);
                 this.activeAthlete = response.json() as Athlete;
-                console.log(this.activeAthlete);
                 return this.activeAthlete;
             })
             .catch(err => {return this.handleError(err)});

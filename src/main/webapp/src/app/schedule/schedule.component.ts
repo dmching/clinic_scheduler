@@ -82,4 +82,19 @@ export class ScheduleComponent implements OnInit {
             }
         );
     }
+
+    public refresh() : void {
+        if (this.loginService.isLoggedIn()) {
+            if (this.loginService.isAthlete) {
+                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                    .then(response => {
+                        this.reservations = response;
+                    })
+            } else {
+                // Athletic Trainer refreshing the list.
+            }
+        } else {
+            // not logged in.
+        }
+    }
 }

@@ -51,6 +51,6 @@ public class ScheduleEndpoint {
         @RequestHeader(value="athleteID") String athleteID
     ) {
         ReservationConnection reservationConnection = new ReservationConnection();
-        return null;
+        return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(athleteID)), HttpStatus.OK);
     }
 }

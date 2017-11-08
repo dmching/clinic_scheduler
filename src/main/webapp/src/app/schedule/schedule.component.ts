@@ -79,13 +79,13 @@ export class ScheduleComponent implements OnInit {
         console.log("Today was modified: " + today.getDate());
         this.currentReservation.scheduledDate = (today.toDateString());
 
-        /*this.scheduleService.reserve(this.currentReservation).then(reservation => {
+        this.scheduleService.reserve(this.currentReservation).then(reservation => {
                 if (reservation) {
                     this.reservations.push(this.currentReservation);
                 } else {
                     // TODO: Error in post. Notify user.
                 }
             }
-        );*/
+        );
     }
 }

@@ -38,6 +38,7 @@ public class ScheduleEndpoint {
         @RequestHeader(value="timeslotID") String timeslotID,
         @RequestHeader(value="scheduleDate") String date
     ) {
+        // TODO: Handle if one AT is overloaded.
         ReservationConnection reservationConnection = new ReservationConnection();
         return new ResponseEntity<>(reservationConnection.postReservation(
                 Integer.parseInt(athleteID),

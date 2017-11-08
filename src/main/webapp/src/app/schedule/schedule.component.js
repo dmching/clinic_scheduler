@@ -53,6 +53,7 @@ var ScheduleComponent = (function () {
         }
     };
     ScheduleComponent.prototype.reserve = function () {
+        var _this = this;
         this.currentReservation.athlete = this.loginService.activeAthlete;
         this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
         this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
@@ -74,24 +75,24 @@ var ScheduleComponent = (function () {
         }
         console.log("Today was modified: " + today.getDate());
         this.currentReservation.scheduledDate = (today.toDateString());
-        /*this.scheduleService.reserve(this.currentReservation).then(reservation => {
-                if (reservation) {
-                    this.reservations.push(this.currentReservation);
-                } else {
-                    // TODO: Error in post. Notify user.
-                }
+        this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
+            if (reservation) {
+                _this.reservations.push(_this.currentReservation);
             }
-        );*/
+            else {
+                // TODO: Error in post. Notify user.
+            }
+        });
     };
-    ScheduleComponent = __decorate([
-        core_1.Component({
-            selector: 'schedule',
-            providers: [schedule_service_1.ScheduleService],
-            templateUrl: './schedule.component.html'
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
-    ], ScheduleComponent);
     return ScheduleComponent;
 }());
+ScheduleComponent = __decorate([
+    core_1.Component({
+        selector: 'schedule',
+        providers: [schedule_service_1.ScheduleService],
+        templateUrl: './schedule.component.html'
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
+], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

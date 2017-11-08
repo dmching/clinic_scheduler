@@ -14,9 +14,11 @@ var http_1 = require("@angular/http");
 require("rxjs/add/operator/toPromise");
 var athleticTrainer_1 = require("../objects/athleticTrainer");
 var athlete_1 = require("../objects/athlete");
+var router_1 = require("@angular/router");
 var LoginService = (function () {
-    function LoginService(http) {
+    function LoginService(http, router) {
         this.http = http;
+        this.router = router;
         this.userUrl = "http://localhost:8080/user/login";
         this.activeAthlete = new athlete_1.Athlete();
         this.activeAT = new athleticTrainer_1.AthleticTrainer();
@@ -56,6 +58,11 @@ var LoginService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
+    LoginService.prototype.logout = function () {
+        this.loggedIn = false;
+        this.isAthlete = false;
+        this.router.navigate(['/dashboard']);
+    };
     LoginService.prototype.isLoggedIn = function () {
         return this.loggedIn;
     };
@@ -85,7 +92,7 @@ var LoginService = (function () {
 }());
 LoginService = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http])
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

@@ -46,7 +46,7 @@ var ScheduleService = (function () {
         myHeaders.set("athleteID", reservation.athlete.id + "");
         myHeaders.set("atID", reservation.athleticTrainer.id + "");
         myHeaders.set("timeslotID", reservation.timeSlot.id + "");
-        myHeaders.set("scheduleDate", reservation.scheduledDate.toDateString());
+        myHeaders.set("scheduleDate", reservation.scheduledDate);
         var options = new http_1.RequestOptions({ headers: myHeaders });
         return this.http.get(this.scheduleUrl + "/reservation", options)
             .toPromise()
@@ -72,7 +72,6 @@ var ScheduleService = (function () {
         return this.http.get(this.scheduleUrl + "/reservation/me", options)
             .toPromise()
             .then(function (response) {
-            console.log("yes");
             return response.json();
         })
             .catch(function (err) { return _this.handleError(err); });

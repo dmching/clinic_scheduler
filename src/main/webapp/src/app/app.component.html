@@ -5,6 +5,7 @@
         </div>
         <div [hidden]=!loginService.isLoggedIn() class="col-md-12 right">
             <label>Welcome, {{loginService.getActiveUser()}}</label>
+            <button class="btn-sm" (click)="loginService.logout()">Logout</button>
         </div>
     </div>
     <div class="row">
@@ -13,7 +14,7 @@
                 <nav>
                     <a class="col-md-2 col-md-offset-2" routerLink="/dashboard">Dashboard</a>
                     <a class="col-md-2 col-md-offset-1" routerLink="/login">Login</a>
-                    <a class="col-md-2 col-md-offset-1" routerLink="/schedule">Schedule</a>
+                    <a [hidden]=!loginService.isLoggedIn() class="col-md-2 col-md-offset-1" routerLink="/schedule">Schedule</a>
                 </nav>
             </div>
         </div>

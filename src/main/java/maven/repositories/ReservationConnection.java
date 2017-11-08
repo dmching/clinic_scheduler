@@ -13,7 +13,7 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
     private static final String GET_MY_RESERVATIONS =
             "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
             "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
-            "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletic_trainers.id " +
+            "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletic_trainers.user_id " +
             "and classifications.id = athletic_trainers.classification_id and athletes.id=?";
 
     private Connection connection;
@@ -69,16 +69,16 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
     @Override
     public List<Reservation> getResults(ResultSet resultSet) {
         List<Reservation> reservations = new ArrayList<Reservation>();
-        User user = new User();
-        Athlete athlete = new Athlete();
-        AthleticTrainer athleticTrainer = new AthleticTrainer();
-        TimeSlot timeSlot = new TimeSlot();
 
         if (resultSet != null) {
             try {
                 Reservation currentReservation;
                 while (resultSet.next()) {
                     currentReservation = new Reservation();
+                    User user = new User();
+                    Athlete athlete = new Athlete();
+                    AthleticTrainer athleticTrainer = new AthleticTrainer();
+                    TimeSlot timeSlot = new TimeSlot();
 
                     // Receive User, Athletic Trainer, Classification, Athlete, Reservation, time_slots
 

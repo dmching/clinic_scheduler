@@ -45,21 +45,16 @@
         </div>
     </div>
     <div class="row">
-        <div class="right btn-sm">
-            <button (click)="refresh()">Refresh</button>
-        </div>
-    </div>
-    <div class="row">
         <table class="table table-striped col-md-12">
             <tr>
+                <th>Date</th>
                 <th>Time Slot</th>
-                <th>Athlete</th>
                 <th>Athletic Trainer</th>
             </tr>
             <tr *ngFor="let reservation of reservations">
-                <td>{{reservation.timeSlot.start_time}} - {{reservation.timeSlot.end_time}}</td>
-                <td>{{reservation.athlete.user.firstName}} Matthew</td>
-                <td>{{reservation.athleticTrainer.user.firstName}}</td>
+                <td>{{reservation.scheduledDate}}</td>
+                <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                <td>{{reservation.athleticTrainer.user.firstName}} {{reservation.athleticTrainer.user.lastName}}</td>
             </tr>
         </table>
     </div>

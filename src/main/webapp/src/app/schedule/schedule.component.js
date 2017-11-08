@@ -23,12 +23,6 @@ var ScheduleComponent = (function () {
         this.reservations = [];
         this.currentReservation = new reservation_1.Reservation();
         this.selectedDay = this.days[0];
-        for (var i = 0; i < 5; i++) {
-            var reservation = new reservation_1.Reservation();
-            reservation.athlete.user.firstName = "David";
-            reservation.athleticTrainer.user.firstName = "Ching";
-            this.reservations.push(reservation);
-        }
     }
     ScheduleComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -48,6 +42,15 @@ var ScheduleComponent = (function () {
             }
             _this.selectedAT = _this.atList[0];
         });
+        if (this.loginService.isAthlete) {
+            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                .then(function (response) {
+                _this.reservations = response;
+            });
+        }
+        else {
+            // Athletic Trainer viewing the list.
+        }
     };
     ScheduleComponent.prototype.reserve = function () {
         this.currentReservation.athlete = this.loginService.activeAthlete;
@@ -56,51 +59,39 @@ var ScheduleComponent = (function () {
         var today = new Date();
         var day = this.days.indexOf(this.selectedDay) + 1;
         // The list does not include Sunday, so we increment by 1 to get Monday and on.
+        console.log("Selected Day: " + day);
+        console.log("Today's Day: " + today.getDay());
+        console.log("today's date: " + today.getDate());
         if (day < today.getDay()) {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + day + 1);
+            today.setDate(7 + today.getDate() - (today.getDay() - day));
             // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
         }
         else if (day > today.getDay()) {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + day);
+            today.setDate(today.getDate() + (day - today.getDay()));
         }
         else {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + 7);
+            today.setDate(today.getDate() + 7);
         }
-        this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
-            if (reservation) {
-                console.log("Success");
+        console.log("Today was modified: " + today.getDate());
+        this.currentReservation.scheduledDate = (today.toDateString());
+        /*this.scheduleService.reserve(this.currentReservation).then(reservation => {
+                if (reservation) {
+                    this.reservations.push(this.currentReservation);
+                } else {
+                    // TODO: Error in post. Notify user.
+                }
             }
-            else {
-                // TODO: Error in post. Notify user.
-            }
-        });
+        );*/
     };
-    ScheduleComponent.prototype.refresh = function () {
-        var _this = this;
-        if (this.loginService.isLoggedIn()) {
-            if (this.loginService.isAthlete) {
-                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                    .then(function (response) {
-                    _this.reservations = response;
-                });
-            }
-            else {
-                // Athletic Trainer refreshing the list.
-            }
-        }
-        else {
-            // not logged in.
-        }
-    };
+    ScheduleComponent = __decorate([
+        core_1.Component({
+            selector: 'schedule',
+            providers: [schedule_service_1.ScheduleService],
+            templateUrl: './schedule.component.html'
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
+    ], ScheduleComponent);
     return ScheduleComponent;
 }());
-ScheduleComponent = __decorate([
-    core_1.Component({
-        selector: 'schedule',
-        providers: [schedule_service_1.ScheduleService],
-        templateUrl: './schedule.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
-], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

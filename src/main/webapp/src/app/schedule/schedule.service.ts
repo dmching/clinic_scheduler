@@ -41,7 +41,7 @@ export class ScheduleService {
         myHeaders.set("athleteID", reservation.athlete.id + "");
         myHeaders.set("atID", reservation.athleticTrainer.id + "");
         myHeaders.set("timeslotID", reservation.timeSlot.id + "");
-        myHeaders.set("scheduleDate", reservation.scheduledDate.toDateString());
+        myHeaders.set("scheduleDate", reservation.scheduledDate);
         let options = new RequestOptions({headers : myHeaders});
 
         return this.http.get(this.scheduleUrl + "/reservation", options)
@@ -70,7 +70,6 @@ export class ScheduleService {
         return this.http.get(this.scheduleUrl + "/reservation/me", options)
             .toPromise()
             .then(response => {
-                console.log("yes");
                 return response.json() as Reservation[];
             })
             .catch(err => this.handleError(err));

@@ -4,6 +4,7 @@ import {Http, RequestOptions, Headers} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import {AthleticTrainer} from "../objects/athleticTrainer";
 import {Athlete} from "../objects/athlete";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class LoginService {
@@ -15,7 +16,7 @@ export class LoginService {
     public activeAT : AthleticTrainer;
     public isAthlete : boolean;
 
-    constructor(private http : Http) {
+    constructor(private http : Http, private router : Router) {
         this.activeAthlete = new Athlete();
         this.activeAT = new AthleticTrainer();
         this.loggedIn = false;
@@ -55,6 +56,12 @@ export class LoginService {
                 return this.activeAT;
             })
             .catch(err => {return this.handleError(err)});
+    }
+
+    public logout() : void {
+        this.loggedIn = false;
+        this.isAthlete = false;
+        this.router.navigate(['/dashboard']);
     }
 
     public isLoggedIn() : boolean {

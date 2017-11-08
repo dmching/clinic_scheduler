@@ -29,14 +29,6 @@ export class ScheduleComponent implements OnInit {
         this.reservations = [];
         this.currentReservation = new Reservation();
         this.selectedDay = this.days[0];
-
-        for(var i = 0; i < 5; i++) {
-            var reservation : Reservation = new Reservation();
-
-            reservation.athlete.user.firstName = "David";
-            reservation.athleticTrainer.user.firstName = "Ching";
-            this.reservations.push(reservation);
-        }
     }
 
     ngOnInit() {
@@ -54,6 +46,15 @@ export class ScheduleComponent implements OnInit {
             }
             this.selectedAT = this.atList[0];
         });
+
+        if (this.loginService.isAthlete) {
+            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                .then(response => {
+                    this.reservations = response;
+                })
+        } else {
+            // Athletic Trainer viewing the list.
+        }
     }
 
     public reserve() : void {
@@ -64,37 +65,27 @@ export class ScheduleComponent implements OnInit {
         let today: Date = new Date();
         let day: number = this.days.indexOf(this.selectedDay) + 1;
         // The list does not include Sunday, so we increment by 1 to get Monday and on.
+        console.log("Selected Day: " + day);
+        console.log("Today's Day: " + today.getDay());
+        console.log("today's date: " + today.getDate());
         if (day < today.getDay()) {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + day + 1);
+            today.setDate(7 + today.getDate() - (today.getDay() - day));
             // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
         } else if (day > today.getDay()) {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + day);
+            today.setDate(today.getDate() + (day - today.getDay()));
         } else {
-            this.currentReservation.scheduledDate.setDate(today.getDate() + 7);
+            today.setDate(today.getDate() + 7);
         }
+        console.log("Today was modified: " + today.getDate());
+        this.currentReservation.scheduledDate = (today.toDateString());
 
-        this.scheduleService.reserve(this.currentReservation).then(reservation => {
+        /*this.scheduleService.reserve(this.currentReservation).then(reservation => {
                 if (reservation) {
-                    console.log("Success");
+                    this.reservations.push(this.currentReservation);
                 } else {
                     // TODO: Error in post. Notify user.
                 }
             }
-        );
-    }
-
-    public refresh() : void {
-        if (this.loginService.isLoggedIn()) {
-            if (this.loginService.isAthlete) {
-                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                    .then(response => {
-                        this.reservations = response;
-                    })
-            } else {
-                // Athletic Trainer refreshing the list.
-            }
-        } else {
-            // not logged in.
-        }
+        );*/
     }
 }

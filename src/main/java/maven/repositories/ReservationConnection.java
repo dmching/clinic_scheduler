@@ -135,10 +135,6 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
             }
         }
 
-        if (reservations.isEmpty())
-            return null;
-        else
-            // This should never return more than one row.
-            return reservations;
+        return reservations;
     }
 }

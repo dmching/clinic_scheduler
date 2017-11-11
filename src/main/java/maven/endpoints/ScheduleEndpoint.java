@@ -52,7 +52,9 @@ public class ScheduleEndpoint {
         @RequestHeader(value="athleteID") String athleteID
     ) {
         ReservationConnection reservationConnection = new ReservationConnection();
-        return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(athleteID), true), HttpStatus.OK);
+        List<Reservation> reservations = reservationConnection.getReservations(Integer.parseInt(athleteID), true);
+
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
     @RequestMapping("schedule/reservation/at")

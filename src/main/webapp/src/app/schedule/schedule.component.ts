@@ -73,9 +73,6 @@ export class ScheduleComponent implements OnInit {
         let today: Date = new Date();
         let day: number = this.days.indexOf(this.selectedDay) + 1;
         // The list does not include Sunday, so we increment by 1 to get Monday and on.
-        console.log("Selected Day: " + day);
-        console.log("Today's Day: " + today.getDay());
-        console.log("today's date: " + today.getDate());
         if (day < today.getDay()) {
             today.setDate(7 + today.getDate() - (today.getDay() - day));
             // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.

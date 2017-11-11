@@ -30,20 +30,32 @@ var LoginComponent = (function () {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(function (athlete) {
-                    _this.currentAthlete = athlete;
-                })
-                    .catch(function (err) { return _this.loginService.handleError(err); });
+                    if (athlete) {
+                        _this.currentAthlete = athlete;
+                    }
+                    else {
+                        // Invalid Login. Show Alert.
+                    }
+                    _this.username = "";
+                    _this.password = "";
+                });
             }
             else if (this.types.indexOf(this.userType) == this.types.indexOf("Athletic Trainer")) {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(function (at) {
-                    _this.currentAT = at;
-                })
-                    .catch(function (err) { return _this.loginService.handleError(err); });
+                    if (at) {
+                        _this.currentAT = at;
+                    }
+                    else {
+                        // Invalid Login. Show Alert.
+                    }
+                    _this.username = "";
+                    _this.password = "";
+                });
             }
         }
         else {
-            // TODO: Use bootstrap to show an alert to the user.
+            // Invalid Input.
         }
     };
     return LoginComponent;

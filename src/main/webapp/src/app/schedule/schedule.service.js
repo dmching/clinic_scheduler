@@ -60,8 +60,17 @@ var ScheduleService = (function () {
         return null;
     };
     ScheduleService.prototype.getAthleticTrainerWork = function (athleticTrainer) {
+        var _this = this;
         // Return all reservations that connect to a specific athletic trainer.
-        return null;
+        var myHeaders = new http_1.Headers();
+        myHeaders.set("atID", athleticTrainer.id + "");
+        var options = new http_1.RequestOptions({ headers: myHeaders });
+        return this.http.get(this.scheduleUrl + "/reservation/at", options)
+            .toPromise()
+            .then(function (response) {
+            return response.json();
+        })
+            .catch(function (err) { return _this.handleError(err); });
     };
     ScheduleService.prototype.getAthleteHistory = function (athlete) {
         var _this = this;
@@ -69,7 +78,7 @@ var ScheduleService = (function () {
         var myHeaders = new http_1.Headers();
         myHeaders.set("athleteID", athlete.id + "");
         var options = new http_1.RequestOptions({ headers: myHeaders });
-        return this.http.get(this.scheduleUrl + "/reservation/me", options)
+        return this.http.get(this.scheduleUrl + "/reservation/athlete", options)
             .toPromise()
             .then(function (response) {
             return response.json();

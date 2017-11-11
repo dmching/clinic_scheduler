@@ -31,18 +31,29 @@ export class LoginComponent {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(athlete => {
-                        this.currentAthlete = athlete;
+                        if (athlete) {
+                            this.currentAthlete = athlete;
+                        } else {
+                            // Invalid Login. Show Alert.
+                        }
+                        this.username = "";
+                        this.password = "";
                     })
-                    .catch(err => this.loginService.handleError(err));
             } else if (this.types.indexOf(this.userType) == this.types.indexOf("Athletic Trainer")) {
                 this.loginService.athleticTrainerLogin(this.username, this.password)
                     .then(at => {
-                        this.currentAT = at;
+                        if (at) {
+                            this.currentAT = at;
+                        }
+                        else {
+                            // Invalid Login. Show Alert.
+                        }
+                        this.username = "";
+                        this.password = "";
                     })
-                    .catch(err => this.loginService.handleError(err));
             }
         } else {
-            // TODO: Use bootstrap to show an alert to the user.
+            // Invalid Input.
         }
     }
 }

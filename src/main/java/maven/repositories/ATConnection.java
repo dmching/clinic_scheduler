@@ -76,10 +76,6 @@ public class ATConnection implements RepositoryConnection<AthleticTrainer> {
             }
         }
 
-        if (athleticTrainers.isEmpty())
-            return null;
-        else
-            // This should never return more than one row.
-            return athleticTrainers;
+        return athleticTrainers;
     }
 }

@@ -58,11 +58,7 @@ public class TimeSlotConnection implements RepositoryConnection<TimeSlot> {
             }
         }
 
-        // If the conversion is called without hitting the DB, there should be no result set.
-        if (timeSlots.isEmpty())
-            return null;
-        else
-            // This should never return more than one row.
-            return timeSlots;
+
+        return timeSlots;
     }
 }

@@ -32,10 +32,18 @@ export class LoginService {
         return this.http.get(url, options)
             .toPromise()
             .then(response => {
-                this.loggedIn = true;
-                this.isAthlete = true;
+                console.log(response);
                 this.activeAthlete = response.json() as Athlete;
-                return this.activeAthlete;
+                if (this.activeAthlete.id > 0) {
+                    this.loggedIn = true;
+                    this.isAthlete = true;
+                    return this.activeAthlete;
+                } else {
+                    // Invalid Login.
+                    this.loggedIn = false;
+                    this.isAthlete = false;
+                    return null;
+                }
             })
             .catch(err => {return this.handleError(err)});
     }
@@ -50,10 +58,15 @@ export class LoginService {
         return this.http.get(url, options)
             .toPromise()
             .then(response => {
-                this.loggedIn = true;
-                this.isAthlete = false;
                 this.activeAT = response.json() as AthleticTrainer;
-                return this.activeAT;
+                this.isAthlete = false;
+                if (this.activeAT.id > 0) {
+                    this.loggedIn = true;
+                    return this.activeAT;
+                } else {
+                    this.loggedIn = false;
+                    return null;
+                }
             })
             .catch(err => {return this.handleError(err)});
     }

@@ -10,11 +10,16 @@ import java.util.List;
 public class ReservationConnection implements RepositoryConnection<Reservation> {
 
     private static final String POST_RESERVATION = "INSERT INTO tlu_clinic_db.reservations (athlete_id, at_id, time_slot_id, schedule_date) VALUES (?, ?, ?, ?)";
-    private static final String GET_MY_RESERVATIONS =
+    private static final String GET_ATHLETE_RESERVATIONS =
             "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
             "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
             "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletic_trainers.user_id " +
             "and classifications.id = athletic_trainers.classification_id and athletes.id=?";
+    private static final String GET_AT_RESERVATIONS =
+            "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
+            "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
+            "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletes.user_id " +
+            "and classifications.id = athletic_trainers.classification_id and athletic_trainers.id=?";
 
     private Connection connection;
     private ResultSet resultSet;
@@ -54,10 +59,17 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
         return result;
     }
 
-    public List<Reservation> getReservations(int athleteID) {
+    // Gets the reservations for either an athelte or an athletic trainer.
+    public List<Reservation> getReservations(int id, boolean isAthlete) {
         try {
-            PreparedStatement preparedStatement = this.connection.prepareStatement(GET_MY_RESERVATIONS);
-            preparedStatement.setInt(1, athleteID);
+            String sql;
+            if (isAthlete)
+                sql = GET_ATHLETE_RESERVATIONS;
+            else
+                sql = GET_AT_RESERVATIONS;
+
+            PreparedStatement preparedStatement = this.connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
             this.resultSet = preparedStatement.executeQuery();
             return this.getResults(this.resultSet);
         } catch (SQLException e) {

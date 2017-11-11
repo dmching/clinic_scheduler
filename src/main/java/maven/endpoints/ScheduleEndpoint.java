@@ -47,11 +47,19 @@ public class ScheduleEndpoint {
                 date), HttpStatus.OK);
     }
 
-    @RequestMapping("schedule/reservation/me")
-    public ResponseEntity<List<Reservation>> getMyReservations(
+    @RequestMapping("schedule/reservation/athlete")
+    public ResponseEntity<List<Reservation>> getAthleteReservations(
         @RequestHeader(value="athleteID") String athleteID
     ) {
         ReservationConnection reservationConnection = new ReservationConnection();
-        return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(athleteID)), HttpStatus.OK);
+        return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(athleteID), true), HttpStatus.OK);
+    }
+
+    @RequestMapping("schedule/reservation/at")
+    public ResponseEntity<List<Reservation>> getATReservations(
+            @RequestHeader(value="atID") String atID
+    ) {
+        ReservationConnection reservationConnection = new ReservationConnection();
+        return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(atID), false), HttpStatus.OK);
     }
 }

@@ -57,9 +57,17 @@ export class ScheduleService {
         return null;
     }
 
-    public getAthleticTrainerWork(athleticTrainer : AthleticTrainer) : Reservation[] {
+    public getAthleticTrainerWork(athleticTrainer : AthleticTrainer) : Promise<Reservation[]> {
         // Return all reservations that connect to a specific athletic trainer.
-        return null;
+        let myHeaders = new Headers();
+        myHeaders.set("atID", athleticTrainer.id + "");
+        let options = new RequestOptions({headers : myHeaders});
+        return this.http.get(this.scheduleUrl + "/reservation/at", options)
+            .toPromise()
+            .then(response => {
+                return response.json() as Reservation[];
+            })
+            .catch(err => this.handleError(err));
     }
 
     public getAthleteHistory(athlete : Athlete) : Promise<Reservation[]> {
@@ -67,7 +75,7 @@ export class ScheduleService {
         let myHeaders = new Headers();
         myHeaders.set("athleteID", athlete.id + "");
         let options = new RequestOptions({headers : myHeaders});
-        return this.http.get(this.scheduleUrl + "/reservation/me", options)
+        return this.http.get(this.scheduleUrl + "/reservation/athlete", options)
             .toPromise()
             .then(response => {
                 return response.json() as Reservation[];

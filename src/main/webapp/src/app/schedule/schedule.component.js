@@ -26,30 +26,37 @@ var ScheduleComponent = (function () {
     }
     ScheduleComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.scheduleService.getTimes().then(function (response) {
-            _this.times = response;
-            for (var _i = 0, _a = _this.times; _i < _a.length; _i++) {
-                var time = _a[_i];
-                _this.timesList.push(time.startTime + " - " + time.endTime);
-            }
-            _this.selectedTimeSlot = _this.timesList[0];
-        });
-        this.scheduleService.getATs().then(function (response) {
-            _this.athleticTrainers = response;
-            for (var _i = 0, _a = _this.athleticTrainers; _i < _a.length; _i++) {
-                var at = _a[_i];
-                _this.atList.push(at.user.firstName + " " + at.user.lastName + " - " + at.classification);
-            }
-            _this.selectedAT = _this.atList[0];
-        });
-        if (this.loginService.isAthlete) {
-            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                .then(function (response) {
-                _this.reservations = response;
+        if (this.loginService.isLoggedIn()) {
+            this.scheduleService.getTimes().then(function (response) {
+                _this.times = response;
+                for (var _i = 0, _a = _this.times; _i < _a.length; _i++) {
+                    var time = _a[_i];
+                    _this.timesList.push(time.startTime + " - " + time.endTime);
+                }
+                _this.selectedTimeSlot = _this.timesList[0];
             });
-        }
-        else {
-            // Athletic Trainer viewing the list.
+            this.scheduleService.getATs().then(function (response) {
+                _this.athleticTrainers = response;
+                for (var _i = 0, _a = _this.athleticTrainers; _i < _a.length; _i++) {
+                    var at = _a[_i];
+                    _this.atList.push(at.user.firstName + " " + at.user.lastName + " - " + at.classification);
+                }
+                _this.selectedAT = _this.atList[0];
+            });
+            if (this.loginService.isAthlete) {
+                // Athlete viewing the schedule.
+                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                    .then(function (response) {
+                    _this.reservations = response;
+                });
+            }
+            else {
+                // Athletic Trainer viewing the list.
+                this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
+                    .then(function (response) {
+                    _this.reservations = response;
+                });
+            }
         }
     };
     ScheduleComponent.prototype.reserve = function () {

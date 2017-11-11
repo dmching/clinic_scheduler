@@ -32,28 +32,36 @@ export class ScheduleComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.scheduleService.getTimes().then(response => {
-            this.times = response;
-            for (let time of this.times) {
-                this.timesList.push(time.startTime + " - " + time.endTime);
-            }
-            this.selectedTimeSlot = this.timesList[0];
-        });
-        this.scheduleService.getATs().then(response => {
-            this.athleticTrainers = response;
-            for (let at of this.athleticTrainers) {
-                this.atList.push(at.user.firstName + " " + at.user.lastName + " - " + at.classification);
-            }
-            this.selectedAT = this.atList[0];
-        });
+        if (this.loginService.isLoggedIn()) {
+            this.scheduleService.getTimes().then(response => {
+                this.times = response;
+                for (let time of this.times) {
+                    this.timesList.push(time.startTime + " - " + time.endTime);
+                }
+                this.selectedTimeSlot = this.timesList[0];
+            });
 
-        if (this.loginService.isAthlete) {
-            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                .then(response => {
-                    this.reservations = response;
-                })
-        } else {
-            // Athletic Trainer viewing the list.
+            this.scheduleService.getATs().then(response => {
+                this.athleticTrainers = response;
+                for (let at of this.athleticTrainers) {
+                    this.atList.push(at.user.firstName + " " + at.user.lastName + " - " + at.classification);
+                }
+                this.selectedAT = this.atList[0];
+            });
+
+            if (this.loginService.isAthlete) {
+                // Athlete viewing the schedule.
+                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                    .then(response => {
+                        this.reservations = response;
+                    });
+            } else {
+                // Athletic Trainer viewing the list.
+                this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
+                    .then(response => {
+                        this.reservations = response;
+                    });
+            }
         }
     }
 

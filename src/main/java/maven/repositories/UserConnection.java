@@ -75,10 +75,6 @@ public class UserConnection implements RepositoryConnection<User> {
             }
         }
 
-        if (users.isEmpty())
-            return null;
-        else
-            // This should never return more than one row.
-            return users;
+        return users;
     }
 }

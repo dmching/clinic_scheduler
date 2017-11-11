@@ -1,6 +1,7 @@
 package maven.repositories;
 
 import maven.objects.Athlete;
+import maven.objects.AthleticTrainer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -34,8 +35,11 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-        return this.getResults(this.resultSet).get(0);
+        List<Athlete> temp = this.getResults(this.resultSet);
+        if (temp.isEmpty())
+            return new Athlete();
+        else
+            return temp.get(0);
     }
 
     @Override
@@ -68,10 +72,6 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
             }
         }
 
-        if (athletes.isEmpty())
-            return null;
-        else
-            // This should never return more than one row.
-            return athletes;
+        return athletes;
     }
 }

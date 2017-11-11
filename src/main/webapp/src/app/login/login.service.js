@@ -34,10 +34,19 @@ var LoginService = (function () {
         return this.http.get(url, options)
             .toPromise()
             .then(function (response) {
-            _this.loggedIn = true;
-            _this.isAthlete = true;
+            console.log(response);
             _this.activeAthlete = response.json();
-            return _this.activeAthlete;
+            if (_this.activeAthlete.id > 0) {
+                _this.loggedIn = true;
+                _this.isAthlete = true;
+                return _this.activeAthlete;
+            }
+            else {
+                // Invalid Login.
+                _this.loggedIn = false;
+                _this.isAthlete = false;
+                return null;
+            }
         })
             .catch(function (err) { return _this.handleError(err); });
     };
@@ -51,10 +60,16 @@ var LoginService = (function () {
         return this.http.get(url, options)
             .toPromise()
             .then(function (response) {
-            _this.loggedIn = true;
-            _this.isAthlete = false;
             _this.activeAT = response.json();
-            return _this.activeAT;
+            _this.isAthlete = false;
+            if (_this.activeAT.id > 0) {
+                _this.loggedIn = true;
+                return _this.activeAT;
+            }
+            else {
+                _this.loggedIn = false;
+                return null;
+            }
         })
             .catch(function (err) { return _this.handleError(err); });
     };

@@ -27,7 +27,11 @@ public class UserEndpoint {
             @RequestHeader(value="username") String username,
             @RequestHeader(value="password") String password) {
         AthleteConnection athleteConnection = new AthleteConnection();
-        return new ResponseEntity<Athlete>(athleteConnection.getAthlete(username, password), HttpStatus.OK);
+        Athlete athlete = athleteConnection.getAthlete(username, password);
+        if (athlete != null)
+            return new ResponseEntity<Athlete>(athleteConnection.getAthlete(username, password), HttpStatus.OK);
+        else
+            return new ResponseEntity<Athlete>(new Athlete(), HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping("/user/login/at")

@@ -13,9 +13,11 @@ var core_1 = require("@angular/core");
 var login_service_1 = require("./login.service");
 var athlete_1 = require("../objects/athlete");
 var athleticTrainer_1 = require("../objects/athleticTrainer");
+var message_service_1 = require("../message/message.service");
 var LoginComponent = (function () {
-    function LoginComponent(loginService) {
+    function LoginComponent(loginService, messageService) {
         this.loginService = loginService;
+        this.messageService = messageService;
         this.types = ["Athlete", "Athletic Trainer"];
         this.username = "";
         this.password = "";
@@ -32,9 +34,16 @@ var LoginComponent = (function () {
                     .then(function (athlete) {
                     if (athlete) {
                         _this.currentAthlete = athlete;
+                        _this.messageService.successMsg.heading = "Success!";
+                        _this.messageService.successMsg.body = "You have successfully logged in, " +
+                            "select the schedule tab to view your appointment history.";
+                        _this.messageService.successMsg.display = true;
                     }
                     else {
                         // Invalid Login. Show Alert.
+                        _this.messageService.errorMsg.heading = "Failed to login";
+                        _this.messageService.errorMsg.body = "A user with those credentials does not exist. Please try again.";
+                        _this.messageService.errorMsg.display = true;
                     }
                     _this.username = "";
                     _this.password = "";
@@ -56,6 +65,9 @@ var LoginComponent = (function () {
         }
         else {
             // Invalid Input.
+            this.messageService.errorMsg.heading = "Failed to login";
+            this.messageService.errorMsg.body = "Invalid login credentials. Please try again.";
+            this.messageService.errorMsg.display = true;
         }
     };
     return LoginComponent;
@@ -65,7 +77,7 @@ LoginComponent = __decorate([
         selector: 'login',
         templateUrl: './login.component.html',
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

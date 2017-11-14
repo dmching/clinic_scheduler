@@ -11,9 +11,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var login_service_1 = require("./login/login.service");
+var message_service_1 = require("./message/message.service");
 var AppComponent = (function () {
-    function AppComponent(loginService) {
+    function AppComponent(loginService, messageService) {
         this.loginService = loginService;
+        this.messageService = messageService;
     }
     return AppComponent;
 }());
@@ -22,7 +24,7 @@ AppComponent = __decorate([
         selector: 'my-app',
         templateUrl: "./app.component.html"
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
 ], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

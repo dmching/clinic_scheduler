@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {LoginService} from "./login/login.service";
+import {MessageService} from "./message/message.service";
 
 @Component({
   selector: 'my-app',
@@ -7,7 +8,6 @@ import {LoginService} from "./login/login.service";
 })
 export class AppComponent {
 
-  constructor(public loginService : LoginService) {
-
+  constructor(public loginService : LoginService, public messageService : MessageService) {
   }
 }

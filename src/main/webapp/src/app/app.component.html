@@ -12,10 +12,27 @@
         <div class="row">
             <div class="col-md-12 centered">
                 <nav>
-                    <a class="col-md-2 col-md-offset-2" routerLink="/dashboard">Dashboard</a>
-                    <a class="col-md-2 col-md-offset-1" routerLink="/login">Login</a>
-                    <a [hidden]=!loginService.isLoggedIn() class="col-md-2 col-md-offset-1" routerLink="/schedule">Schedule</a>
+                    <a class="col-md-2 col-md-offset-2" routerLink="/dashboard" (click)="messageService.clearMessages()">Dashboard</a>
+                    <a class="col-md-2 col-md-offset-1" routerLink="/login"(click)="messageService.clearMessages()">Login</a>
+                    <a [hidden]=!loginService.isLoggedIn() class="col-md-2 col-md-offset-1" routerLink="/schedule"(click)="messageService.clearMessages()">Schedule</a>
                 </nav>
+            </div>
+        </div>
+        <div>
+            <div [hidden]=!messageService.successMsg.display class="alert alert-success alert-dismissible" role="alert"
+                 (click)="messageService.toggle('success')" >
+                <h4 class="alert-heading">{{messageService.successMsg.heading}}</h4>
+                <p>{{messageService.successMsg.body}}</p>
+            </div>
+            <div [hidden]=!messageService.cautionMsg.display class="alert alert-warning alert-dismissible" role="alert"
+                 (click)="messageService.toggle('caution')" >
+                <h4 class="alert-heading">{{messageService.cautionMsg.heading}}</h4>
+                <p>{{messageService.cautionMsg.body}}</p>
+            </div>
+            <div [hidden]=!messageService.errorMsg.display class="alert alert-danger alert-dismissible" role="alert"
+                 (click)="messageService.toggle('error')" >
+                <h4 class="alert-heading">{{messageService.errorMsg.heading}}</h4>
+                <p>{{messageService.errorMsg.body}}</p>
             </div>
         </div>
         <div class="row">

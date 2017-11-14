@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {LoginService} from "./login.service";
 import {Athlete} from "../objects/athlete";
 import {AthleticTrainer} from "../objects/athleticTrainer";
+import {MessageService} from "../message/message.service";
 
 @Component({
     selector: 'login',
@@ -16,7 +17,7 @@ export class LoginComponent {
 
     types : string[] = ["Athlete", "Athletic Trainer"];
 
-    constructor(private loginService : LoginService) {
+    constructor(private loginService : LoginService, private messageService : MessageService) {
         this.username = "";
         this.password = "";
         this.currentAT = new AthleticTrainer();
@@ -33,8 +34,15 @@ export class LoginComponent {
                     .then(athlete => {
                         if (athlete) {
                             this.currentAthlete = athlete;
+                            this.messageService.successMsg.heading = "Success!";
+                            this.messageService.successMsg.body = "You have successfully logged in, " +
+                                "select the schedule tab to view your appointment history.";
+                            this.messageService.successMsg.display = true;
                         } else {
                             // Invalid Login. Show Alert.
+                            this.messageService.errorMsg.heading = "Failed to login";
+                            this.messageService.errorMsg.body = "A user with those credentials does not exist. Please try again.";
+                            this.messageService.errorMsg.display = true;
                         }
                         this.username = "";
                         this.password = "";
@@ -54,6 +62,9 @@ export class LoginComponent {
             }
         } else {
             // Invalid Input.
+            this.messageService.errorMsg.heading = "Failed to login";
+            this.messageService.errorMsg.body = "Invalid login credentials. Please try again.";
+            this.messageService.errorMsg.display = true;
         }
     }
 }

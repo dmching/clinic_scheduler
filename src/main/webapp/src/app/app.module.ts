@@ -10,11 +10,12 @@ import {HttpModule} from "@angular/http";
 import {LoginService} from "./login/login.service";
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ScheduleService} from "./schedule/schedule.service";
+import {MessageService} from "./message/message.service";
 
 @NgModule({
   imports:      [ BrowserModule, AppRoutingModule, FormsModule, HttpModule, NgbModule.forRoot() ],
   declarations: [ AppComponent, DashboardComponent, LoginComponent, ScheduleComponent ],
-  providers:    [ LoginService, ScheduleService ],
+  providers:    [ LoginService, ScheduleService, MessageService ],
   bootstrap:    [ AppComponent ]
 })
 export class AppModule {

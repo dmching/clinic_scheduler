@@ -20,6 +20,7 @@ var LoginService = (function () {
         this.http = http;
         this.router = router;
         this.userUrl = "http://localhost:8080/user/login";
+        this.currentDate = new Date();
         this.activeAthlete = new athlete_1.Athlete();
         this.activeAT = new athleticTrainer_1.AthleticTrainer();
         this.loggedIn = false;
@@ -103,11 +104,11 @@ var LoginService = (function () {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     };
+    LoginService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Http, router_1.Router])
+    ], LoginService);
     return LoginService;
 }());
-LoginService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
-], LoginService);
 exports.LoginService = LoginService;
 //# sourceMappingURL=login.service.js.map

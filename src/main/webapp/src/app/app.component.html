@@ -3,9 +3,14 @@
         <div class="col-md-12 centered">
             <h1>Texas Lutheran Athletic Training Clinic Scheduler</h1>
         </div>
-        <div [hidden]=!loginService.isLoggedIn() class="col-md-12 right">
-            <label>Welcome, {{loginService.getActiveUser()}}</label>
-            <button class="btn-sm" (click)="loginService.logout()">Logout</button>
+        <div [hidden]=!loginService.isLoggedIn() class="row right">
+            <div class="row">
+                <label>Welcome, {{loginService.getActiveUser()}}</label>
+                <button class="btn-sm" (click)="loginService.logout()">Logout</button>
+            </div>
+            <div>
+                <label>Today is: {{loginService.currentDate.toDateString()}}</label>
+            </div>
         </div>
     </div>
     <div class="row">

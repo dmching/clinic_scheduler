@@ -11,6 +11,8 @@ export class LoginService {
     private userUrl : string = "http://localhost:8080/user/login";
     private loggedIn : boolean;
 
+    public currentDate : Date = new Date();
+
     // Either an Athlete or an Athletic Trainer
     public activeAthlete : Athlete;
     public activeAT : AthleticTrainer;

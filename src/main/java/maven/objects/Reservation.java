@@ -1,6 +1,6 @@
 package maven.objects;
 
-public class Reservation {
+public class Reservation{
     private int id;
     private Athlete athlete;
     private AthleticTrainer athleticTrainer;

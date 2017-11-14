@@ -13,10 +13,12 @@ var core_1 = require("@angular/core");
 var reservation_1 = require("../objects/reservation");
 var login_service_1 = require("../login/login.service");
 var schedule_service_1 = require("./schedule.service");
+var message_service_1 = require("../message/message.service");
 var ScheduleComponent = (function () {
-    function ScheduleComponent(loginService, scheduleService) {
+    function ScheduleComponent(loginService, scheduleService, messageService) {
         this.loginService = loginService;
         this.scheduleService = scheduleService;
+        this.messageService = messageService;
         this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         this.timesList = [];
         this.atList = [];
@@ -48,6 +50,12 @@ var ScheduleComponent = (function () {
                 this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
                     .then(function (response) {
                     _this.reservations = response;
+                    if (_this.reservations[0].id == -1) {
+                        // No rows in the DB.
+                        _this.messageService.cautionMsg.display = true;
+                        _this.messageService.cautionMsg.heading = "No Results Found";
+                        _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                    }
                 });
             }
             else {
@@ -55,6 +63,12 @@ var ScheduleComponent = (function () {
                 this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
                     .then(function (response) {
                     _this.reservations = response;
+                    if (_this.reservations[0].id == -1) {
+                        // No rows in the DB.
+                        _this.messageService.cautionMsg.display = true;
+                        _this.messageService.cautionMsg.heading = "No Results Found";
+                        _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                    }
                 });
             }
         }
@@ -85,6 +99,10 @@ var ScheduleComponent = (function () {
             }
             else {
                 // TODO: Error in post. Notify user.
+                _this.messageService.errorMsg.display = true;
+                _this.messageService.errorMsg.heading = "Failed to Reserve:";
+                _this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
+                    "Please choose another day, or preferred Athletic Trainer, and try again.";
             }
         });
     };
@@ -96,7 +114,8 @@ ScheduleComponent = __decorate([
         providers: [schedule_service_1.ScheduleService],
         templateUrl: './schedule.component.html'
     }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService])
+    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
+        message_service_1.MessageService])
 ], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

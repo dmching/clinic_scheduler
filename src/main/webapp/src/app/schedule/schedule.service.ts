@@ -78,7 +78,6 @@ export class ScheduleService {
         return this.http.get(this.scheduleUrl + "/reservation/athlete", options)
             .toPromise()
             .then(response => {
-                console.log(response);
                 return response.json() as Reservation[];
             })
             .catch(err => this.handleError(err));

@@ -14,12 +14,12 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
             "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
             "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
             "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletic_trainers.user_id " +
-            "and classifications.id = athletic_trainers.classification_id and athletes.id=?";
+            "and classifications.id = athletic_trainers.classification_id and athletes.id=? ORDER BY reservations.schedule_date";
     private static final String GET_AT_RESERVATIONS =
             "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
             "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
             "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletes.user_id " +
-            "and classifications.id = athletic_trainers.classification_id and athletic_trainers.id=?";
+            "and classifications.id = athletic_trainers.classification_id and athletic_trainers.id=? ORDER BY reservations.schedule_date";
 
     private Connection connection;
     private ResultSet resultSet;
@@ -48,7 +48,7 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
 
             preparedStatement.executeUpdate();
             result = true;
-        } catch (MySQLIntegrityConstraintViolationException e) {
+        } catch (SQLIntegrityConstraintViolationException duplicate) {
             // Attempting to create a reservation by the same athlete with the same athletic trainer
             // in the same time slot on the same day.
             result = false;

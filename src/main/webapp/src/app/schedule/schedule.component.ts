@@ -4,6 +4,7 @@ import {TimeSlot} from "../objects/timeSlot";
 import {LoginService} from "../login/login.service";
 import {ScheduleService} from "./schedule.service";
 import {AthleticTrainer} from "../objects/athleticTrainer";
+import {MessageService} from "../message/message.service";
 
 @Component({
     selector: 'schedule',
@@ -25,7 +26,8 @@ export class ScheduleComponent implements OnInit {
     private timesList : string[] = [];
     private atList : string[] = [];
 
-    constructor(private loginService : LoginService, private scheduleService : ScheduleService) {
+    constructor(private loginService : LoginService, private scheduleService : ScheduleService,
+                private messageService : MessageService) {
         this.reservations = [];
         this.currentReservation = new Reservation();
         this.selectedDay = this.days[0];
@@ -54,12 +56,24 @@ export class ScheduleComponent implements OnInit {
                 this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
                     .then(response => {
                         this.reservations = response;
+                        if (this.reservations[0].id == -1) {
+                            // No rows in the DB.
+                            this.messageService.cautionMsg.display = true;
+                            this.messageService.cautionMsg.heading = "No Results Found";
+                            this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                        }
                     });
             } else {
                 // Athletic Trainer viewing the list.
                 this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
                     .then(response => {
                         this.reservations = response;
+                        if (this.reservations[0].id == -1) {
+                            // No rows in the DB.
+                            this.messageService.cautionMsg.display = true;
+                            this.messageService.cautionMsg.heading = "No Results Found";
+                            this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                        }
                     });
             }
         }
@@ -89,6 +103,10 @@ export class ScheduleComponent implements OnInit {
                     this.reservations.push(this.currentReservation);
                 } else {
                     // TODO: Error in post. Notify user.
+                    this.messageService.errorMsg.display = true;
+                    this.messageService.errorMsg.heading = "Failed to Reserve:";
+                    this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
+                        "Please choose another day, or preferred Athletic Trainer, and try again.";
                 }
             }
         );

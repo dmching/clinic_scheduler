@@ -12,6 +12,7 @@ import {MessageService} from "../message/message.service";
     templateUrl: './schedule.component.html'
 })
 export class ScheduleComponent implements OnInit {
+    private COMPLAINT_LENGTH : number = 50;
 
     private reservations : Reservation[];
     private times : TimeSlot[];
@@ -20,6 +21,7 @@ export class ScheduleComponent implements OnInit {
     public selectedDay : string;
     public selectedTimeSlot : string;
     public selectedAT : string;
+    public complaint : string;
     public currentReservation : Reservation;
 
     private days : string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -80,35 +82,45 @@ export class ScheduleComponent implements OnInit {
     }
 
     public reserve() : void {
-        this.currentReservation.athlete = this.loginService.activeAthlete;
-        this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
-        this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
+        if (this.complaint && this.complaint.length <= this.COMPLAINT_LENGTH) {
+            this.currentReservation.complaint = this.complaint;
+            this.currentReservation.athlete = this.loginService.activeAthlete;
+            this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
+            this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
 
-        let today: Date = new Date();
-        let day: number = this.days.indexOf(this.selectedDay) + 1;
-        // The list does not include Sunday, so we increment by 1 to get Monday and on.
-        if (day < today.getDay()) {
-            today.setDate(7 + today.getDate() - (today.getDay() - day));
-            // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
-        } else if (day > today.getDay()) {
-            today.setDate(today.getDate() + (day - today.getDay()));
-        } else {
-            today.setDate(today.getDate() + 7);
-        }
-        console.log("Today was modified: " + today.getDate());
-        this.currentReservation.scheduledDate = (today.toDateString());
-
-        this.scheduleService.reserve(this.currentReservation).then(reservation => {
-                if (reservation) {
-                    this.reservations.push(this.currentReservation);
-                } else {
-                    // TODO: Error in post. Notify user.
-                    this.messageService.errorMsg.display = true;
-                    this.messageService.errorMsg.heading = "Failed to Reserve:";
-                    this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
-                        "Please choose another day, or preferred Athletic Trainer, and try again.";
-                }
+            let today: Date = new Date();
+            let day: number = this.days.indexOf(this.selectedDay) + 1;
+            // The list does not include Sunday, so we increment by 1 to get Monday and on.
+            if (day < today.getDay()) {
+                today.setDate(7 + today.getDate() - (today.getDay() - day));
+                // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
+            } else if (day > today.getDay()) {
+                today.setDate(today.getDate() + (day - today.getDay()));
+            } else {
+                today.setDate(today.getDate() + 7);
             }
-        );
+            this.currentReservation.scheduledDate = (today.toDateString());
+
+            this.scheduleService.reserve(this.currentReservation).then(reservation => {
+                    if (reservation) {
+                        this.reservations.push(this.currentReservation);
+                    } else {
+                        // TODO: Error in post. Notify user.
+                        this.messageService.errorMsg.display = true;
+                        this.messageService.errorMsg.heading = "Failed to Reserve:";
+                        this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
+                            "Please choose another day, or preferred Athletic Trainer, and try again.";
+                    }
+                }
+            );
+        } else {
+            // Invalid complain input.
+            this.messageService.cautionMsg.display = true;
+            this.messageService.cautionMsg.heading = "Invalid Complaint Input:";
+            this.messageService.cautionMsg.body = "Complaint must be " + this.COMPLAINT_LENGTH + " characters or less." +
+                "\nPlease enter a new value and try again.";
+
+            this.complaint = "";
+        }
     }
 }

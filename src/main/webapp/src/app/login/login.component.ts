@@ -9,6 +9,9 @@ import {MessageService} from "../message/message.service";
     templateUrl: './login.component.html',
 })
 export class LoginComponent {
+    private USERNAME_LENGTH : number = 30;
+    private PASSWORD_LENGTH : number = 255;
+
     currentAthlete : Athlete;
     currentAT : AthleticTrainer;
     username : string;
@@ -26,9 +29,9 @@ export class LoginComponent {
         this.userType = "Athlete";
     }
 
-    login() : void {
+    public login() : void {
         // Take username and password and search database for a matching user.
-        if (this.username && this.password && this.userType) {
+        if (this.validateInput()) {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(athlete => {
@@ -36,7 +39,7 @@ export class LoginComponent {
                             this.currentAthlete = athlete;
                             this.messageService.successMsg.heading = "Success!";
                             this.messageService.successMsg.body = "You have successfully logged in, " +
-                                "here are you current and previous appointments.";
+                                "here are your current and previous appointments.";
                             this.messageService.successMsg.display = true;
                         } else {
                             // Invalid Login. Show Alert.
@@ -54,7 +57,7 @@ export class LoginComponent {
                             this.currentAT = at;
                             this.messageService.successMsg.heading = "Success!";
                             this.messageService.successMsg.body = "You have successfully logged in, " +
-                                "here are you current and previous appointments.";
+                                "here are your current and previous appointments.";
                             this.messageService.successMsg.display = true;
                         }
                         else {
@@ -69,9 +72,14 @@ export class LoginComponent {
             }
         } else {
             // Invalid Input.
-            this.messageService.errorMsg.heading = "Failed to login";
-            this.messageService.errorMsg.body = "Invalid login credentials. Please try again.";
+            this.messageService.errorMsg.heading = "Invalid login credentials";
+            this.messageService.errorMsg.body = "Please try again.";
             this.messageService.errorMsg.display = true;
         }
+    }
+
+    private validateInput() : boolean {
+        return (this.username && this.username.length <= this.USERNAME_LENGTH
+            && this.password && this.password.length <= this.PASSWORD_LENGTH)
     }
 }

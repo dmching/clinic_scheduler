@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ReservationConnection implements RepositoryConnection<Reservation> {
 
-    private static final String POST_RESERVATION = "INSERT INTO tlu_clinic_db.reservations (athlete_id, at_id, time_slot_id, schedule_date) VALUES (?, ?, ?, ?)";
+    private static final String POST_RESERVATION = "INSERT INTO tlu_clinic_db.reservations (athlete_id, at_id, time_slot_id, schedule_date, complaint) VALUES (?, ?, ?, ?, ?)";
     private static final String GET_ATHLETE_RESERVATIONS =
             "SELECT * FROM tlu_clinic_db.users as users, tlu_clinic_db.athletic_trainers as athletic_trainers, tlu_clinic_db.classifications as classifications, tlu_clinic_db.athletes as athletes, " +
             "tlu_clinic_db.time_slots as time_slots, tlu_clinic_db.reservations as reservations WHERE reservations.at_id = athletic_trainers.id " +
@@ -37,7 +37,7 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
         }
     }
 
-    public boolean postReservation(Integer athleteID, Integer atID, Integer timeslotID, String scheduledDate) {
+    public boolean postReservation(Integer athleteID, Integer atID, Integer timeslotID, String scheduledDate, String complaint) {
 
         boolean result;
         try {
@@ -46,6 +46,7 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
             preparedStatement.setInt(2, atID);
             preparedStatement.setInt(3, timeslotID);
             preparedStatement.setString(4, scheduledDate);
+            preparedStatement.setString(5, complaint);
 
             preparedStatement.executeUpdate();
             result = true;

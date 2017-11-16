@@ -36,7 +36,8 @@ public class ScheduleEndpoint {
         @RequestHeader(value="athleteID") String athleteID,
         @RequestHeader(value="atID") String atID,
         @RequestHeader(value="timeslotID") String timeslotID,
-        @RequestHeader(value="scheduleDate") String date
+        @RequestHeader(value="scheduleDate") String date,
+        @RequestHeader(value="complaint") String complaint
     ) {
         // TODO: Handle if one AT is overloaded.
         ReservationConnection reservationConnection = new ReservationConnection();
@@ -44,7 +45,7 @@ public class ScheduleEndpoint {
                 Integer.parseInt(athleteID),
                 Integer.parseInt(atID),
                 Integer.parseInt(timeslotID),
-                date), HttpStatus.OK);
+                date, complaint), HttpStatus.OK);
     }
 
     @RequestMapping("schedule/reservation/athlete")

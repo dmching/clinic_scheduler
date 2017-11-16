@@ -47,6 +47,7 @@ var ScheduleService = (function () {
         myHeaders.set("atID", reservation.athleticTrainer.id + "");
         myHeaders.set("timeslotID", reservation.timeSlot.id + "");
         myHeaders.set("scheduleDate", reservation.scheduledDate);
+        myHeaders.set("complaint", reservation.complaint);
         var options = new http_1.RequestOptions({ headers: myHeaders });
         return this.http.get(this.scheduleUrl + "/reservation", options)
             .toPromise()

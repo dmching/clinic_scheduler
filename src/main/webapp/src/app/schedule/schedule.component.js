@@ -19,6 +19,7 @@ var ScheduleComponent = (function () {
         this.loginService = loginService;
         this.scheduleService = scheduleService;
         this.messageService = messageService;
+        this.COMPLAINT_LENGTH = 50;
         this.days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
         this.timesList = [];
         this.atList = [];
@@ -75,36 +76,46 @@ var ScheduleComponent = (function () {
     };
     ScheduleComponent.prototype.reserve = function () {
         var _this = this;
-        this.currentReservation.athlete = this.loginService.activeAthlete;
-        this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
-        this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
-        var today = new Date();
-        var day = this.days.indexOf(this.selectedDay) + 1;
-        // The list does not include Sunday, so we increment by 1 to get Monday and on.
-        if (day < today.getDay()) {
-            today.setDate(7 + today.getDate() - (today.getDay() - day));
-            // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
-        }
-        else if (day > today.getDay()) {
-            today.setDate(today.getDate() + (day - today.getDay()));
-        }
-        else {
-            today.setDate(today.getDate() + 7);
-        }
-        console.log("Today was modified: " + today.getDate());
-        this.currentReservation.scheduledDate = (today.toDateString());
-        this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
-            if (reservation) {
-                _this.reservations.push(_this.currentReservation);
+        if (this.complaint && this.complaint.length <= this.COMPLAINT_LENGTH) {
+            this.currentReservation.complaint = this.complaint;
+            this.currentReservation.athlete = this.loginService.activeAthlete;
+            this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
+            this.currentReservation.timeSlot = this.times[this.timesList.indexOf(this.selectedTimeSlot)];
+            var today = new Date();
+            var day = this.days.indexOf(this.selectedDay) + 1;
+            // The list does not include Sunday, so we increment by 1 to get Monday and on.
+            if (day < today.getDay()) {
+                today.setDate(7 + today.getDate() - (today.getDay() - day));
+                // Since the selected day occurs in the next week, we need to add 1 to represent the Saturday that is not in the list of days.
+            }
+            else if (day > today.getDay()) {
+                today.setDate(today.getDate() + (day - today.getDay()));
             }
             else {
-                // TODO: Error in post. Notify user.
-                _this.messageService.errorMsg.display = true;
-                _this.messageService.errorMsg.heading = "Failed to Reserve:";
-                _this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
-                    "Please choose another day, or preferred Athletic Trainer, and try again.";
+                today.setDate(today.getDate() + 7);
             }
-        });
+            this.currentReservation.scheduledDate = (today.toDateString());
+            this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
+                if (reservation) {
+                    _this.reservations.push(_this.currentReservation);
+                }
+                else {
+                    // TODO: Error in post. Notify user.
+                    _this.messageService.errorMsg.display = true;
+                    _this.messageService.errorMsg.heading = "Failed to Reserve:";
+                    _this.messageService.errorMsg.body = "An appointment with the given details already exists. " +
+                        "Please choose another day, or preferred Athletic Trainer, and try again.";
+                }
+            });
+        }
+        else {
+            // Invalid complain input.
+            this.messageService.cautionMsg.display = true;
+            this.messageService.cautionMsg.heading = "Invalid Complaint Input:";
+            this.messageService.cautionMsg.body = "Complaint must be " + this.COMPLAINT_LENGTH + " characters or less." +
+                "\nPlease enter a new value and try again.";
+            this.complaint = "";
+        }
     };
     return ScheduleComponent;
 }());

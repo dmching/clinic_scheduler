@@ -18,6 +18,8 @@ var LoginComponent = (function () {
     function LoginComponent(loginService, messageService) {
         this.loginService = loginService;
         this.messageService = messageService;
+        this.USERNAME_LENGTH = 30;
+        this.PASSWORD_LENGTH = 255;
         this.types = ["Athlete", "Athletic Trainer"];
         this.username = "";
         this.password = "";
@@ -28,7 +30,7 @@ var LoginComponent = (function () {
     LoginComponent.prototype.login = function () {
         var _this = this;
         // Take username and password and search database for a matching user.
-        if (this.username && this.password && this.userType) {
+        if (this.validateInput()) {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {
                 this.loginService.athleteLogin(this.username, this.password)
                     .then(function (athlete) {
@@ -36,7 +38,7 @@ var LoginComponent = (function () {
                         _this.currentAthlete = athlete;
                         _this.messageService.successMsg.heading = "Success!";
                         _this.messageService.successMsg.body = "You have successfully logged in, " +
-                            "here are you current and previous appointments.";
+                            "here are your current and previous appointments.";
                         _this.messageService.successMsg.display = true;
                     }
                     else {
@@ -56,7 +58,7 @@ var LoginComponent = (function () {
                         _this.currentAT = at;
                         _this.messageService.successMsg.heading = "Success!";
                         _this.messageService.successMsg.body = "You have successfully logged in, " +
-                            "here are you current and previous appointments.";
+                            "here are your current and previous appointments.";
                         _this.messageService.successMsg.display = true;
                     }
                     else {
@@ -72,10 +74,14 @@ var LoginComponent = (function () {
         }
         else {
             // Invalid Input.
-            this.messageService.errorMsg.heading = "Failed to login";
-            this.messageService.errorMsg.body = "Invalid login credentials. Please try again.";
+            this.messageService.errorMsg.heading = "Invalid login credentials";
+            this.messageService.errorMsg.body = "Please try again.";
             this.messageService.errorMsg.display = true;
         }
+    };
+    LoginComponent.prototype.validateInput = function () {
+        return (this.username && this.username.length <= this.USERNAME_LENGTH
+            && this.password && this.password.length <= this.PASSWORD_LENGTH);
     };
     return LoginComponent;
 }());

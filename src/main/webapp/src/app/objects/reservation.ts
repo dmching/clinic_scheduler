@@ -8,6 +8,7 @@ export class Reservation {
     athleticTrainer : AthleticTrainer;
     timeSlot : TimeSlot;
     scheduledDate : string;
+    complaint : string;
 
     constructor() {
         this.id = -1;
@@ -15,5 +16,6 @@ export class Reservation {
         this.athleticTrainer = new AthleticTrainer();
         this.timeSlot = new TimeSlot();
         this.scheduledDate = "";
+        this.complaint = "";
     }
 }

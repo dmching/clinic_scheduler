@@ -34,11 +34,11 @@ export class LoginService {
         return this.http.get(url, options)
             .toPromise()
             .then(response => {
-                console.log(response);
                 this.activeAthlete = response.json() as Athlete;
                 if (this.activeAthlete.id > 0) {
                     this.loggedIn = true;
                     this.isAthlete = true;
+                    this.router.navigate(['/schedule']);
                     return this.activeAthlete;
                 } else {
                     // Invalid Login.
@@ -64,6 +64,7 @@ export class LoginService {
                 this.isAthlete = false;
                 if (this.activeAT.id > 0) {
                     this.loggedIn = true;
+                    this.router.navigate(['/schedule']);
                     return this.activeAT;
                 } else {
                     this.loggedIn = false;

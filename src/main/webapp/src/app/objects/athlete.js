@@ -4,7 +4,6 @@ var user_1 = require("./user");
 var Athlete = (function () {
     function Athlete() {
         this.id = -1;
-        this.complaint = "";
         // TODO: Format the date attribute for MM/DD/YYYY
         this.lastVisit = new Date();
         this.primarySport = "";

@@ -3,7 +3,6 @@ import {AthleticTrainer} from "./athleticTrainer";
 
 export class Athlete {
     id : number;
-    complaint : string;
     lastVisit : Date;
     primarySport : string;
     secondarySport : string;
@@ -11,7 +10,6 @@ export class Athlete {
 
     constructor() {
         this.id = -1;
-        this.complaint = "";
         // TODO: Format the date attribute for MM/DD/YYYY
         this.lastVisit = new Date();
         this.primarySport = "";

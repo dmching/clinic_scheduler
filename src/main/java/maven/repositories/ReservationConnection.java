@@ -112,22 +112,22 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
                     //Athlete Values
                     athlete.setId(resultSet.getInt(12));
                     athlete.setUser(user);
-                    athlete.setComplaint(resultSet.getString(14));
-                    athlete.setLastVisit(resultSet.getDate(15));
-                    athlete.setPrimarySport(resultSet.getString(16));
-                    athlete.setSecondarySport(resultSet.getString(17));
+                    athlete.setLastVisit(resultSet.getDate(14));
+                    athlete.setPrimarySport(resultSet.getString(15));
+                    athlete.setSecondarySport(resultSet.getString(16));
 
                     // Time Slot values
-                    timeSlot.setId(resultSet.getInt(18));
-                    timeSlot.setStartTime(resultSet.getString(19));
-                    timeSlot.setEndTime(resultSet.getString(20));
+                    timeSlot.setId(resultSet.getInt(17));
+                    timeSlot.setStartTime(resultSet.getString(18));
+                    timeSlot.setEndTime(resultSet.getString(19));
 
                     // Put them all together.
-                    currentReservation.setId(resultSet.getInt(21));
+                    currentReservation.setId(resultSet.getInt(20));
                     currentReservation.setAthlete(athlete);
                     currentReservation.setAthleticTrainer(athleticTrainer);
                     currentReservation.setTimeSlot(timeSlot);
-                    currentReservation.setScheduledDate(resultSet.getString(25));
+                    currentReservation.setScheduledDate(resultSet.getString(24));
+                    currentReservation.setComplaint(resultSet.getString(25));
 
                     reservations.add(currentReservation);
                 }

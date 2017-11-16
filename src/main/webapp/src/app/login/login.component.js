@@ -36,7 +36,7 @@ var LoginComponent = (function () {
                         _this.currentAthlete = athlete;
                         _this.messageService.successMsg.heading = "Success!";
                         _this.messageService.successMsg.body = "You have successfully logged in, " +
-                            "select the schedule tab to view your appointment history.";
+                            "here are you current and previous appointments.";
                         _this.messageService.successMsg.display = true;
                     }
                     else {
@@ -56,7 +56,7 @@ var LoginComponent = (function () {
                         _this.currentAT = at;
                         _this.messageService.successMsg.heading = "Success!";
                         _this.messageService.successMsg.body = "You have successfully logged in, " +
-                            "select the schedule tab to view your appointment history.";
+                            "here are you current and previous appointments.";
                         _this.messageService.successMsg.display = true;
                     }
                     else {

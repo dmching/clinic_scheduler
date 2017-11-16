@@ -10,6 +10,7 @@ public class Reservation implements Comparable<Reservation>{
     private AthleticTrainer athleticTrainer;
     private TimeSlot timeSlot;
     private String scheduledDate;
+    private String complaint;
 
     private final List<String> DAYS = new ArrayList<>(Arrays.asList("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"));
     private final List<String> MONTHS = new ArrayList<>(Arrays.asList("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
@@ -26,6 +27,7 @@ public class Reservation implements Comparable<Reservation>{
         this.athleticTrainer = new AthleticTrainer();
         this.timeSlot = new TimeSlot();
         this.scheduledDate = "";
+        this.complaint = "";
     }
 
     public int getId() {
@@ -66,6 +68,14 @@ public class Reservation implements Comparable<Reservation>{
 
     public void setScheduledDate(String scheduledDate) {
         this.scheduledDate = scheduledDate;
+    }
+
+    public String getComplaint() {
+        return complaint;
+    }
+
+    public void setComplaint(String complaint) {
+        this.complaint = complaint;
     }
 
     @Override

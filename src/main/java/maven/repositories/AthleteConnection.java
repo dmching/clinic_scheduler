@@ -60,10 +60,9 @@ public class AthleteConnection implements RepositoryConnection<Athlete>{
                     currentAthlete.getUser().setLastName(resultSet.getString(5));
 
                     currentAthlete.setId(resultSet.getInt(6));
-                    currentAthlete.setComplaint(resultSet.getString(8));
-                    currentAthlete.setLastVisit(resultSet.getDate(9));
-                    currentAthlete.setPrimarySport(resultSet.getString(10));
-                    currentAthlete.setSecondarySport(resultSet.getString(11));
+                    currentAthlete.setLastVisit(resultSet.getDate(8));
+                    currentAthlete.setPrimarySport(resultSet.getString(9));
+                    currentAthlete.setSecondarySport(resultSet.getString(10));
 
                     athletes.add(currentAthlete);
                 }

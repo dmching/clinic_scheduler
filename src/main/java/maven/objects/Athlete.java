@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Athlete {
     private int id;
-    private String complaint;
     private Date lastVisit;
     private String primarySport;
     private String secondarySport;
@@ -12,7 +11,6 @@ public class Athlete {
 
     public Athlete() {
         this.id = -1;
-        this.complaint = "";
         this.lastVisit = null;
         this.primarySport = "";
         this.secondarySport = "";
@@ -25,14 +23,6 @@ public class Athlete {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getComplaint() {
-        return complaint;
-    }
-
-    public void setComplaint(String complaint) {
-        this.complaint = complaint;
     }
 
     public Date getLastVisit() {

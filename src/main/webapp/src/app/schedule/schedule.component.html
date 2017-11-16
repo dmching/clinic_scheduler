@@ -33,7 +33,7 @@
                 </div>
             </div>
             <div class="col-md-12">
-                <button (click)="this.reserve()">Reserve</button>
+                <button (click)="reserve()">Reserve</button>
             </div>
         </div>
         <div class="row">
@@ -42,11 +42,13 @@
                     <th>Date</th>
                     <th>Time Slot</th>
                     <th>Athletic Trainer</th>
+                    <th>Complaint</th>
                 </tr>
                 <tr *ngFor="let reservation of reservations">
                     <td>{{reservation.scheduledDate}}</td>
                     <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
                     <td>{{reservation.athleticTrainer.user.firstName}} {{reservation.athleticTrainer.user.lastName}}</td>
+                    <td>{{reservation.complaint}}</td>
                 </tr>
             </table>
         </div>
@@ -64,7 +66,7 @@
                     <td>{{reservation.scheduledDate}}</td>
                     <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
                     <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
-                    <td>{{reservation.athlete.complaint}}</td>
+                    <td>{{reservation.complaint}}</td>
                 </tr>
             </table>
         </div>

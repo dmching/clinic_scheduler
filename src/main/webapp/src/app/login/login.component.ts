@@ -36,7 +36,7 @@ export class LoginComponent {
                             this.currentAthlete = athlete;
                             this.messageService.successMsg.heading = "Success!";
                             this.messageService.successMsg.body = "You have successfully logged in, " +
-                                "select the schedule tab to view your appointment history.";
+                                "here are you current and previous appointments.";
                             this.messageService.successMsg.display = true;
                         } else {
                             // Invalid Login. Show Alert.
@@ -54,7 +54,7 @@ export class LoginComponent {
                             this.currentAT = at;
                             this.messageService.successMsg.heading = "Success!";
                             this.messageService.successMsg.body = "You have successfully logged in, " +
-                                "select the schedule tab to view your appointment history.";
+                                "here are you current and previous appointments.";
                             this.messageService.successMsg.display = true;
                         }
                         else {

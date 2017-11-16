@@ -10,6 +10,7 @@ var Reservation = (function () {
         this.athleticTrainer = new athleticTrainer_1.AthleticTrainer();
         this.timeSlot = new timeSlot_1.TimeSlot();
         this.scheduledDate = "";
+        this.complaint = "";
     }
     return Reservation;
 }());

@@ -35,11 +35,11 @@ var LoginService = (function () {
         return this.http.get(url, options)
             .toPromise()
             .then(function (response) {
-            console.log(response);
             _this.activeAthlete = response.json();
             if (_this.activeAthlete.id > 0) {
                 _this.loggedIn = true;
                 _this.isAthlete = true;
+                _this.router.navigate(['/schedule']);
                 return _this.activeAthlete;
             }
             else {
@@ -65,6 +65,7 @@ var LoginService = (function () {
             _this.isAthlete = false;
             if (_this.activeAT.id > 0) {
                 _this.loggedIn = true;
+                _this.router.navigate(['/schedule']);
                 return _this.activeAT;
             }
             else {

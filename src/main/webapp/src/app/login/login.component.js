@@ -54,9 +54,16 @@ var LoginComponent = (function () {
                     .then(function (at) {
                     if (at) {
                         _this.currentAT = at;
+                        _this.messageService.successMsg.heading = "Success!";
+                        _this.messageService.successMsg.body = "You have successfully logged in, " +
+                            "select the schedule tab to view your appointment history.";
+                        _this.messageService.successMsg.display = true;
                     }
                     else {
                         // Invalid Login. Show Alert.
+                        _this.messageService.errorMsg.heading = "Failed to login";
+                        _this.messageService.errorMsg.body = "A user with those credentials does not exist. Please try again.";
+                        _this.messageService.errorMsg.display = true;
                     }
                     _this.username = "";
                     _this.password = "";

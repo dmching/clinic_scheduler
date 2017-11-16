@@ -52,9 +52,16 @@ export class LoginComponent {
                     .then(at => {
                         if (at) {
                             this.currentAT = at;
+                            this.messageService.successMsg.heading = "Success!";
+                            this.messageService.successMsg.body = "You have successfully logged in, " +
+                                "select the schedule tab to view your appointment history.";
+                            this.messageService.successMsg.display = true;
                         }
                         else {
                             // Invalid Login. Show Alert.
+                            this.messageService.errorMsg.heading = "Failed to login";
+                            this.messageService.errorMsg.body = "A user with those credentials does not exist. Please try again.";
+                            this.messageService.errorMsg.display = true;
                         }
                         this.username = "";
                         this.password = "";

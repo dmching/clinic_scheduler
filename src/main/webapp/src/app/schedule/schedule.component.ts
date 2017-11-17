@@ -15,6 +15,8 @@ export class ScheduleComponent implements OnInit {
     private COMPLAINT_LENGTH : number = 50;
 
     private reservations : Reservation[];
+    private historyReservations : Reservation[];
+
     private times : TimeSlot[];
     private athleticTrainers : AthleticTrainer[];
 
@@ -31,6 +33,7 @@ export class ScheduleComponent implements OnInit {
     constructor(private loginService : LoginService, private scheduleService : ScheduleService,
                 private messageService : MessageService) {
         this.reservations = [];
+        this.historyReservations = [];
         this.currentReservation = new Reservation();
         this.selectedDay = this.days[0];
     }
@@ -63,6 +66,9 @@ export class ScheduleComponent implements OnInit {
                             this.messageService.cautionMsg.display = true;
                             this.messageService.cautionMsg.heading = "No Results Found";
                             this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                        } else {
+                            // Split into current reservations and historical reservations
+                            this.findMiddle();
                         }
                     });
             } else {
@@ -122,5 +128,22 @@ export class ScheduleComponent implements OnInit {
 
             this.complaint = "";
         }
+    }
+
+    private findMiddle() : void {
+        // Get the midpoint of the list.
+        let middleIndex : number;
+        for (let reservation of this.reservations) {
+            if (reservation.id == -1) {
+                console.log(reservation);
+                middleIndex = this.reservations.indexOf(reservation);
+                break;
+            }
+        }
+
+        for (let i : number = this.reservations.length; i > middleIndex + 1; i--) {
+            this.historyReservations.push(this.reservations.pop());
+        }
+        this.reservations.slice(middleIndex + 1, this.reservations.length);
     }
 }

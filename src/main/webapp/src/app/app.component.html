@@ -1,47 +1,43 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 centered">
-            <h1>Texas Lutheran Athletic Training Clinic Scheduler</h1>
+            <h1><u>Texas Lutheran Athletic Training Clinic Scheduler</u></h1>
         </div>
-        <div [hidden]=!loginService.isLoggedIn() class="row right">
-            <div class="row">
-                <label>Welcome, {{loginService.getActiveUser()}}</label>
-                <button class="btn-sm" (click)="loginService.logout()">Logout</button>
-            </div>
-            <div>
-                <label>Today is: {{loginService.currentDate.toDateString()}}</label>
-            </div>
+    </div>
+    <div [hidden]=!loginService.isLoggedIn() class="right">
+        <div class="row">
+            <label>Welcome, {{loginService.getActiveUser()}}</label>
+            <button class="btn-sm" (click)="loginService.logout()">Logout</button>
+        </div>
+        <div>
+            <label>Today is: {{loginService.currentDate.toDateString()}}</label>
+        </div>
+    </div>
+    <div class="row justify-content-center bordered">
+        <nav class="centered tabs">
+            <a routerLink="/dashboard" (click)="messageService.clearMessages()">Dashboard</a>
+            <a [hidden]=loginService.isLoggedIn() routerLink="/login" (click)="messageService.clearMessages()">Login</a>
+            <a [hidden]=!loginService.isLoggedIn() routerLink="/schedule" (click)="messageService.clearMessages()">Schedule</a>
+        </nav>
+    </div>
+    <div class="row centered">
+        <div [hidden]=!messageService.successMsg.display class="alert alert-success alert-dismissible" role="alert"
+             (click)="messageService.toggle('success')" >
+            <h4 class="alert-heading">{{messageService.successMsg.heading}}</h4>
+            <p>{{messageService.successMsg.body}}</p>
+        </div>
+        <div [hidden]=!messageService.cautionMsg.display class="alert alert-warning alert-dismissible" role="alert"
+             (click)="messageService.toggle('caution')" >
+            <h4 class="alert-heading">{{messageService.cautionMsg.heading}}</h4>
+            <p>{{messageService.cautionMsg.body}}</p>
+        </div>
+        <div [hidden]=!messageService.errorMsg.display class="alert alert-danger alert-dismissible" role="alert"
+             (click)="messageService.toggle('error')" >
+            <h4 class="alert-heading">{{messageService.errorMsg.heading}}</h4>
+            <p>{{messageService.errorMsg.body}}</p>
         </div>
     </div>
     <div class="row">
-        <div class="row">
-            <div class="col-md-12 centered">
-                <nav>
-                    <a class="col-md-2 col-md-offset-3" routerLink="/dashboard" (click)="messageService.clearMessages()">Dashboard</a>
-                    <a [hidden]=loginService.isLoggedIn() class="col-md-2 col-md-offset-1" routerLink="/login"(click)="messageService.clearMessages()">Login</a>
-                    <a [hidden]=!loginService.isLoggedIn() class="col-md-2 col-md-offset-1" routerLink="/schedule"(click)="messageService.clearMessages()">Schedule</a>
-                </nav>
-            </div>
-        </div>
-        <div>
-            <div [hidden]=!messageService.successMsg.display class="alert alert-success alert-dismissible" role="alert"
-                 (click)="messageService.toggle('success')" >
-                <h4 class="alert-heading">{{messageService.successMsg.heading}}</h4>
-                <p>{{messageService.successMsg.body}}</p>
-            </div>
-            <div [hidden]=!messageService.cautionMsg.display class="alert alert-warning alert-dismissible" role="alert"
-                 (click)="messageService.toggle('caution')" >
-                <h4 class="alert-heading">{{messageService.cautionMsg.heading}}</h4>
-                <p>{{messageService.cautionMsg.body}}</p>
-            </div>
-            <div [hidden]=!messageService.errorMsg.display class="alert alert-danger alert-dismissible" role="alert"
-                 (click)="messageService.toggle('error')" >
-                <h4 class="alert-heading">{{messageService.errorMsg.heading}}</h4>
-                <p>{{messageService.errorMsg.body}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <router-outlet></router-outlet>
-        </div>
+        <router-outlet></router-outlet>
     </div>
 </div>

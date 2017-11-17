@@ -2,6 +2,7 @@ package maven.objects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class Reservation implements Comparable<Reservation>{
@@ -26,7 +27,8 @@ public class Reservation implements Comparable<Reservation>{
         this.athlete = new Athlete();
         this.athleticTrainer = new AthleticTrainer();
         this.timeSlot = new TimeSlot();
-        this.scheduledDate = "";
+        Date today = new Date();
+        this.scheduledDate = today.toString().substring(0, 11) + today.toString().substring(24);
         this.complaint = "";
     }
 

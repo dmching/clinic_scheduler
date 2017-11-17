@@ -24,6 +24,7 @@ var ScheduleComponent = (function () {
         this.timesList = [];
         this.atList = [];
         this.reservations = [];
+        this.historyReservations = [];
         this.currentReservation = new reservation_1.Reservation();
         this.selectedDay = this.days[0];
     }
@@ -56,6 +57,10 @@ var ScheduleComponent = (function () {
                         _this.messageService.cautionMsg.display = true;
                         _this.messageService.cautionMsg.heading = "No Results Found";
                         _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                    }
+                    else {
+                        // Split into current reservations and historical reservations
+                        _this.findMiddle();
                     }
                 });
             }
@@ -116,6 +121,22 @@ var ScheduleComponent = (function () {
                 "\nPlease enter a new value and try again.";
             this.complaint = "";
         }
+    };
+    ScheduleComponent.prototype.findMiddle = function () {
+        // Get the midpoint of the list.
+        var middleIndex;
+        for (var _i = 0, _a = this.reservations; _i < _a.length; _i++) {
+            var reservation = _a[_i];
+            if (reservation.id == -1) {
+                console.log(reservation);
+                middleIndex = this.reservations.indexOf(reservation);
+                break;
+            }
+        }
+        for (var i = this.reservations.length; i > middleIndex + 1; i--) {
+            this.historyReservations.push(this.reservations.pop());
+        }
+        this.reservations.slice(middleIndex + 1, this.reservations.length);
     };
     return ScheduleComponent;
 }());

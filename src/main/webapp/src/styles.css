@@ -65,11 +65,19 @@ nav a.active {
 }
 
 /* My CSS */
+div {
+  margin-top: 5px;
+}
+
 div.bordered {
   border: 2px solid black;
 }
 
-div.centered {
+nav.tabs {
+  margin-bottom: 5px;
+}
+
+.centered {
   text-align: center;
   margin: auto;
 }

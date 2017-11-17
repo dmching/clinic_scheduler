@@ -1,4 +1,4 @@
-<div class="container-fluid bordered">
+<div class="container-fluid">
     <div [hidden]=!loginService.isAthlete>
         <div class="row centered">
             <div class="col-md-12">
@@ -44,21 +44,41 @@
                 <button (click)="reserve()">Reserve</button>
             </div>
         </div>
-        <div class="row">
-            <table class="table table-striped col-md-12">
-                <tr>
-                    <th>Date</th>
-                    <th>Time Slot</th>
-                    <th>Athletic Trainer</th>
-                    <th>Complaint</th>
-                </tr>
-                <tr *ngFor="let reservation of reservations">
-                    <td>{{reservation.scheduledDate}}</td>
-                    <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
-                    <td>{{reservation.athleticTrainer.user.firstName}} {{reservation.athleticTrainer.user.lastName}}</td>
-                    <td>{{reservation.complaint}}</td>
-                </tr>
-            </table>
+        <div class="row bordered">
+            <div class=" col-md-12">
+                <label class="ssv-big-bold-label"><u>Current Appointments</u></label>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Athletic Trainer</th>
+                        <th>Complaint</th>
+                    </tr>
+                    <tr *ngFor="let reservation of reservations">
+                        <td>{{reservation.scheduledDate}}</td>
+                        <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                        <td>{{reservation.athleticTrainer.user.firstName}} {{reservation.athleticTrainer.user.lastName}}</td>
+                        <td>{{reservation.complaint}}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class=" col-md-12">
+                <label class="ssv-big-bold-label"><u>History</u></label>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Athletic Trainer</th>
+                        <th>Complaint</th>
+                    </tr>
+                    <tr *ngFor="let reservation of historyReservations">
+                        <td>{{reservation.scheduledDate}}</td>
+                        <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                        <td>{{reservation.athleticTrainer.user.firstName}} {{reservation.athleticTrainer.user.lastName}}</td>
+                        <td>{{reservation.complaint}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
     <div [hidden]=loginService.isAthlete>

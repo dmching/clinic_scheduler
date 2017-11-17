@@ -1,20 +1,18 @@
-<div class="containter">
-    <div class="row centered bordered">
-        <div class="col-md-12">
-            <label>Username: </label>
-            <input [(ngModel)]="username" placeholder="">
-        </div>
-        <div class="col-md-12">
-            <label>Password: </label>
-            <input type="password" [(ngModel)]="password">
-        </div>
-        <div class="col-md-12">
-            <select [(ngModel)]="userType">
-                <option *ngFor="let type of types">{{type}}</option>
-            </select>
-        </div>
-        <div class="col-md-12">
-            <button (click)="login()">Login</button>
-        </div>
+<div class="container bordered centered">
+    <div class="row">
+        <label>Username: </label>
+        <input [(ngModel)]="username" placeholder="">
+    </div>
+    <div class="row">
+        <label>Password: </label>
+        <input type="password" [(ngModel)]="password">
+    </div>
+    <div class="row">
+        <select [(ngModel)]="userType">
+            <option *ngFor="let type of types">{{type}}</option>
+        </select>
+    </div>
+    <div class="row">
+        <button (click)="login()">Login</button>
     </div>
 </div>

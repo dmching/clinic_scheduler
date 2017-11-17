@@ -6,6 +6,7 @@ import maven.objects.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class ReservationConnection implements RepositoryConnection<Reservation> {
@@ -83,10 +84,12 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
     @Override
     public List<Reservation> getResults(ResultSet resultSet) {
         List<Reservation> reservations = new ArrayList<Reservation>();
+        List<Reservation> history = new ArrayList<>();
 
         if (resultSet != null) {
             try {
                 Reservation currentReservation;
+                Reservation middle = new Reservation();
                 while (resultSet.next()) {
                     currentReservation = new Reservation();
                     User user = new User();
@@ -130,9 +133,19 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
                     currentReservation.setScheduledDate(resultSet.getString(24));
                     currentReservation.setComplaint(resultSet.getString(25));
 
-                    reservations.add(currentReservation);
+                    // Show the next reservation first in the list up to the latest reservation, followed by history reservations
+                    if (currentReservation.compareTo(middle) > -1) {
+                        reservations.add(currentReservation);
+                    } else {
+                        history.add(currentReservation);
+                    }
                 }
                 Collections.sort(reservations);
+                reservations.add(middle);
+                Collections.sort(history);
+                Collections.reverse(history);
+                reservations.addAll(history);
+                /*reservations.remove(middle);*/
             } catch (SQLException e) {
                 e.printStackTrace();
             }

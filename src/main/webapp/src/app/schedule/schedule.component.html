@@ -82,21 +82,43 @@
         </div>
     </div>
     <div [hidden]=loginService.isAthlete>
-        <div class="row">
-            <table class="table table-striped col-md-12">
+        <div class="row bordered">
+            <div class=" col-md-12">
+                <label class="ssv-big-bold-label"><u>Current Appointments</u></label>
+                <table class="table table-striped table-bordered">
+                    <tr>
+                        <th>Date</th>
+                        <th>Time Slot</th>
+                        <th>Athlete</th>
+                        <th>Complaint</th>
+                    </tr>
+                    <tr *ngFor="let reservation of reservations">
+                        <td>{{reservation.scheduledDate}}</td>
+                        <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                        <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
+                        <td>{{reservation.complaint}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row bordered">
+            <div class=" col-md-12">
+                <label class="ssv-big-bold-label"><u>History</u></label>
+                <table class="table table-striped table-bordered">
                 <tr>
                     <th>Date</th>
                     <th>Time Slot</th>
                     <th>Athlete</th>
                     <th>Complaint</th>
                 </tr>
-                <tr *ngFor="let reservation of reservations">
+                <tr *ngFor="let reservation of historyReservations">
                     <td>{{reservation.scheduledDate}}</td>
                     <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
                     <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
                     <td>{{reservation.complaint}}</td>
                 </tr>
             </table>
+            </div>
         </div>
     </div>
 </div>

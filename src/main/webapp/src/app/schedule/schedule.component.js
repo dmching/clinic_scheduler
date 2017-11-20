@@ -75,6 +75,10 @@ var ScheduleComponent = (function () {
                         _this.messageService.cautionMsg.heading = "No Results Found";
                         _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
                     }
+                    else {
+                        // Split into current reservations and historical reservations
+                        _this.findMiddle();
+                    }
                 });
             }
         }
@@ -139,16 +143,16 @@ var ScheduleComponent = (function () {
         // Remove the blank
         this.reservations.pop();
     };
+    ScheduleComponent = __decorate([
+        core_1.Component({
+            selector: 'schedule',
+            providers: [schedule_service_1.ScheduleService],
+            templateUrl: './schedule.component.html'
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
+            message_service_1.MessageService])
+    ], ScheduleComponent);
     return ScheduleComponent;
 }());
-ScheduleComponent = __decorate([
-    core_1.Component({
-        selector: 'schedule',
-        providers: [schedule_service_1.ScheduleService],
-        templateUrl: './schedule.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
-        message_service_1.MessageService])
-], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

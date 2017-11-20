@@ -81,6 +81,9 @@ export class ScheduleComponent implements OnInit {
                             this.messageService.cautionMsg.display = true;
                             this.messageService.cautionMsg.heading = "No Results Found";
                             this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                        } else {
+                            // Split into current reservations and historical reservations
+                            this.findMiddle();
                         }
                     });
             }

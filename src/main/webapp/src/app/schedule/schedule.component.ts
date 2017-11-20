@@ -56,42 +56,13 @@ export class ScheduleComponent implements OnInit {
                 this.selectedAT = this.atList[0];
             });
 
-            if (this.loginService.isAthlete) {
-                // Athlete viewing the schedule.
-                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                    .then(response => {
-                        this.reservations = response;
-                        if (this.reservations[0].id == -1) {
-                            // No rows in the DB.
-                            this.messageService.cautionMsg.display = true;
-                            this.messageService.cautionMsg.heading = "No Results Found";
-                            this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
-                        } else {
-                            // Split into current reservations and historical reservations
-                            this.findMiddle();
-                        }
-                    });
-            } else {
-                // Athletic Trainer viewing the list.
-                this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
-                    .then(response => {
-                        this.reservations = response;
-                        if (this.reservations[0].id == -1) {
-                            // No rows in the DB.
-                            this.messageService.cautionMsg.display = true;
-                            this.messageService.cautionMsg.heading = "No Results Found";
-                            this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
-                        } else {
-                            // Split into current reservations and historical reservations
-                            this.findMiddle();
-                        }
-                    });
-            }
+            this.getSchedule();
         }
     }
 
     public reserve() : void {
         if (this.complaint && this.complaint.length <= this.COMPLAINT_LENGTH) {
+            this.currentReservation = new Reservation();
             this.currentReservation.complaint = this.complaint;
             this.currentReservation.athlete = this.loginService.activeAthlete;
             this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
@@ -112,7 +83,7 @@ export class ScheduleComponent implements OnInit {
 
             this.scheduleService.reserve(this.currentReservation).then(reservation => {
                     if (reservation) {
-                        this.reservations.push(this.currentReservation);
+                        this.getSchedule();
                     } else {
                         // TODO: Error in post. Notify user.
                         this.messageService.errorMsg.display = true;
@@ -149,5 +120,45 @@ export class ScheduleComponent implements OnInit {
         this.reservations.slice(middleIndex + 1, this.reservations.length);
         // Remove the blank
         this.reservations.pop();
+    }
+
+    private getSchedule() : void {
+        if (this.loginService.isAthlete) {
+            // Athlete viewing the schedule.
+            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                .then(response => {
+                    this.reservations = response;
+                    if (this.reservations[0].id == -1) {
+                        // No rows in the DB.
+                        this.messageService.cautionMsg.display = true;
+                        this.messageService.cautionMsg.heading = "No Results Found";
+                        this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+
+                        // Remove the blank
+                        this.reservations.pop();
+                    } else {
+                        // Split into current reservations and historical reservations
+                        this.findMiddle();
+                    }
+                });
+        } else {
+            // Athletic Trainer viewing the list.
+            this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
+                .then(response => {
+                    this.reservations = response;
+                    if (this.reservations[0].id == -1) {
+                        // No rows in the DB.
+                        this.messageService.cautionMsg.display = true;
+                        this.messageService.cautionMsg.heading = "No Results Found";
+                        this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+
+                        // Remove the blank
+                        this.reservations.pop();
+                    } else {
+                        // Split into current reservations and historical reservations
+                        this.findMiddle();
+                    }
+                });
+        }
     }
 }

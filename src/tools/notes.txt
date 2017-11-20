@@ -2,3 +2,12 @@ hide the login
 make cleaner, color and padding
 add a complaint input when creating an appointment
     update most recent complaint on post
+
+
+refresh the schedule contents on reserve
+
+Either:
+add cancelling a reservation to future work, or implement the feature
+    - This will require: a status column in the reservations table
+                         the table to have selectable rows
+                         and to update the tables on cancel.

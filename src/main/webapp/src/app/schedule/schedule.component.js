@@ -47,45 +47,13 @@ var ScheduleComponent = (function () {
                 }
                 _this.selectedAT = _this.atList[0];
             });
-            if (this.loginService.isAthlete) {
-                // Athlete viewing the schedule.
-                this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
-                    .then(function (response) {
-                    _this.reservations = response;
-                    if (_this.reservations[0].id == -1) {
-                        // No rows in the DB.
-                        _this.messageService.cautionMsg.display = true;
-                        _this.messageService.cautionMsg.heading = "No Results Found";
-                        _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
-                    }
-                    else {
-                        // Split into current reservations and historical reservations
-                        _this.findMiddle();
-                    }
-                });
-            }
-            else {
-                // Athletic Trainer viewing the list.
-                this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
-                    .then(function (response) {
-                    _this.reservations = response;
-                    if (_this.reservations[0].id == -1) {
-                        // No rows in the DB.
-                        _this.messageService.cautionMsg.display = true;
-                        _this.messageService.cautionMsg.heading = "No Results Found";
-                        _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
-                    }
-                    else {
-                        // Split into current reservations and historical reservations
-                        _this.findMiddle();
-                    }
-                });
-            }
+            this.getSchedule();
         }
     };
     ScheduleComponent.prototype.reserve = function () {
         var _this = this;
         if (this.complaint && this.complaint.length <= this.COMPLAINT_LENGTH) {
+            this.currentReservation = new reservation_1.Reservation();
             this.currentReservation.complaint = this.complaint;
             this.currentReservation.athlete = this.loginService.activeAthlete;
             this.currentReservation.athleticTrainer = this.athleticTrainers[this.atList.indexOf(this.selectedAT)];
@@ -106,7 +74,7 @@ var ScheduleComponent = (function () {
             this.currentReservation.scheduledDate = (today.toDateString());
             this.scheduleService.reserve(this.currentReservation).then(function (reservation) {
                 if (reservation) {
-                    _this.reservations.push(_this.currentReservation);
+                    _this.getSchedule();
                 }
                 else {
                     // TODO: Error in post. Notify user.
@@ -142,6 +110,47 @@ var ScheduleComponent = (function () {
         this.reservations.slice(middleIndex + 1, this.reservations.length);
         // Remove the blank
         this.reservations.pop();
+    };
+    ScheduleComponent.prototype.getSchedule = function () {
+        var _this = this;
+        if (this.loginService.isAthlete) {
+            // Athlete viewing the schedule.
+            this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
+                .then(function (response) {
+                _this.reservations = response;
+                if (_this.reservations[0].id == -1) {
+                    // No rows in the DB.
+                    _this.messageService.cautionMsg.display = true;
+                    _this.messageService.cautionMsg.heading = "No Results Found";
+                    _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                    // Remove the blank
+                    _this.reservations.pop();
+                }
+                else {
+                    // Split into current reservations and historical reservations
+                    _this.findMiddle();
+                }
+            });
+        }
+        else {
+            // Athletic Trainer viewing the list.
+            this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
+                .then(function (response) {
+                _this.reservations = response;
+                if (_this.reservations[0].id == -1) {
+                    // No rows in the DB.
+                    _this.messageService.cautionMsg.display = true;
+                    _this.messageService.cautionMsg.heading = "No Results Found";
+                    _this.messageService.cautionMsg.body = "You currently have no reservations or appointment history connected to your account.";
+                    // Remove the blank
+                    _this.reservations.pop();
+                }
+                else {
+                    // Split into current reservations and historical reservations
+                    _this.findMiddle();
+                }
+            });
+        }
     };
     ScheduleComponent = __decorate([
         core_1.Component({

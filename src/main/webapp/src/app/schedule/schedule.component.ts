@@ -135,7 +135,6 @@ export class ScheduleComponent implements OnInit {
         let middleIndex : number;
         for (let reservation of this.reservations) {
             if (reservation.id == -1) {
-                console.log(reservation);
                 middleIndex = this.reservations.indexOf(reservation);
                 break;
             }
@@ -145,5 +144,7 @@ export class ScheduleComponent implements OnInit {
             this.historyReservations.push(this.reservations.pop());
         }
         this.reservations.slice(middleIndex + 1, this.reservations.length);
+        // Remove the blank
+        this.reservations.pop();
     }
 }

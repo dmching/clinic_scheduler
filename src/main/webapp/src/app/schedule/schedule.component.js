@@ -128,7 +128,6 @@ var ScheduleComponent = (function () {
         for (var _i = 0, _a = this.reservations; _i < _a.length; _i++) {
             var reservation = _a[_i];
             if (reservation.id == -1) {
-                console.log(reservation);
                 middleIndex = this.reservations.indexOf(reservation);
                 break;
             }
@@ -137,6 +136,8 @@ var ScheduleComponent = (function () {
             this.historyReservations.push(this.reservations.pop());
         }
         this.reservations.slice(middleIndex + 1, this.reservations.length);
+        // Remove the blank
+        this.reservations.pop();
     };
     return ScheduleComponent;
 }());

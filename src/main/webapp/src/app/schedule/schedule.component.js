@@ -95,8 +95,12 @@ var ScheduleComponent = (function () {
         }
     };
     ScheduleComponent.prototype.setSelected = function (reservation) {
-        console.log(reservation);
-        this.selectedReservation = reservation;
+        if (this.selectedReservation == reservation) {
+            this.selectedReservation = null;
+        }
+        else {
+            this.selectedReservation = reservation;
+        }
     };
     ScheduleComponent.prototype.cancelReservation = function () {
         var _this = this;

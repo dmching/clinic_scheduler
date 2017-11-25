@@ -49,14 +49,17 @@ nav a {
   border-radius: 4px;
 }
 nav a:visited, a:link {
-  color: #607D8B;
+  color: black;
+  text-decoration: none;
 }
 nav a:hover {
-  color: #039be5;
+  color: black;
   background-color: #CFD8DC;
+  text-decoration: none;
 }
 nav a.active {
-  color: #039be5;
+  color: black;
+  text-decoration: none;
 }
 
 /* everywhere else */

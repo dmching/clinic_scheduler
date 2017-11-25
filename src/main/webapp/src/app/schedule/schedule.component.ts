@@ -106,8 +106,11 @@ export class ScheduleComponent implements OnInit {
     }
 
     public setSelected(reservation : Reservation) : void {
-        console.log(reservation);
-        this.selectedReservation = reservation;
+        if (this.selectedReservation == reservation) {
+            this.selectedReservation = null;
+        } else {
+            this.selectedReservation = reservation;
+        }
     }
 
     public cancelReservation() : void {

@@ -60,9 +60,17 @@ public class ScheduleEndpoint {
 
     @RequestMapping("schedule/reservation/at")
     public ResponseEntity<List<Reservation>> getATReservations(
-            @RequestHeader(value="atID") String atID
+        @RequestHeader(value="atID") String atID
     ) {
         ReservationConnection reservationConnection = new ReservationConnection();
         return new ResponseEntity<List<Reservation>>(reservationConnection.getReservations(Integer.parseInt(atID), false), HttpStatus.OK);
+    }
+
+    @RequestMapping("schedule/reservation/delete")
+    public ResponseEntity<Boolean> cancelReservation(
+        @RequestHeader(value="id") Integer id
+    ) {
+        ReservationConnection reservationConnection = new ReservationConnection();
+        return new ResponseEntity<Boolean>(reservationConnection.cancelReservation(id), HttpStatus.OK);
     }
 }

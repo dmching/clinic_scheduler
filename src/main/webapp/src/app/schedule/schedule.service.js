@@ -56,10 +56,6 @@ var ScheduleService = (function () {
         })
             .catch(function (err) { return _this.handleError(err); });
     };
-    ScheduleService.prototype.getReservations = function () {
-        // Returns the reservations for the current day, for all AT staff.
-        return null;
-    };
     ScheduleService.prototype.getAthleticTrainerWork = function (athleticTrainer) {
         var _this = this;
         // Return all reservations that connect to a specific athletic trainer.
@@ -80,6 +76,18 @@ var ScheduleService = (function () {
         myHeaders.set("athleteID", athlete.id + "");
         var options = new http_1.RequestOptions({ headers: myHeaders });
         return this.http.get(this.scheduleUrl + "/reservation/athlete", options)
+            .toPromise()
+            .then(function (response) {
+            return response.json();
+        })
+            .catch(function (err) { return _this.handleError(err); });
+    };
+    ScheduleService.prototype.cancelReservation = function (reservation) {
+        var _this = this;
+        var myHeaders = new http_1.Headers();
+        myHeaders.set("id", reservation.id + "");
+        var options = new http_1.RequestOptions({ headers: myHeaders });
+        return this.http.get(this.scheduleUrl + "/reservation/delete", options)
             .toPromise()
             .then(function (response) {
             return response.json();

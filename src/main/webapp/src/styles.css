@@ -91,3 +91,11 @@ nav.tabs {
   text-align: left;
   margin: auto;
 }
+
+table > tbody > tr:hover {
+  background-color: #e9a3a3;
+}
+
+.selected {
+  background-color: #e9a3a3;
+}

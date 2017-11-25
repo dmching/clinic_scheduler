@@ -25,6 +25,7 @@ export class ScheduleComponent implements OnInit {
     public selectedAT : string;
     public complaint : string;
     public currentReservation : Reservation;
+    public selectedReservation : Reservation;
 
     private days : string[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
     private timesList : string[] = [];
@@ -104,6 +105,38 @@ export class ScheduleComponent implements OnInit {
         }
     }
 
+    public setSelected(reservation : Reservation) : void {
+        console.log(reservation);
+        this.selectedReservation = reservation;
+    }
+
+    public cancelReservation() : void {
+        if (this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
+            this.scheduleService.cancelReservation(this.selectedReservation).then(
+                result => {
+                    if (result) {
+                        // Success
+                        this.getSchedule();
+
+                        this.messageService.successMsg.display = true;
+                        this.messageService.successMsg.heading = "Success";
+                        this.messageService.successMsg.body = "Successfully cancelled the selected reservation.";
+                    } else {
+                        // Error in cancelling reservation
+                        this.messageService.errorMsg.display = true;
+                        this.messageService.errorMsg.heading = "Error";
+                        this.messageService.errorMsg.body = "There was an error while cancelling the selected reservation. Please contact IT support.";
+                    }
+                }
+            );
+        } else {
+            // No row selected
+            this.messageService.errorMsg.display = true;
+            this.messageService.errorMsg.heading = "Could not Cancel";
+            this.messageService.errorMsg.body = "Please select a row from the current appointments table to cancel, then try again.";
+        }
+    }
+
     private findMiddle() : void {
         // Get the midpoint of the list.
         let middleIndex : number;
@@ -123,6 +156,8 @@ export class ScheduleComponent implements OnInit {
     }
 
     private getSchedule() : void {
+        this.reservations = [];
+        this.historyReservations = [];
         if (this.loginService.isAthlete) {
             // Athlete viewing the schedule.
             this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)

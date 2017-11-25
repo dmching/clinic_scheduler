@@ -53,11 +53,6 @@ export class ScheduleService {
             .catch(err => this.handleError(err));
     }
 
-    public getReservations() : Reservation[]{
-        // Returns the reservations for the current day, for all AT staff.
-        return null;
-    }
-
     public getAthleticTrainerWork(athleticTrainer : AthleticTrainer) : Promise<Reservation[]> {
         // Return all reservations that connect to a specific athletic trainer.
         let myHeaders = new Headers();
@@ -80,6 +75,19 @@ export class ScheduleService {
             .toPromise()
             .then(response => {
                 return response.json() as Reservation[];
+            })
+            .catch(err => this.handleError(err));
+    }
+
+    public cancelReservation(reservation : Reservation) : Promise<boolean> {
+        let myHeaders = new Headers();
+        myHeaders.set("id", reservation.id + "");
+        let options = new RequestOptions({headers : myHeaders});
+
+        return this.http.get(this.scheduleUrl + "/reservation/delete", options)
+            .toPromise()
+            .then(response => {
+                return response.json() as Boolean;
             })
             .catch(err => this.handleError(err));
     }

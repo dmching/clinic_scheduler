@@ -23,6 +23,8 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
             "and reservations.athlete_id = athletes.id and reservations.time_slot_id = time_slots.id and users.id = athletes.user_id " +
             "and classifications.id = athletic_trainers.classification_id and athletic_trainers.id=?";
 
+    private static final String DELETE_RESERVATION = "DELETE FROM tlu_clinic_db.reservations WHERE tlu_clinic_db.reservations.id=?";
+
     private Connection connection;
     private ResultSet resultSet;
 
@@ -79,6 +81,21 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean cancelReservation(int id) {
+        boolean result;
+
+        try {
+            PreparedStatement preparedStatement = this.connection.prepareStatement(DELETE_RESERVATION);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            result = true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            result = false;
+        }
+        return result;
     }
 
     @Override

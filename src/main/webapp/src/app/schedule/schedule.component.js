@@ -94,6 +94,36 @@ var ScheduleComponent = (function () {
             this.complaint = "";
         }
     };
+    ScheduleComponent.prototype.setSelected = function (reservation) {
+        console.log(reservation);
+        this.selectedReservation = reservation;
+    };
+    ScheduleComponent.prototype.cancelReservation = function () {
+        var _this = this;
+        if (this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
+            this.scheduleService.cancelReservation(this.selectedReservation).then(function (result) {
+                if (result) {
+                    // Success
+                    _this.getSchedule();
+                    _this.messageService.successMsg.display = true;
+                    _this.messageService.successMsg.heading = "Success";
+                    _this.messageService.successMsg.body = "Successfully cancelled the selected reservation.";
+                }
+                else {
+                    // Error in cancelling reservation
+                    _this.messageService.errorMsg.display = true;
+                    _this.messageService.errorMsg.heading = "Error";
+                    _this.messageService.errorMsg.body = "There was an error while cancelling the selected reservation. Please contact IT support.";
+                }
+            });
+        }
+        else {
+            // No row selected
+            this.messageService.errorMsg.display = true;
+            this.messageService.errorMsg.heading = "Could not Cancel";
+            this.messageService.errorMsg.body = "Please select a row from the current appointments table to cancel, then try again.";
+        }
+    };
     ScheduleComponent.prototype.findMiddle = function () {
         // Get the midpoint of the list.
         var middleIndex;
@@ -113,6 +143,8 @@ var ScheduleComponent = (function () {
     };
     ScheduleComponent.prototype.getSchedule = function () {
         var _this = this;
+        this.reservations = [];
+        this.historyReservations = [];
         if (this.loginService.isAthlete) {
             // Athlete viewing the schedule.
             this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
@@ -152,16 +184,16 @@ var ScheduleComponent = (function () {
             });
         }
     };
-    ScheduleComponent = __decorate([
-        core_1.Component({
-            selector: 'schedule',
-            providers: [schedule_service_1.ScheduleService],
-            templateUrl: './schedule.component.html'
-        }),
-        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
-            message_service_1.MessageService])
-    ], ScheduleComponent);
     return ScheduleComponent;
 }());
+ScheduleComponent = __decorate([
+    core_1.Component({
+        selector: 'schedule',
+        providers: [schedule_service_1.ScheduleService],
+        templateUrl: './schedule.component.html'
+    }),
+    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
+        message_service_1.MessageService])
+], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

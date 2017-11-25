@@ -54,4 +54,4 @@ CREATE TABLE reservations (
 );
 
 alter table reservations
-	add constraint reservations_uc UNIQUE (athlete_id, at_id, time_slot_id, schedule_date);
+	add constraint reservations_uc UNIQUE (athlete_id, time_slot_id, schedule_date);

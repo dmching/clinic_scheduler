@@ -29,6 +29,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.login = function () {
         var _this = this;
+        this.messageService.clearMessages();
         // Take username and password and search database for a matching user.
         if (this.validateInput()) {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {

@@ -11,3 +11,5 @@ add cancelling a reservation to future work, or implement the feature
     - This will require: a status column in the reservations table
                          the table to have selectable rows
                          and to update the tables on cancel.
+
+don't allow same scheduled date on reserve

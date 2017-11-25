@@ -30,6 +30,7 @@ export class LoginComponent {
     }
 
     public login() : void {
+        this.messageService.clearMessages();
         // Take username and password and search database for a matching user.
         if (this.validateInput()) {
             if (this.types.indexOf(this.userType) == this.types.indexOf("Athlete")) {

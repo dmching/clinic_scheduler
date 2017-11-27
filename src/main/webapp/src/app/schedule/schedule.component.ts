@@ -181,11 +181,8 @@ export class ScheduleComponent implements OnInit {
                 });
         } else {
             // Athletic Trainer viewing the list.
-            console.log(this.loginService.activeAT);
             this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
                 .then(response => {
-                    console.log(response);
-                    console.log(this.reservations);
                     this.reservations = response;
                     if (this.reservations.length == 0 && this.reservations[0].id == -1) {
                         // No rows in the DB.

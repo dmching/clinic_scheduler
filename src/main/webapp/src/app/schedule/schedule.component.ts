@@ -114,7 +114,7 @@ export class ScheduleComponent implements OnInit {
     }
 
     public cancelReservation() : void {
-        if (this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
+        if (this.loginService.isAthlete && this.loginService.isLoggedIn() && this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
             this.scheduleService.cancelReservation(this.selectedReservation).then(
                 result => {
                     if (result) {
@@ -166,7 +166,7 @@ export class ScheduleComponent implements OnInit {
             this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
                 .then(response => {
                     this.reservations = response;
-                    if (this.reservations[0].id == -1) {
+                    if (this.reservations.length == 0 && this.reservations[0].id == -1) {
                         // No rows in the DB.
                         this.messageService.cautionMsg.display = true;
                         this.messageService.cautionMsg.heading = "No Results Found";
@@ -181,10 +181,13 @@ export class ScheduleComponent implements OnInit {
                 });
         } else {
             // Athletic Trainer viewing the list.
+            console.log(this.loginService.activeAT);
             this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
                 .then(response => {
+                    console.log(response);
+                    console.log(this.reservations);
                     this.reservations = response;
-                    if (this.reservations[0].id == -1) {
+                    if (this.reservations.length == 0 && this.reservations[0].id == -1) {
                         // No rows in the DB.
                         this.messageService.cautionMsg.display = true;
                         this.messageService.cautionMsg.heading = "No Results Found";

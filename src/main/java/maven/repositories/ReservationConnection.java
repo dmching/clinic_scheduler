@@ -162,7 +162,6 @@ public class ReservationConnection implements RepositoryConnection<Reservation> 
                 Collections.sort(history);
                 Collections.reverse(history);
                 reservations.addAll(history);
-                /*reservations.remove(middle);*/
             } catch (SQLException e) {
                 e.printStackTrace();
             }

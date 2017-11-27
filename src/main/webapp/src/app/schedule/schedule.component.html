@@ -110,7 +110,7 @@
         <div class="row bordered">
             <div class=" col-md-12">
                 <label class="ssv-big-bold-label"><u>History</u></label>
-                <table class="table table-bordered table-hover">
+                <table class="table table-bordered">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -121,17 +121,17 @@
                     </thead>
                 <tbody>
                     <tr *ngFor="let reservation of historyReservations" (click)="setSelected(reservation)" [class.selected]="reservation == selectedReservation">
-                    <td>{{reservation.scheduledDate}}</td>
-                    <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
-                    <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
-                    <td>{{reservation.complaint}}</td>
-                </tr>
+                        <td>{{reservation.scheduledDate}}</td>
+                        <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                        <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
+                        <td>{{reservation.complaint}}</td>
+                    </tr>
                 </tbody>
             </table>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div [hidden]=!loginService.isAthlete class="row">
         <div class="col-md-12 centered">
             <button (click)="cancelReservation()">Cancel Reservation</button>
         </div>

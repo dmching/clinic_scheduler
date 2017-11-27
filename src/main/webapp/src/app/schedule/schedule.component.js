@@ -104,7 +104,7 @@ var ScheduleComponent = (function () {
     };
     ScheduleComponent.prototype.cancelReservation = function () {
         var _this = this;
-        if (this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
+        if (this.loginService.isAthlete && this.loginService.isLoggedIn() && this.selectedReservation && this.reservations.indexOf(this.selectedReservation) != -1) {
             this.scheduleService.cancelReservation(this.selectedReservation).then(function (result) {
                 if (result) {
                     // Success
@@ -154,7 +154,7 @@ var ScheduleComponent = (function () {
             this.scheduleService.getAthleteHistory(this.loginService.activeAthlete)
                 .then(function (response) {
                 _this.reservations = response;
-                if (_this.reservations[0].id == -1) {
+                if (_this.reservations.length == 0 && _this.reservations[0].id == -1) {
                     // No rows in the DB.
                     _this.messageService.cautionMsg.display = true;
                     _this.messageService.cautionMsg.heading = "No Results Found";
@@ -170,10 +170,13 @@ var ScheduleComponent = (function () {
         }
         else {
             // Athletic Trainer viewing the list.
+            console.log(this.loginService.activeAT);
             this.scheduleService.getAthleticTrainerWork(this.loginService.activeAT)
                 .then(function (response) {
+                console.log(response);
+                console.log(_this.reservations);
                 _this.reservations = response;
-                if (_this.reservations[0].id == -1) {
+                if (_this.reservations.length == 0 && _this.reservations[0].id == -1) {
                     // No rows in the DB.
                     _this.messageService.cautionMsg.display = true;
                     _this.messageService.cautionMsg.heading = "No Results Found";
@@ -188,16 +191,16 @@ var ScheduleComponent = (function () {
             });
         }
     };
+    ScheduleComponent = __decorate([
+        core_1.Component({
+            selector: 'schedule',
+            providers: [schedule_service_1.ScheduleService],
+            templateUrl: './schedule.component.html'
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
+            message_service_1.MessageService])
+    ], ScheduleComponent);
     return ScheduleComponent;
 }());
-ScheduleComponent = __decorate([
-    core_1.Component({
-        selector: 'schedule',
-        providers: [schedule_service_1.ScheduleService],
-        templateUrl: './schedule.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
-        message_service_1.MessageService])
-], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

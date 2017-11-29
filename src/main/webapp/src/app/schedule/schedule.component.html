@@ -103,6 +103,11 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let reservation of reservations" (click)="setSelected(reservation)" [class.selected]="reservation == selectedReservation">
+                            <td>{{reservation.scheduledDate}}</td>
+                            <td>{{reservation.timeSlot.startTime}} - {{reservation.timeSlot.endTime}}</td>
+                            <td>{{reservation.athlete.user.firstName}} {{reservation.athlete.user.lastName}}</td>
+                            <td>{{reservation.complaint}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

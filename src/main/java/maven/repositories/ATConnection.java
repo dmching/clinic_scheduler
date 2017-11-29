@@ -34,7 +34,11 @@ public class ATConnection implements RepositoryConnection<AthleticTrainer> {
             e.printStackTrace();
         }
 
-        return this.getResults(this.resultSet).get(0);
+        List<AthleticTrainer> temp = this.getResults(this.resultSet);
+        if (temp.isEmpty())
+            return new AthleticTrainer();
+        else
+            return temp.get(0);
     }
 
     public List<AthleticTrainer> getATs() {

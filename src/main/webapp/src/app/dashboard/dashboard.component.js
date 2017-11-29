@@ -10,13 +10,13 @@ var core_1 = require("@angular/core");
 var DashboardComponent = (function () {
     function DashboardComponent() {
     }
-    DashboardComponent = __decorate([
-        core_1.Component({
-            selector: 'dashboard',
-            templateUrl: './dashboard.component.html'
-        })
-    ], DashboardComponent);
     return DashboardComponent;
 }());
+DashboardComponent = __decorate([
+    core_1.Component({
+        selector: 'dashboard',
+        templateUrl: './dashboard.component.html'
+    })
+], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
 //# sourceMappingURL=dashboard.component.js.map

@@ -98,11 +98,11 @@ var ScheduleService = (function () {
         console.error('Error: ', error);
         return Promise.reject(error.message || error);
     };
-    ScheduleService = __decorate([
-        core_1.Injectable(),
-        __metadata("design:paramtypes", [http_1.Http, login_service_1.LoginService])
-    ], ScheduleService);
     return ScheduleService;
 }());
+ScheduleService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [http_1.Http, login_service_1.LoginService])
+], ScheduleService);
 exports.ScheduleService = ScheduleService;
 //# sourceMappingURL=schedule.service.js.map

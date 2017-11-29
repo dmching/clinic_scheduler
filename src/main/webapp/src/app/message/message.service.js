@@ -62,11 +62,11 @@ var MessageService = (function () {
             this.errorMsg.display = false;
         }
     };
+    MessageService = __decorate([
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [])
+    ], MessageService);
     return MessageService;
 }());
-MessageService = __decorate([
-    core_1.Injectable(),
-    __metadata("design:paramtypes", [])
-], MessageService);
 exports.MessageService = MessageService;
 //# sourceMappingURL=message.service.js.map

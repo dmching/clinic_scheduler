@@ -188,16 +188,16 @@ var ScheduleComponent = (function () {
             });
         }
     };
+    ScheduleComponent = __decorate([
+        core_1.Component({
+            selector: 'schedule',
+            providers: [schedule_service_1.ScheduleService],
+            templateUrl: './schedule.component.html'
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
+            message_service_1.MessageService])
+    ], ScheduleComponent);
     return ScheduleComponent;
 }());
-ScheduleComponent = __decorate([
-    core_1.Component({
-        selector: 'schedule',
-        providers: [schedule_service_1.ScheduleService],
-        templateUrl: './schedule.component.html'
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, schedule_service_1.ScheduleService,
-        message_service_1.MessageService])
-], ScheduleComponent);
 exports.ScheduleComponent = ScheduleComponent;
 //# sourceMappingURL=schedule.component.js.map

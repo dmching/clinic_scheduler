@@ -17,14 +17,14 @@ var AppComponent = (function () {
         this.loginService = loginService;
         this.messageService = messageService;
     }
+    AppComponent = __decorate([
+        core_1.Component({
+            selector: 'my-app',
+            templateUrl: "./app.component.html"
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
+    ], AppComponent);
     return AppComponent;
 }());
-AppComponent = __decorate([
-    core_1.Component({
-        selector: 'my-app',
-        templateUrl: "./app.component.html"
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
-], AppComponent);
 exports.AppComponent = AppComponent;
 //# sourceMappingURL=app.component.js.map

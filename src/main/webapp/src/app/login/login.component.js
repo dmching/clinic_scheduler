@@ -84,14 +84,14 @@ var LoginComponent = (function () {
         return (this.username && this.username.length <= this.USERNAME_LENGTH
             && this.password && this.password.length <= this.PASSWORD_LENGTH);
     };
+    LoginComponent = __decorate([
+        core_1.Component({
+            selector: 'login',
+            templateUrl: './login.component.html',
+        }),
+        __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
+    ], LoginComponent);
     return LoginComponent;
 }());
-LoginComponent = __decorate([
-    core_1.Component({
-        selector: 'login',
-        templateUrl: './login.component.html',
-    }),
-    __metadata("design:paramtypes", [login_service_1.LoginService, message_service_1.MessageService])
-], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map
